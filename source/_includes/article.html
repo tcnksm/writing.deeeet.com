@@ -21,9 +21,4 @@
 		<div class="meta date">{% include post/date.html %}{{ time }}</div>
 	</header>
 	<div class="entry-content">{{ content }}</div>
-	{% if site.disqus_short_name and site.disqus_show_comment_count == true %}
-		<div class="meta">
-			<span class="comments"><a href="{{ root_url }}{{ post.url }}{{ page.url }}#disqus_thread">Comments</a></span>
-		</div>
-	{% endif %}
 {% endif %}

@@ -30,9 +30,10 @@ article{
 
 			}
 		}
-        p {
+        p, li{
             color: $color-blog-body;
         }
+        
 		p, blockquote, ul, ol, dl, table, iframe, h1, h2, h3, h4, h5, h6, .video-container{
 			margin-top: 1.5em;
 			margin-bottom: 1.5em;
@@ -53,17 +54,12 @@ article{
 			margin-top: 10px;
 		}
         
-		h2{
-			font-weight: 300;
-			border-bottom: 1px solid $color-gray04;
+		h2 {
+			font-weight: 100;
+            color: $color-blog-body;
+            border-bottom: 1px solid #e5e5e5;
 			position: relative;
-			&:before{
-				content: "";
-				position: absolute;
-				bottom: -2px;
-				border-bottom: 1px solid $color-gray05;
-				width: 100%;
-			}
+            padding-bottom: 4px;
 		}
 
 		img, video{
@@ -82,9 +78,12 @@ article{
 		}
 
 		blockquote{
-            color: $color-gray02;
+            p {
+                color: $color-gray02;
+                font-size: 0.9em;
+            }
 			background: $color-background;
-			border-left: 5px solid $color-gray03;
+			border-left: 5px solid $color-gray04;
 			padding: 5px 15px;
 			margin-top: 1px;
 			& > p:first-of-type{
@@ -136,6 +135,8 @@ article{
 		}
 	}
 }
+
+
 .share{
 	padding: 15px 0;
 	text-align: center;
