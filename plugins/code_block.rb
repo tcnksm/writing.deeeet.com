@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Title: Simple Code Blocks for Jekyll
 # Author: Brandon Mathis http://brandonmathis.com
 # Description: Write codeblocks with semantic HTML5 <figure> and <figcaption> elements and optional syntax highlighting — all with a simple, intuitive interface.
