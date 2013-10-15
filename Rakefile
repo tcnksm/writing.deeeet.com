@@ -50,6 +50,7 @@ end
 
 desc "Generate jekyll site"
 task :generate do
+  cp ".config.yml.deploy","_config.yml"
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
   puts "## Generating Site with Jekyll"
   system "compass compile --css-dir #{source_dir}/stylesheets"
@@ -215,7 +216,6 @@ end
 desc "Default deploy task"
 task :deploy do
   # Check if preview posts exist, which should not be published
-  cp ".config.yml.deploy","_config.yml"
   if File.exists?(".preview-mode")
     puts "## Found posts in preview mode, regenerating files ..."
     File.delete(".preview-mode")
