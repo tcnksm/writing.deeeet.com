@@ -16,8 +16,8 @@ categories:
 OS X特有のレシピだとDockの設定とかできそうだけど，得にデフォで問題ないからやってない．
 ここまできたら，AppStoreからのダウンロードもできたらなと思う．
 
-インストール対象のパッケージはdata_bugsとかを使うとすっきり書けた．
-作業してて，これ使うなーと思ったらここにどんどん貯めていく．
+インストール対象のパッケージはdata_bugsを使うといろいろ分けてすっきり書けた．
+作業してて，これ使うなーと思ったらここにどんどん貯めていく感じで．
 
 ``` ruby
 #data_bags/packages/homebrew.json
@@ -26,37 +26,23 @@ OS X特有のレシピだとDockの設定とかできそうだけど，得にデ
     "targets": [
                 "tig",
                 "coreutils",
-                "rmtrash",
                 "go",
                 ....
                 ]
 }
 ```
 
-で，後は以下で呼び出すだけ．
+で，後は以下のようにrecipeから呼び出して一気にインストール．
 
 ``` ruby
 item = data_bag_item(:packages, "homebrew")
-
-item["targets"].each do |pkg|
-    package pkg
-end
 ```
 
-あとRakefile作っておくと便利．
+Ubuntuでの開発もやったりするからnode追加して，Ubuntu用も作る予定．
 
-``` ruby
-namespace :run do
-    task :osx do
-        sh "chef-solo -c config/solo.rb -j nodes/osx.json"
-    end
-end
-```
+Chefの勉強のために始めた．こうやって自分の環境をコード的に作っていくのすごい楽しかった．
 
-会社だとUbuntuでの開発もやったりするからnode追加して，Ubuntu用も作る予定．
-これでどこでも同じ環境がすぐに作れる．便利．
-
-Chefの基礎と各ディレクトリの役割とかは["入門Chef Solo - Infrastructure as Code"](http://www.amazon.co.jp/%E5%85%A5%E9%96%80Chef-Solo-Infrastructure-as-Code-ebook/dp/B00BSPH158)を読んでほとんど理解できた．OS Xのセットアップに関しては以下を参考にした．
+Chefの基礎と各ディレクトリの役割とかは["入門Chef Solo - Infrastructure as Code"](http://www.amazon.co.jp/%E5%85%A5%E9%96%80Chef-Solo-Infrastructure-as-Code-ebook/dp/B00BSPH158)を読んでほとんど理解できた．ChefをつかったOS Xのセットアップに関しては以下を参考にした．
 
 - [Managing My Workstations With Chef](http://jtimberman.housepub.org/blog/2011/04/03/managing-my-workstations-with-chef/)
 - [pivotal-sprout/sprout](https://github.com/pivotal-sprout/sprout)
