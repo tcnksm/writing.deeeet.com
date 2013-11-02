@@ -5,7 +5,7 @@ date: 2013-10-28 23:59
 comments: true
 categories: 
 ---
-<iframe src="http://player.vimeo.com/video/78074896" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="display: block; margin: 0px auto";></iframe> <p><a href="http://vimeo.com/78074896">Using slate</a> from <a href="http://vimeo.com/user5121880">deeeet</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<div class="vc"><iframe src="http://player.vimeo.com/video/78074896" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div> <p><a href="http://vimeo.com/78074896">Using slate</a> from <a href="http://vimeo.com/user5121880">deeeet</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 
 slateはOSX向けのwindow manage system．上は使ってみた動画．ウィンドウのサイズを変えて，iTermを起動，ChromeとiTermをそれぞれ画面の半分にリサイズして配置．これらをすべてキーボードから行うことができる．ブラウザ観ながらコーディングなどはよくあるのでとても便利．
 

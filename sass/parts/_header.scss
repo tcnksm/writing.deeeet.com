@@ -10,13 +10,15 @@ $header-height: 30px;
 	line-height: $header-height;
     
 	@media screen and (max-width: 1040px){
-		margin-bottom: 0;
+        margin-top: 20px;
+		margin-bottom: 30px;
 		height: auto;
 		position: relative;
 		padding-bottom: 10px;
 	}
-	@media screen and (max-width: 600px){
-	    margin-bottom: 0;
+	@media screen and (max-width: 620px){
+        margin-top: 10px;
+	    margin-bottom: 15px;
 	}
     
 	a{
