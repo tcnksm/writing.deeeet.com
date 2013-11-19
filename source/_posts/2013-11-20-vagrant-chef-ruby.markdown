@@ -25,7 +25,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 end
 ```
 
-次に，chefによるrubyのインストール．rubyのインストールレシピは他でも使いたいのでcookbookを作成してgibhubに公開した，[tcnksm/chef-rubies](https://github.com/tcnksm/chef-rubies)．Berksfileに以下を記述．
+次に，chefによるrubyのインストール．rubyのインストールレシピは他でも使いたいのでcookbookを作成した，[tcnksm/chef-rubies](https://github.com/tcnksm/chef-rubies)．Berksfileに今回作成したcookbookを指定する．
 
 ``` ruby
 cookbook 'rubies', :git => 'https://github.com/tcnksm/chef-rubies'
