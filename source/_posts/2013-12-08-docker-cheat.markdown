@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Docker虎の巻'
+title: 'Docker基礎コマンド'
 date: 2013-12-08 22:04
 comments: true
 categories: docker

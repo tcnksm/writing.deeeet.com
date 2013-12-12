@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'ChefでOS Xの環境セットアップするやつ'
+title: 'ChefでOS Xの環境セットアップする'
 date: 2013-10-16 00:43
 comments: true
 categories: 
