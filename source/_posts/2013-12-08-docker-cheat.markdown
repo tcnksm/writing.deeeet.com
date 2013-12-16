@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Docker基礎コマンド'
+title: 'すぐにDockerを試したい人のための基礎コマンド'
 date: 2013-12-08 22:04
 comments: true
 categories: docker
@@ -8,15 +8,35 @@ categories: docker
 
 [Docker 虎の巻](https://gist.github.com/tcnksm/7700047)
 
-Dockerの基礎のまとめが良かったので翻訳してみた．原典は，[Docker Cheat Sheet](https://gist.github.com/wsargent/7049221)．このまとめは説明は十分にあるが，例がほとんどない．実例を使って，コンテナとイメージに関する基礎コマンドをまとめてみる．Dockerの導入などはここでは触れない．
+Dockerの基礎のまとめが良かったので翻訳してみた．原典は，[Docker Cheat Sheet](https://gist.github.com/wsargent/7049221)．このまとめは説明は十分にあるが，例がほとんどない．実例を使って，コンテナとイメージに関する基礎コマンドをまとめてみる．
 
-## はじめに
+## OS X で試したい
 
-ベースイメージを取得しておく．
+Vagrantを使う．バージョン1.4からはDockerのprovisioningに対応してるのでそれを使う．
+[Download Vagrant - Vagrant](http://www.vagrantup.com/downloads.html)より.dmgをダウンロードしてきてインストール.
 
+``` bash
+vagrant init precise64 http://files.vagrantup.com/precise64.box
 ```
-docker pull ubuntu
+
+Vagrantfileを以下のようにすれば，すぐにDockerを使える．
+
+``` ruby
+Vagrant.configure("2") do |config|
+    config.vm.box = "precise64"
+    config.vm.provision :docker do |d|
+        d.pull_images "ubuntu"
+    end
+end
 ```
+
+ログイン
+
+```bash
+vagrant ssh
+```
+
+## 準備
 
 コンテナのIDをいちいち保持しておくのは面倒，忘れるので，以下のaliasを設定しておくと直近に起動したコンテナのIDを呼び出すことができるようになる（[15 Docker tips in 5 minutes](http://sssslide.com/speakerdeck.com/bmorearty/15-docker-tips-in-5-minutes)）．
 
