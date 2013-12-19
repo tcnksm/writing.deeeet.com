@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Dockerのイメージはどこに保存されているのか?'
+title: 'Dockerのイメージはどこにある?'
 date: 2013-12-16 20:18
 comments: true
 categories: docker
@@ -9,9 +9,9 @@ categories: docker
 
 [Where are Docker images stored?](http://blog.thoward37.me/articles/where-are-docker-images-stored/)
 
-非常にわかりやすいまとめ．自分の環境とは若干異なった (バージョンが異なる?) ので，自分で手を動かしながら，まとめなおしてみた．
+非常にわかりやすいまとめ．ただ，自分の環境とはディレクトリ構造などが若干異なった (バージョンが異なる?) ので，自分で手を動かしながらまとめなおしてみた．
 
-今回用いるバージョンは以下．
+今回用いるDockerのバージョンは以下．
 
 ```bash
 $ docker -v
@@ -70,7 +70,7 @@ $ sudo cat /var/lib/docker/repositories-aufs | python -mjson.tool
 }
 ```
 
-`repositories-aufs`には，レポジトリがJSON形式で保存されて，タグとイメージのGUIDが紐づけられている．ここでは，`ubuntu`レポジトリの"12.04"，"precise"そして"latest"とタグをつけられたイメージは全て，"8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c"というGUIDと紐づけられているのが分かる．
+`repositories-aufs`には，レポジトリの情報がJSON形式で保存されて，タグとイメージのGUIDが紐づけられている．ここでは，`ubuntu`レポジトリの"12.04"，"precise"そして"latest"とタグをつけられたイメージは全て，"8dbd9e392a964056420e5d58ca5cc376ef18e2de93b5cc90e868a1bbc8318c1c"というGUIDと紐づけられているのが分かる．
 
 これは，`docker images`と同じ結果である．
 

@@ -8,17 +8,6 @@ categories: docker
 
 [Dockerで複数バージョンのrubyがインストールされたイメージを作る](http://deeeet.com/writing/2013/12/12/docker-rbenv/)を使って，ローカルでTravis CI的なビルドテストを実現する方法を書く．
 
-モチベーション
-
-- **クリーンな環境で**かつ**爆速で**テストしたい
-- 社内ではGitHubでプロジェクトをホストできないためTravis CIが使えない
-- ローカルで気軽にテストしたい
-
-今回実現したこと
-
-- `git commit`でDockerのコンテナ内で複数バージョンのrubyのrspecテストを実行
-- [guard](https://github.com/guard/guard)でローカルの変更を検出してDockerのコンテナ内で複数バージョンのrubyのrspecテストを実行
-
 ## 準備 (OS X)
 
 Vagrantを使う．バージョン1.4からはDockerのprovisioningに対応してるのでそれを使う．
@@ -36,18 +25,18 @@ Vagrantfileを以下のように編集する．ここでは，[docker-rbenv](htt
 Vagrant.configure("2") do |config|
     config.vm.box = "precise64"
     config.vm.provision :docker do |d|
-        d.pull_images "tcnksm/rbenv-rubygems"
+        d.pull_images "tcnksm/rbenv"
     end
 end
 ```
 
-仮想サーバを起動
+あらかじめ仮想サーバを起動しておく．
 
 ```
 vagrant up
 ```
 
-仮想サーバーへのssh設定を吐き出しておく
+Dockerの実行は仮想サーバーへのssh経由で行う．
 
 ```
 vagrant ssh-config --host docker-host >> ~/.ssh/config
@@ -55,15 +44,10 @@ vagrant ssh-config --host docker-host >> ~/.ssh/config
 
 (注: Vagrant1.4のバグでsshの設定以外の出力をすることがあるので，適宜`~/.ssh/config`を編集してそれを消す)
 
-## 準備 (Linux)
-
-```
-docker pull tcnksm/rbenv-rubygems
-```
 
 ## 実行したいテストの記述
 
-プロジェクトのルートに移動して実行したいテストをシェルスクリプトで記述する．
+プロジェクトのルートに実行したいテストをシェルスクリプトで記述する．
 
 ``` bash
 # docker.sh
@@ -76,7 +60,7 @@ do
 done            
 ```
 
-記述しているのはバージョンをそれぞれ1.8.7，1.9.3，2.0.0と切り替えて，それぞれに対してrubygemsをインストールして，rspecテストを実行している．(毎回bunldeを実行するのがたるい場合は，あらかじめbundleを実行してそれをコミットしてイメージを作ってしまえばよい)
+記述しているのはバージョンをそれぞれ1.8.7，1.9.3，2.0.0と切り替えて，それぞれに対してrubygemsをインストールして，rspecテストを実行している．(毎回bunldeを実行するのがたるい場合は，あらかじめbundleを実行してそれをコミットしてイメージを作ってしまえばよい，例えば，[Using Docker and Vagrant on Mac OS X with a Ruby on Rails application](http://blog.powpark.com/2013/11/11/using-docker-and-vagrant-on-mac-osx-for-a-ruby-on-rails-app/)も同様のことをしている)
 
 
 ## テストの実行
@@ -87,29 +71,24 @@ OS X
 ssh docker-host docker run -v '/vagrant:/work' -w /work tcnksm/rbenv-rubygems sh -ex docker.sh
 ```
 
+ssh経由で，dockerを実行する．
+
 Linux
 
 ```
 docker run -v "$PWD:/work" -w /work tcnksm/rbenv-rubygems sh -ex docker.sh
 ```
 
+
 `-v`でプロジェクトのディレクトリをdockerのイメージ内にマウントする．`-w`でカレントディレクトリをマウントしたディレクトリに変更．後は，上で記述したテストを実行するだけ．コンテナは破棄されるのでこれらは何度も実行できる．しかもイメージのpullなどは済んでいるため，起動などの時間がない．テストの時間のみ．
 
 ## git-hook
 
-`git push`もしくは`git commit`するたびにテストを走らせるには，`.git/hooks`内のファイルを編集すればよい．例えば，`git push`する度にテストを行いたい場合は，`.git/hooks/pre-push`を作成する．
+`git push`もしくは`git commit`するたびにテストを走らせるには，`.git/hooks`内のファイルを編集すればよい．例えば，`git push`する度にテストを行いたい場合は，`.git/hooks/pre-push`を作成する．例えば, OSXの場合は以下のように記述する．
 
 ```
 # pre-push
-case "${OSTYPE}" in
-    darwin*)
-        ssh docker docker run -v '/vagrant:/work' -w /work tcnksm/rbenv-rubygems sh -ex docker.sh
-    ;;
-    
-    linux*)
-        docker run -v "$PWD:/work" -w /work tcnksm/rbenv-rubygems sh -ex docker.sh
-    ;;
-esac
+ssh docker-host docker run -v '/vagrant:/work' -w /work tcnksm/rbenv-rubygems sh -ex docker.sh
 ```
 
 ## Guard
@@ -118,7 +97,7 @@ Guardと連携して，.rbファイルが更新される度にテストを実行
 
 ```
 guard :rspec do
-  watch(%r{^spec/.+_spec\.rb$}) { `ssh docker docker run -v '/vagrant:/work' -w /work tcnksm/rbenv-rubygems sh -ex docker.sh` }
+  watch(%r{^spec/.+_spec\.rb$}) { `ssh docker-host docker run -v '/vagrant:/work' -w /work tcnksm/rbenv sh -ex docker.sh` }
 end
 ```
 
@@ -135,8 +114,7 @@ end
 
 - [Docker for Rubyists - SitePoint](http://www.sitepoint.com/docker-for-rubyists/)
 - [A Docker Dev Environment in 24 Hours!](http://blog.relateiq.com/a-docker-dev-environment-in-24-hours-part-2-of-2/)
-- [Dockerを使ってJenkinsのジョブごとにテスト実行環境を分離する](http://orangain.hatenablog.com/entry/jenkins-docker)
-- [miyagawa / docker-plenv-vanilla](https://github.com/miyagawa/docker-plenv-vanilla)
+- [miyagawa/docker-plenv-vanilla](https://github.com/miyagawa/docker-plenv-vanilla)
 - [Rebuild: 14: DevOps with Docker, chef and serverspec (naoya, mizzy)](http://rebuild.fm/14/)
 - [Docker 虎の巻](https://gist.github.com/tcnksm/7700047)
 
