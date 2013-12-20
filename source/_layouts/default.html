@@ -4,21 +4,17 @@
 
 <body>
 	<header id="header" class="inner">{% include header.html %}</header>
-    
 	<div id="content" class="inner">{{ content | expand_urls: root_url }}</div>
-    
-    <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style ">
-      <a class="addthis_counter addthis_pill_style"></a>
-    </div>
-    <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52b308060be64124"></script>
-    <!-- AddThis Button END -->
-    
 	<footer id="footer" class="inner">{% include footer.html %}</footer>
 	{% include after_footer.html %}
     
 </body>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-52b308060be64124"></script>
+<script type="text/javascript">
+  var addthis_config = {
+  data_track_clickback: false
+  }
+</script>
 <script>
   $(document).ready(function() {
   // Make images center
