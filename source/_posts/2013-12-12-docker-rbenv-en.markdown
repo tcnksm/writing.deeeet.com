@@ -6,103 +6,90 @@ comments: true
 categories: docker
 ---
 
-[docker-rbev](https://github.com/tcnksm/docker-rbenv)
+[tcnksm/docker-rbenv](https://github.com/tcnksm/docker-rbenv)
 
-This can generate 2 Docker images below;
+This can generate Docker image which is installed multiple versions of ruby by rbenv.
 
-- [tcnksm/rbenv](https://index.docker.io/u/tcnksm/rbenv/): Image which is installed multiple versions of ruby by rbenv
-- [tcnksm/rbenv-rubygems](https://index.docker.io/u/tcnksm/rbenv-rubygems/): Image which is installed bundler and basic rubygems to each vesion on the above image
+The image is pushed at docker.io, [tcnksm/rbenv](https://index.docker.io/u/tcnksm/rbenv/), so you can use it soon.
 
-Both are uploaded to [index.docker.io](https://index.docker.io/), so you can use it just by `docker pull`. 
+```
+$ docker pull tcnksm/rbenv
+```
 
-Belows are how to create these images in details.
+or in Dockerfile,
 
-First, [rbenv-image/Dockerfile](https://github.com/tcnksm/docker-rbenv/blob/master/rbenv-image/Dockerfile) execute just same as you do when you download ruby by rbenv. 
+```
+FROM tcnksm/rbenv
+```
+## Dockerfile
+
+I will describe this Dockerfile and how to edit it for your own image.
 
 ```
 FROM base
 
-MAINTAINER tcnksm, https://github.com/tcnksm
+MAINTAINER tcnksm "https://github.com/tcnksm"
 
+# Install packages for building ruby
 RUN apt-get update
 RUN apt-get install -y --force-yes build-essential curl git
 RUN apt-get install -y --force-yes zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev
 RUN apt-get clean
 
+# Install rbenv and ruby-build
 RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
 RUN git clone https://github.com/sstephenson/ruby-build.git /root/.rbenv/plugins/ruby-build
 RUN ./root/.rbenv/plugins/ruby-build/install.sh
-
-ADD ./rbenvrc /etc/profile.d/rbenvrc
-ADD ./rubies.txt /root/rubies.txt
-
 ENV PATH /root/.rbenv/bin:$PATH
+RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh # or /etc/profile
 
 # Install multiple versions of ruby
 ENV CONFIGURE_OPTS --disable-install-doc
-RUN xargs -L 1 rbenv install < /root/rubies.txt
+ADD ./versions.txt /root/versions.txt
+RUN xargs -L 1 rbenv install < /root/versions.txt
 
+# Install Bundler for each version of ruby
+RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
+RUN bash -l -c 'for v in $(cat /root/versions.txt); do rbenv global $v; gem install bundler; done'
 ```
 
+Basically, this Dockerfile does what you do when you install multiple versions of ruby by yourself in Ubuntu environment.
 
+1. Pull the base ubuntu image from docker.io (`FROM base`)
+1. Install packages for building ruby (`RUN apt-get ...`)
+1. Clone [rbenv](https://github.com/tcnksm/docker-rbenv/tree/master)
+1. Clone [ruby-build](https://github.com/sstephenson/ruby-build)
+1. Set environmental variable for rbenv (`ENV PATH /root/.rbenv/bin:$PATH`)
+1. Set bash login command to read rbenv setting (`RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh`)
+1. Add `versions.txt` which is defined ruby version which you want to install
+1. Install ruby with `rbenv install`
+1. Install bundler for each versions
 
-1. To pull base image (`FROM base`)
-1. To install packages which is needed for building ruby(`RUN apt-get ...`)
-1. To clone [rbenv](https://github.com/tcnksm/docker-rbenv/tree/master)
-1. To clone [ruby-build](https://github.com/sstephenson/ruby-build)
-1. To add `rbenvrc` which is used for setting environmental variables rbenv into image(`ADD ./rbenvrc /etc/profile.d/rbenvrc`)
-1. To add `rubies.txt` which is defined version what you want to install into image
-1. Execute `rbenv install ...`
+If you want to install another version (this time, only 1.8.7, 1.9.3, 2.0.0), just edit `version.txt`.
 
-If you want to install other vesions of ruby, edit `rubies.txt`. To generate the image, execute below command, 
+Furthermore, if you want to install basic rubygems by Gemfile, add below,
+
+```
+ADD ./Gemfile /root/Gemfile
+RUN bash -l -c 'cd /root/; for v in $(cat rubies.txt); do rbenv global $v; bundle install; done'
+```
+
+To build image,
 
 ``` bash
-docker build -t rbenv rbenv-image/
+docker build -t USERNAME/IMAGENAME .
 ```
 
-And if you want to upload it to index.docker.io, 
+To push it to docker.io,
 
 ``` bash
 docker login
-docker push rbenv
-```
-
-Second, [rbenv-rubygems-image/Dockerfile](https://github.com/tcnksm/docker-rbenv/blob/master/rbenv-rubygems-image/Dockerfile) install bunlder and basic rubygems by Gemfile on rbenv-image generated above.
-
+docker push USERNAME/IMAGENAME
 
 ```
-FROM tcnksm/rbenv
-MAINTAINER tcnksm, https://github.com/tcnksm
 
-ADD ./Gemfile /root/Gemfile
-
-# Install bundler
-RUN . /etc/profile.d/rbenvrc; for v in $(cat /root/rubies.txt); do rbenv global $v; gem install --no-rdoc --no-ri bundler; done
-
-# Install basic rubygems by bundler
-RUN . /etc/profile.d/rbenvrc; cd /root/; for v in $(cat rubies.txt); do rbenv global $v; bundle install; done
-```
-
-1. To pull rbenv-image (`FROM tcnksm/rbenv`)
-1. To add Gemfile into image (`ADD ./Gemfile /root/Gemfile`)
-1. To install budler
-1. Execute `bundle install`
-
-And,
-
-``` bash
-docker build -t rbenv-rubygems rbenv-rubygems-image
-```
-
-It's super easy. But I wrote very complicated shellscripts for handling multiple versions. I hope we could write more structual Dockerfile.
-
-And I want to change it more easy to execute test code. 
-
-Reference:
+Reference
 
 - [Docker for Rubyists](http://www.sitepoint.com/docker-for-rubyists/)
 - [docker-plenv-vanilla](https://github.com/miyagawa/docker-plenv-vanilla)
-- [Docker Cheat Sheet with examples](https://coderwall.com/p/2es5jw)
-
-
 
