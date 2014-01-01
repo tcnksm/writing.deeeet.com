@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 'Mala in Cuba Live@代官山UNIT'
+title: 'Mala in Cuba Live @代官山UNIT'
 date: 2013-10-12 19:08
 comments: true
-categories: Listening 
+categories: Live
 ---
 
 {% img /images/post/mala-in-cuba.jpg %}

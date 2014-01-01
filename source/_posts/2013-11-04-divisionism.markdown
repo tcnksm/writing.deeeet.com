@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '印象派を超えて―点描の画家たち@国立新美術館'
+title: '印象派を超えて―点描の画家たち @国立新美術館'
 date: 2013-11-04 16:54
 comments: true
 categories: Art

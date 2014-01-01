@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "ANDREAS GURSKY展@国立新美術館"
+title: "ANDREAS GURSKY展 @国立新美術館"
 date: 2013-07-08 22:28
 comments: true
 categories: Art

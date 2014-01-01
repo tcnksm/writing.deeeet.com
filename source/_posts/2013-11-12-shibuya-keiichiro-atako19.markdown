@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '渋谷慶一郎 "Soundtrack for Children who wont die, Shusaku Arakawa"'
+title: 'Keiichiro Shibuya "Soundtrack for Children who wont die, Shusaku Arakawa"'
 date: 2013-11-12 22:56
 comments: true
 categories: Listening
