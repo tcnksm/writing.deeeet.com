@@ -25,7 +25,6 @@ categories: docker
 Vagrant.configure("2") do |config|
     config.vm.box = "precise64"
     config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-    config.vm.network :forwarded_port, guest: 7654, host: 7654
     config.vm.network :private_network, ip: "192.168.50.4"
     config.vm.provision :docker do |d|
         d.pull_images "base"
@@ -35,7 +34,6 @@ end
 
 やっていることは以下．ネットワークの設定はserverspecで利用する．
 
-- localhost (OSX) の7654 portをVagrant VMの7654 portにport foward
 - Vagrant VMにIPアドレス"192.168.50.4"を割り当て
 - Dockerのbaseイメージをpull
 
@@ -183,7 +181,7 @@ echo
 
 ```ruby
 it "should expose the default port" do
-    expect(@image.json["config"]["ExposedPorts"].has_key?("7654/tcp")).to be_true
+    expect(@image.json["config"]["ExposedPorts"].has_key?("22/tcp")).to be_true
 end
 ```
 
@@ -259,7 +257,7 @@ $ ssh docker-vm "docker -H :5422 build -t tcnksm/sample /vagrant/."
 $ ssh docker-vm docker -H :5422 run -p 7654:22 -d tcnksm/sample /usr/sbin/sshd -D
 ```
 
-`-p 7654:22`のオプションをつけるとVagrant VMの7654 portがDockerコンテナの22 portにport forwardされる．`Vagrantfile`の設定と合わせると，localhost (OSX) の7654 portがVagrant VMの 7654 port にport forwardされて，さらにそれがDockerコンテナの22 portにport forwardされる．これで，localhostからDockerコンテナにsshでログインできるようになる．
+`-p 7654:22`のオプションをつけるとVagrant VMの7654 portがDockerコンテナの22 portにport forwardされる．`Vagrantfile`と合わせると，localhost (OSX) からIPアドレス" "192.168.50.4"に7654 portでsshすると，Dockerコンテナの22 portに接続されることになる．
 
 ### 準備 (serverspec)
 
