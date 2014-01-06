@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-やっていることは以下．ネットワークの設定はserverspecで利用する．
+やっていることは以下
 
 - Vagrant VMにIPアドレス"192.168.50.4"を割り当て
 - Dockerのbaseイメージをpull
@@ -43,7 +43,7 @@ Vagrant VMはあらかじめ起動しておく．
 vagrant up
 ```
 
-また，Vagrant VMへsshで接続できるようにしておく．
+また，Vagrant VMへのsshの設定を書き出しておく．
 
 ```
 vagrant ssh-config --host docker-vm >> ~/.ssh/config
@@ -138,7 +138,7 @@ FROM base
 MAINTAINER tcnksm "https://github.com/tcnksm"
 ```
 
-ssh越しにdocerコマンドを実行し，イメージの作成する．
+ssh越しにdocerコマンドを実行し，イメージを作成する．
 
 ```
 $ ssh docker-vm "docker -H :5422 build -t tcnksm/sample /vagrant/."
@@ -215,7 +215,7 @@ end
 
 ### 準備 (ssh, sudoer)
 
-serverspecを動かすには，sshによるログインとsudo権限をもったユーザが準備されている必要がある．以下のような`Dockerfile`を準備して，これを満たすイメージを準備する．詳細は，[]()に書いた．
+serverspecを動かすには，sshによるログインとsudo権限をもったユーザが準備されている必要がある．以下のような`Dockerfile`を準備して，これを満たすイメージを準備する．
 
 ```
 FROM base
@@ -363,7 +363,7 @@ ssh docker-vm "docker -H :5422 stop `ssh docker-vm docker -H :5422 ps -l -q`"
 ssh docker-vm "docker -H :5422 rm `ssh docker-vm docker -H :5422 ps -l -q`"
 ```
 
-再びコンテナを起動してテストを実行する．gitはインストールされているためテストは通る．
+再びイメージを作成し，コンテナを起動してからテストを実行する．今回は，gitが既にインストールされているためテストは通る．
 
 ```bash
 $ rspec
