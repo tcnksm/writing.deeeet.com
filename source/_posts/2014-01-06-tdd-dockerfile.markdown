@@ -6,11 +6,17 @@ comments: true
 categories: docker
 ---
 
-[tcnksm/dockerfile-serverspec](https://github.com/tcnksm/dockerfile-serverspec)
+いくつかDockerfileを書いてきた．今書いているDockerfileは短くてシンプルなものばかりだが，もっと長く複雑化した時に不安になりそうだ．不安を解消するにはテストしかない．さらにテスト駆動的にDockerイメージを開発できたら素敵だ．つまり，
 
-いくつかDockerfileを書いてきた．今書いているDockerfileは短くてシンプルなものばかりだが，もっと長く複雑化した時に不安になりそうだ．不安を解消するにはテストしかない．さらにテスト駆動的にDockerイメージを開発できたら素敵だ．
+- テストを書く
+- Dockerイメージを作成して，テストの実行 -> `RED`
+- Dockerfileの編集
+- Dockerイメージを作成して，テストの実行 -> `GREEN`
+- テストを...
 
-ということで，RSpecを使ってTDDでDockerfileを開発するというのをやってみた．今回実現したのは以下．
+の流れができるとよい．
+
+ということで，RSpecを使ってTDDでDockerfileを開発するというのをやってみた，[tcnksm/docker-rspec](https://github.com/tcnksm/docker-rspec)．今回実現したのは以下．
 
 - [Docker Remote API](http://docs.docker.io/en/latest/api/docker_remote_api/)でDockerfile特有のコマンド(e.g, `CMD`や`EXPOSE`)のRSpecテスト
 - [serverspec](http://serverspec.org/)でパッケージのインストールのRSpecテスト
