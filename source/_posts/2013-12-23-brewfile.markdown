@@ -43,11 +43,11 @@ clean
 公式以外のレポジトリを追加してインストールすることも可能．以下のように記述する．
 
 ```
-tap homebrew/binary || true
+tap homebrew/binary
 install packer
 ```
 
-(追記) [@sonots](https://twitter.com/sonots)さんが[「BrewfileでHomebrewパッケージを管理する」をやってみた](http://blog.livedoor.jp/sonots/archives/35251881.html)で書いてあるように，`brew tap`は2回目の実行では，warningではなくerrorとなる．そのため，bundleの実行が途中で止まってしまう．現時点の解決策としては，[@sonots](https://twitter.com/sonots)さんが書いているように，`tap ... || true`とするのが良さそう．
+(追記) 以前は，同じレポジトリに対してbrew tapを実行すると，Errorとなり実行が停止してしまったため，原始的記述が必要だったが，[@sonots](https://twitter.com/sonot)さんのpullreqでWarningに変更となった([https://github.com/Homebrew/homebrew/pull/25617](https://github.com/Homebrew/homebrew/pull/25617))．ありがとうございます．
 
 また，レポジトリに存在しないAppをダウンロードする際は，自分でFormulaを書いたレポジトリを準備して，それをtapすればよい．詳しくは，[こちら](http://blog.livedoor.jp/sonots/archives/35251881.html)．
 
