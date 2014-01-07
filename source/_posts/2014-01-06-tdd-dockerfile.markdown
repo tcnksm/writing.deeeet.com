@@ -401,6 +401,8 @@ ssh docker-vm "docker -H :5422 rm `ssh docker-vm docker -H :5422 ps -l -q`"
 
 Docker Remote APIとserverspecによるテストは同時に行うことができる．シェルスクリプトを使っているのが少し原始的だが，一度ループを作ってしまえば後はひたすら回すだけなのでそこまでの苦痛ではない．普段使っているRSpecの記法でDockerfileまでテストできるのは嬉しい．serverspecは初めて使ったが，とても簡単に使えた．素敵．
 
+ただ，もっと簡単にDockerのイメージやコンテナをテストするフレームワークはそのうち出てきそうな気がしてる．
+
 
 参考
 
