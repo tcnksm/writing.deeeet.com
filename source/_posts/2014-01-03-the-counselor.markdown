@@ -1,12 +1,12 @@
 ---
 layout: post
-title: 'Cormac McCarthy "悪の法則"'
+title: 'Cormac McCarthy "The Counselor"'
 date: 2014-01-03 13:33
 comments: true
 categories: Reading
 ---
 
-2013年11月に公開された，Ridley Scott監督による"悪の法則"の脚本．Cormac McCarthyによるオリジナル書き下ろし脚本．
+2013年11月に公開された，Ridley Scott監督による"悪の法則"の脚本．Cormac McCarthyによるオリジナル書き下ろし脚本．邦題は"悪の法則"．
 
 映画も脚本も素晴らしかった．映画の映像を思い出しつつ脚本を読み，登場人物たちの深みのある台詞に浸った．
 
