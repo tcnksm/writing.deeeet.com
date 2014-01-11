@@ -6,7 +6,7 @@ comments: true
 categories: docker
 ---
 
-2014.01.02にOSXのdocker clientが[リリースされた](https://github.com/dotcloud/docker/blob/master/CHANGELOG.md#073-2014-01-02)．さらに，Homebrewのhomebrew-binaryレポジトリにFormulaが[追加され](https://github.com/Homebrew/homebrew-binary/commit/9cbb003caab046c36aaa19c01a5357c296306198)，すぐに使えるようになった．ということでやってみた．
+2014.01.02にOSXのdocker clientが[リリースされた](https://github.com/dotcloud/docker/blob/master/CHANGELOG.md#073-2014-01-02)．さらに，Homebrewのhomebrew-binaryレポジトリにFormulaも[追加され](https://github.com/Homebrew/homebrew-binary/commit/9cbb003caab046c36aaa19c01a5357c296306198)，すぐに使えるようになった．ということで触ってみた．
 
 [tcnksm/docker-osx](https://github.com/tcnksm/docker-osx)
 
