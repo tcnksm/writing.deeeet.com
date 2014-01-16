@@ -6,7 +6,9 @@ comments: true
 categories: docker
 ---
 
-2014.01.02にOSXのdocker clientが[リリースされた](https://github.com/dotcloud/docker/blob/master/CHANGELOG.md#073-2014-01-02)．さらに，Homebrewのhomebrew-binaryレポジトリにFormulaも[追加され](https://github.com/Homebrew/homebrew-binary/commit/9cbb003caab046c36aaa19c01a5357c296306198)，すぐに使えるようになった．ということで触ってみた．
+2014.01.02にOSXのdocker clientが[リリースされた](https://github.com/dotcloud/docker/blob/master/CHANGELOG.md#073-2014-01-02)．DockerはGoで書かれているので，OSX上で[自分でビルドして使ってる人もいた](https://coderwall.com/p/r6ivdq)が，今回は公式のバイナリリリース．さらに，Homebrewのhomebrew-binaryレポジトリにFormulaも[追加され](https://github.com/Homebrew/homebrew-binary/commit/9cbb003caab046c36aaa19c01a5357c296306198)，すぐに使えるようになった．
+
+clientなので，VMもしくはリモートに立てたDocker deamonに対してローカルからコマンドが叩けるようになったということ．とりあえず，ローカルにVM立てて触ってみた．
 
 [tcnksm/docker-osx](https://github.com/tcnksm/docker-osx)
 
@@ -18,7 +20,7 @@ $ brew tap homebrew/binary
 $ brew install docker
 ```
 
-Vagrantfileは以下のようにする．
+Vagrantfileは以下のようにする（VagrantはDocker provisioningが有効な1.4以上を使うこと）．
 
 ```
 #Vagrantfile
