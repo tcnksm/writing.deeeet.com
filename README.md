@@ -1,3 +1,4 @@
-# writing.deeeet.com
+# SOTA
 
-[SOTA](http://deeeet.com/writing/)
+This is my own blog build by [octopress](http://octopress.org/).
+Site is here, [SOTA](http://deeeet.com/writing/)
