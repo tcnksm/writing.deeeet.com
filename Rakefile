@@ -245,6 +245,7 @@ task :rsync do
   end
   puts "## Deploying website via Rsync"
   ok_failed system("rsync -avze 'ssh -p #{ssh_port}' #{exclude} #{rsync_args} #{"--delete" unless rsync_delete == false} #{public_dir}/ #{ssh_user}:#{document_root}")
+  system("git add .; git commit -m 'new post'; git push ")
 end
 
 desc "deploy public directory to github pages"
