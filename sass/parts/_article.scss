@@ -146,25 +146,22 @@ article{
 				width: 100%;
 				height: 100%;
 			}
-		}        
-	}
-}
-
-
-.share{
-	padding: 15px 0;
-	text-align: center;
-	@media screen and (max-width: 620px) {
-	padding-left: 0px;
-	}
-	ul {
-		list-style: none;
-		li {
-			display: inline;
-			padding: 0 2px;
-			a:link,a:visited {
-				border: none;
-			}
 		}
+        
+        
+        
+
 	}
 }
+
+.readmore{
+    position: relative;
+    text-align: right;
+    float: right;
+    a {
+        font-weight: 500;
+        color: $color-tag;
+    }
+    
+}
+
