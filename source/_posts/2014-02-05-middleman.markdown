@@ -8,7 +8,7 @@ categories: design
 
 [deeeet.com](http://deeeet.com/)
 
-[Middleman](http://middlemanapp.com/)は，[Haml](http://haml.info/)と[Sass](http://sass-lang.com/), [Compass](http://compass-style.org/)がデフォルトで使えるため，簡単にいい感じのサイトをつくることができる．例えば，[Packerの公式サイト](http://www.packer.io/)などMiddlemanで作られていてとてもいい感じだ（GithubのレポジトリみるとMitchellさん自分でこれ作ってるっぽい）．他にも個人のBlogをMiddlemanで作ってるひともいる．今後，簡単なサイト立てるときはまた使いそうなので，まとめておく．
+[Middleman](http://middlemanapp.com/)は，[Haml](http://haml.info/)と[Sass](http://sass-lang.com/), [Compass](http://compass-style.org/)がデフォルトで使えるため，簡単にいい感じのサイトをつくることができる．例えば，[Packerの公式サイト](http://www.packer.io/)などMiddlemanで作られていてとてもいい感じだ（Githubのレポジトリみるかぎり，Mitchellさんデザインも自分でやっている...?）．他にも個人のBlogをMiddlemanで作ってるひともいる．今後，簡単なサイト立てるときはまた使いそうなので，まとめておく．
 
 HamlやSassを使うために特別に設定を書く必要はない．ただ拡張子を，Hamlの場合は，`.html.haml`（laytoutファイルは`.haml`）に，Sassの場合は，`.scss`にしておけばよい．buildの際は，HamlはhtmlにSassはcssとして生成される．Sassは`:css_dir`のアンダースコアで始まらないファイルがcssとして吐き出される（つまり`@import`されるpartialなどは無視される）．
 
