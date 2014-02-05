@@ -23,6 +23,9 @@ categories:
 
 ちなみに，こんなことをtwitterでつぶやいていたらhomebrew-caskの作者にも[同意された](https://twitter.com/phinze/status/427527187915624449)．
 
+参考
+
+- [A Note About Git Commit Messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
 
 
 
