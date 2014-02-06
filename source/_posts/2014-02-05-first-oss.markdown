@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '初めてのOSSコミットはhomebrew-caskがおすすめ'
+title: '初めてのOSSコミットはhomebrew-caskがいい感じ'
 date: 2014-02-05 22:41
 comments: true
 categories: 
