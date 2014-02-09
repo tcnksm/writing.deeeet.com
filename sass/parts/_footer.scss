@@ -1,5 +1,55 @@
+@mixin line-bottom($op1: .2, $op2: .3){
+    border-bottom: 1px solid rgba(0, 0, 0, $op1);
+    @include box-shadow(rgba(255, 255, 255, $op2)0 1px 0);
+}
+
 footer{
-	padding: 15px 0;
-	text-align: center;
-	font-size: 0.8em;
+    text-align: center;
+    
+    hr {
+        margin-top: 80px;
+        margin-bottom: 20px;
+        height: 1px;
+        width: 100%;
+        background-color: #bdc3c7;
+        border: none;
+    }
+    
+    .about {
+        text-align: left;
+        padding: 20px 0 ;
+        
+        img {
+            float: left;
+            margin-left: 10px;
+            margin-right: 20px;
+
+            width: 80px;
+            border-radius: 80px;
+            -webkit-border-radius: 80px;
+            -moz-border-radius: 80px;
+        }
+        
+        h4{
+            color: #34495e;
+        }
+
+        p {
+            color: #7f8c8d;
+            a {
+                color: #1ABC9C;
+            }
+        }
+    }
+
+    .copy {
+        font-size: 0.9em;
+        margin-top: 50px;
+        margin-bottom: 5px;
+        text-align: center;
+        a {
+            color: #2C3E50;
+        }
+    }
+	
 }
