@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'このプレゼン資料はさっき作りました'
+title: 'このプレゼン資料はさっき完成したばかりです'
 date: 2014-02-07 00:15
 comments: true
 categories: 
