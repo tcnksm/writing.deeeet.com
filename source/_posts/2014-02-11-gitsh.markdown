@@ -67,7 +67,7 @@ $ brew tap thoughtbot/formulae
 $ brew install gitsh
 ```
 
-tmuxのsplit-windowと連携するのも良さそう．以下のようにすれば，"Prefix+C-g"で画面分割してgitshモードへ入る．([@958](https://twitter.com/958)さんありがとうございます．)
+tmuxのsplit-windowと連携するのも良さそう．以下のようにすれば，"Prefix+C-g"で画面分割してgitshモードへ入る．（[@958](https://twitter.com/958)さんありがとうございます．)
 
 ```
 #.tmux.conf
