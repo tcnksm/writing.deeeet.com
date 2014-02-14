@@ -67,7 +67,17 @@ $ brew tap thoughtbot/formulae
 $ brew install gitsh
 ```
 
+tmuxのsplit-windowと連携するのも良さそう．以下のようにすれば，"Prefix+C-g"で画面分割してgitshモードへ入る．([@958](https://twitter.com/958)さんありがとうございます．)
+
+```
+#.tmux.conf
+bind C-g split-window -v -p 20 'exec gitsh'
+```
+
 gitのコマンドは連続で打つこと多いので理にかなってるツールだと思う．aliasが引き継がれるので移行も楽．他にも，一時的にconfigの設定（`user.name`や`user.email`）を切り替えたり，プロンプトにブランチとかの情報を表示したり，普通のshellのように環境変数を設定したり，hubコマンド使ったりもできる．
+
+
+
 
 参考
 
