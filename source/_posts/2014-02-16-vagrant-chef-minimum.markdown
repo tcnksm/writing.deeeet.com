@@ -1,12 +1,12 @@
 ---
 layout: post
-title: 'Vagrantのprovisioningでchef-soloを使う'
+title: 'シンプルにVagrantのprovisioningでchef-soloを使い始める'
 date: 2014-02-16 01:46
 comments: true
 categories: vagrant
 ---
 
-一番シンプルな方法で．cookbookの作成には`knife-solo`を使う．例としてapacheのインストールをして，共有フォルダをホストのブラウザから閲覧できるようにする．
+とにかくシンプルに始めたい．cookbookの作成には`knife-solo`を使う．例としてapacheのインストールをして，共有フォルダをホストのブラウザから閲覧できるようにする．
 
 まずレシピの雛形を生成する．
 
