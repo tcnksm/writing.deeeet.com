@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'iOS/Androidに通知が送れるVagrantのplugin作った'
+title: 'プロビジョニングの終了をiOS/Androidに通知するVagrantのplugin作った'
 date: 2014-02-19 23:14
 comments: true
 categories: vagrant
