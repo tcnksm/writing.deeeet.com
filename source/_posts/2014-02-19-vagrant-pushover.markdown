@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'プロビジョニングの終了をiOS/Androidに通知するVagrantのplugin作った'
+title: 'プロビジョニングの終了をiOS/Androidに通知するVagrantのpluginつくった'
 date: 2014-02-19 23:14
 comments: true
 categories: vagrant
@@ -16,13 +16,17 @@ Vagrantのプロビジョニングはものすごく時間がかかる．その�
 
 {%img /images/post/vagrant-pushover.png %}
 
-インストールは以下．Vagrantのプラグインとしてインストールする．
+## インストール
+
+Vagrantのプラグインとしてインストールする．
 
 ```bash
 $ vagrant plugin install vagrant-pushover
 ```
 
-後は，以下のようにVagrantfileに設定を記述するだけ．
+## 使い方
+
+以下のようにVagrantfileに設定を記述するだけ．
 
 ```ruby
 Vagrant.configure("2") do |config|
@@ -46,7 +50,9 @@ end
 
 他にも，通知のメッセージのタイトルや本文，通知音もVagrantfileの設定から行うことができる．API通りに実装してあるので，詳しくは[公式ドキュメント](https://pushover.net/api)を参照してください．
 
-あとVagrantfileを共有したい場合，`token`や`user`がベタ書きされているのはよろしくないので，別ファイルとして記述できるようにもしてある．
+## Vagrantfileを共有したい場合
+
+`token`や`user`がベタ書きされているのはよろしくないので，別ファイルとして記述できるようにもしてある．
 
 以下のコマンドで設定ファイルを吐き出す．
 
@@ -64,7 +70,7 @@ end
 
 以上．
 
-プラグインを作るのはとても簡単（実際2日もかかってない）．また，プラグインを作ることでVagrantの内部でどのようなことが行われているのか大分理解できる．作成には，["実践Vagrant"](http://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5-Vagrant-Mitchell-Hashimoto/dp/4873116651)を参考にした．[公式ドキュメント](http://docs.vagrantup.com/v2/plugins/)も充実している．すべてのVagrantのコマンドはプラグインとして実装されているので，作るときは参考になる．Mitchell Hashimotoさんが自らつくったプラグイン[vagrant-aws](https://github.com/mitchellh/vagrant-aws)も参考になった．プラグインの作り方は，そのうちまとめる．
+Vagrantのプラグインを作るのはとても簡単（実際2日もかかってない）．また，プラグインを作ることでVagrantの内部でどのようなことが行われているのか大分理解できる．作成には，["実践Vagrant"](http://www.amazon.co.jp/%E5%AE%9F%E8%B7%B5-Vagrant-Mitchell-Hashimoto/dp/4873116651)を参考にした．[公式ドキュメント](http://docs.vagrantup.com/v2/plugins/)も充実している．すべてのVagrantのコマンドはプラグインとして実装されているので，作るときは参考になる．Mitchell Hashimotoさんが自らつくったプラグイン[vagrant-aws](https://github.com/mitchellh/vagrant-aws)も参考になった．プラグインの作り方は，そのうちまとめる．
 
 Pushoverを使ってるひとにしか使えないかなりニッチなプラグインだけど，プロビジョニング中に美味しい珈琲を淹れたいひとは是非使ってください．バグなどはGithubのissueか[@deeeet](https://twitter.com/deeeet)までお願いします．
 
