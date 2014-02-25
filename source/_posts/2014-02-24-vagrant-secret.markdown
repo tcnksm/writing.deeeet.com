@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '他人に共有したくない設定をVagrantfile書くためのpluginつくった'
+title: '他人に共有したくない設定をVagrantfileに書くためのpluginつくった'
 date: 2014-02-24 23:42
 comments: true
 categories: vagrant
@@ -45,7 +45,7 @@ client_id: "*******"
 api_key: "********"
 ```
 
-後は，これらをVagrantfileで使うだけ．yamlのkeyが`Secret`という専用のクラスのクラス変数に割り当てられる．
+後は，これらをVagrantfileで使うだけ．yamlのkeyが`Secret`という専用のクラスのクラス変数に割り当てられ，それを通してvalueを取り出すことができる．
 
 ```ruby
 Vagrant.configure('2') do |config|
