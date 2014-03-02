@@ -1,0 +1,22 @@
+---
+layout: post
+title: 'Packer雑感'
+date: 2014-03-02 22:04
+comments: true
+categories: packer
+---
+
+[Packerを使ってChef/Puppet/AnsibleでDockerのイメージをつくる](http://deeeet.com/writing/2014/03/02/build-docker-image-by-packer/)
+
+で初めて[Packer](http://www.packer.io/)を使った．そのときの雑感を書いておく．
+
+Packerは，Vagrantの作者であるMitchell Hashimoto氏によって開発が進められているVirtualBoxやVMWare，Amazon EC2などの仮想マシンのイメージの作成を行うツール．VagrantのVirtualBox用のBoxを作るveeweeに置き換わるツールとして知られている．
+
+[リリース時から](http://mitchellh.com/packer)PackerはVagrantのBoxを作る専用ツールとしてのイメージが強かった．実際，box作るときはベースboxを基に`vagrant package`で済むし，本当にヘビーにVagrantを使うユーザ専用のツールだと思っていた．しかもpackerでbox作るときの[jsonの設定ファイル](https://github.com/ryuzee/sandbox-devops/blob/master/packer-vagrantbox/ubuntu-12.04.3-server-amd64/machine.json)を見ると使う気も起きなかった．
+
+今回も基礎としてVagrantのboxの作成からやり始めたが，正直心が折れた．というのも，VirtualboxのVagrantのboxを作るのはisoイメージをベースに始めるため，KickStartとかPreseedの知識を要求される．その辺りはなじみがなくて辛かった．Redhat系のKickstartはまだ読めたが，Debian系のPreseedはしんどかった．
+
+ただ，[Dockerのイメージ作成](http://deeeet.com/writing/2014/03/02/build-docker-image-by-packer/)や[Amazon EC2のAMIの作成](http://www.ryuzee.com/contents/blog/6760)は，ものすごくシンプルで分かりやすかった．そのため，Packerの入門をするときは，Vagrantの用のboxを作るツールという概念を捨てて，DockerイメージやAMIから始めるとPacker特有の概念である，builderやpost-processorsが理解しやすいと思う．
+
+Packerの日本語の記事だと[ryuzeeさん](https://twitter.com/ryuzee)が既に駆け抜けていて，参考にさせてもらった．["実践Vagrant"](http://deeeet.com/writing/2014/02/25/vagrant-up-and-running/)にもPackerの付録があり，わかりやすかった．
+
