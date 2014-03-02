@@ -6,6 +6,8 @@ comments: true
 categories: vagrant
 ---
 
+（追記）[dotenv](https://github.com/bkeepers/dotenv)というもっと便利なツールがありました．僕のは，pluginを作る際の参考にしてください．dotenvとvagrantの連携は，glidenoteさんの["dotenvを利用して環境ごとでVagrantfileの設定値を変更してみる"](http://blog.glidenote.com/blog/2014/02/26/vagrant-dotenv/)を参考にしてください．
+
 [vagrant-secret](https://github.com/tcnksm/vagrant-secret)
 
 例えば，VagrantでDigital Oceanを使う場合，以下のように`client_id`や`api_key`のような他人には共有したくない設定をVagrantfileに記述する．
