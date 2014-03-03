@@ -12,7 +12,11 @@ categories: docker packer
 
 [Packerを使えばDockerのイメージをDockerfileを使わずビルドすることができる](http://www.packer.io/docs/builders/docker.html#toc_4)
 
-つまり，Dockerfileの特有な記述を使わず，今まで慣れ親しんできたChefやPuppet，Ansibleのようなプロビジョニングツールを使ってDockerのイメージをビルドできる．さらに，イメージ名とタグの付加，レジストリへのアップロードまで受け持ってくれる．
+つまり，Dockerfileの特有な記述を使わず，今まで慣れ親しんできたChefやPuppet，Ansibleのようなプロビジョニングツールを使ってDockerのイメージをビルドできる．
+
+参考
+
+- [DockerイメージのビルドにPackerを使うべき理由](http://deeeet.com/writing/2014/03/03/why-building-docker-by-packer/)
 
 ## サンプル
 
@@ -135,7 +139,7 @@ $ docker images
 
 今まで使ってきたプロビジョニングツールを使えるのはすごくよい．というもの，まだまだChefやPuppetといったツールは使われていくだろうし，知見も多く蓄積されているから．また，Dockerfileはdockerに特有なので他のツールに移植するといったこと難しい．
 
-かといってDockerfile使われなくなるか，というと全然そんなことはなささそう．現時点でのPackerでDockerのイメージをビルドする際の欠点は，Stepごとのスナップショットをとるといったdockerの良さが使えないことや，`EXPOSE`とかが簡単に書けないことなどがある．
+かといってDockerfile使われなくなるか，というと全然そんなことはなささそう．現時点でのPackerでDockerのイメージをビルドする際の欠点は，Stepごとのスナップショットをとるといったdockerの良さが使えない（ただ，[将来サポートされる予定らしい](http://deeeet.com/writing/2014/03/03/why-building-docker-by-packer/)）ことや，`EXPOSE`とかが簡単に書けないことなどがある．
 
 - [ssig33.com - Docker をプロダクトのデプロイに使う](http://ssig33.com/text/Docker%20%E3%82%92%E3%83%97%E3%83%AD%E3%83%80%E3%82%AF%E3%83%88%E3%81%AE%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%AB%E4%BD%BF%E3%81%86)
 - [Docker, Mesos, Sensu等を利用したBlue-Green Deploymentの仕組み - $shibayu36->blog;](http://shibayu36.hatenablog.com/entry/2013/12/23/153019)
@@ -146,3 +150,5 @@ $ docker images
 参考
 
 - [Docker builder](http://www.packer.io/docs/builders/docker.html)
+- [DockerイメージのビルドにPackerを使うべき理由](http://deeeet.com/writing/2014/03/03/why-building-docker-by-packer/)
+- [Packer雑感](http://deeeet.com/writing/2014/03/02/packer/)
