@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Middlemanでいい感じのポートフォリオサイトをつくる'
+title: 'Middlemanを使ってみた'
 date: 2014-02-05 21:22
 comments: true
 categories: design
