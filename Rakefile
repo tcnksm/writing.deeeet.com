@@ -57,6 +57,8 @@ task :generate do
   system "jekyll"
 end
 
+task :g => :generate
+
 desc "Watch the site and regenerate when it changes"
 task :watch do
   raise "### You haven't set anything up yet. First run `rake install` to set up an Octopress theme." unless File.directory?(source_dir)
