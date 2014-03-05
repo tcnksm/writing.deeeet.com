@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'RakeのTask名にaliasを設定する'
+title: 'Rakeのtask名にaliasを設定する'
 date: 2014-03-05 20:56
 comments: true
 categories: ruby
