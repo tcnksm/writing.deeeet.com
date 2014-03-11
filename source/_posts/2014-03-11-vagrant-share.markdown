@@ -148,6 +148,3 @@ URLを共有すると，サーバを実行したローカルディレクトリ�
 
 Vagrant share素晴らしい．リモートで働いているときとか便利そう（社内なら`public_network`で事足りそう）．SSHアクセスはエンジニアとの共同作業に，HTTP Accessはエンジニア以外のひとに成果物を見せるときに使えそうだなと思った．
 
-## 参考
-
-- [Vagrant Cloud Help](https://vagrantcloud.com/help)
