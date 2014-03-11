@@ -8,7 +8,7 @@ categories: vagrant
 
 [Vagrant 1.5 and Vagrant Cloud](http://www.vagrantup.com/blog/vagrant-1-5-and-vagrant-cloud.html)
 
-Vagrant shareを使ってみた．今までは`private_network`によるローカルマシンから仮想マシンへのアクセスや，`public_network`によるLAN内から仮想マシンへのアクセスが可能だった．今回のアップデートで，外部ネットワーク越しに，ローカルに立てた仮想マシンへのアクセスが可能になった．
+Vagrant shareを使ってみた．今までは`private_network`によるローカルマシンから仮想マシンへのアクセスや，`public_network`によるLAN内のマシンから仮想マシンへのアクセスが可能だった．今回のアップデートで，外部ネットワークのマシンから，ローカルに立てた仮想マシンへのアクセスが可能になった．
 
 主なアクセスは以下の2つ．
 
@@ -19,7 +19,7 @@ Vagrant shareを使ってみた．今までは`private_network`によるロー�
 
 ## 準備
 
-まず，[Vagrant Cloud](https://vagrantcloud.com)でアカウントを作成する．次に，登録したアカウントでログインしておく．
+[Vagrant Cloud](https://vagrantcloud.com)でアカウントを作成し，ログインしておく．
 
 ```bash
 $ vagrant login
@@ -27,7 +27,7 @@ $ vagrant login
 
 ## HTTP Access
 
-以下のようなVagrantfileを準備する．
+例として，以下のようなVagrantfileを準備する．
 
 ```ruby
 Vagrant.configure("2") do |config|
@@ -122,7 +122,7 @@ vagrant connect hopeful-kangaroo-2431
 
 ## ngrok
 
-twitterを眺めていたら，同様の技術に[ngrok](https://ngrok.com/)というものがあるのを知った．ローカルに立てたサーバを[ngrok.com](https://ngrok.com/)を介して外部に晒すことができる．
+twitterを眺めていたら，同様の技術に[ngrok](https://ngrok.com/)というものがあるのを知った．ローカルに立てたサーバを[ngrok.com](https://ngrok.com/)を介して外部に晒すことができる．こちらも試してみた．
 
 まずサーバを立てる．
 
