@@ -19,15 +19,13 @@ Vagrant shareを使ってみた．今までは`private_network`によるロー�
 
 ## 準備
 
-[Vagrant Cloud](https://vagrantcloud.com)でアカウントを作成し，ログインしておく．
+[Vagrant Cloud](https://vagrantcloud.com)でアカウントを作成し，ログインする．
 
 ```bash
 $ vagrant login
 ```
 
-## HTTP Access
-
-例として，以下のようなVagrantfileを準備する．
+また，例として以下のようなVagrantfileを準備し，仮想マシンを起動しておく．
 
 ```ruby
 Vagrant.configure("2") do |config|
@@ -41,15 +39,17 @@ PREPARE
     end
 ```
 
-やっているのは，8080->80のport forwardとapacheのインストールのみ．
-
-仮想マシンを起動する．
-
 ```bash
 $ vagarnt up
 ```
 
-Vagrant shareを実行する．
+（やっているのは，8080->80のport forwardとapacheのインストールのみ）
+
+## HTTP Access
+
+まず，PulicなHTTP URLを介して仮想マシン内のHTTPサーバにアクセスする方法．この場合は，共有相手のマシンにVagrantがインストールされている必要はない．
+
+以下を実行する．
 
 ```bash
 $ vagrant share
@@ -71,9 +71,9 @@ http://terrible-moose-1613.vagrantshare.com -> 127.0.0.1:8080 (Host) -> 127.0.0.
 
 ## SSH Access
 
-ローカルで`vagrant ssh`で仮想マシンにログインするように，外部ネットワークのマシンからローカルに立てた仮想マシンにsshでログインすることもできる．前提として，共有相手にVagrant 1.5以上がインストールされている必要がある．
+ローカルで`vagrant ssh`で仮想マシンにログインするように，外部ネットワークのマシンからローカルに立てた仮想マシンにsshでログインすることもできる．この場合は，共有相手のマシンにVagrant 1.5以上がインストールされている必要がある．
 
-仮想マシンを起動した後に以下を実行する．今回は，sshログインのためのパスワードの入力が要求される．
+以下を実行する．今回は，sshログインのためのパスワードの入力が要求される．
 
 ```
 $ vagrant share --ssh
@@ -81,9 +81,9 @@ $ vagrant share --ssh
 ==> default: URL: http://bulky-mitchell-9363.vagrantshare.com
 ```
 
-すると，同様に`bulky-mitchell-9363`のようなshare nameが発行されるので，その名前を共有する．
+すると，同様に`bulky-mitchell-9363`のようなshare nameが発行されるので，その名前と入力したパスワードを共有する．
 
-共有相手は，以下を実行することで仮想マシンにログインすることが可能になる．
+共有相手は以下を実行することでsshで仮想マシンにログインする．
 
 ```
 $ vagrant connect --ssh bulky-mitchell-9363
@@ -99,7 +99,7 @@ $ vagrant share --ssh --ssh-once
 
 [http://terrible-moose-1613.vagrantshare.com](http://terrible-moose-1613.vagrantshare.com)のようなpublicなHTTP URLを無効にした共有もできる．この場合も共有相手にVagrant 1.5以上がインストールされている必要がある．
 
-仮想マシンを起動した後に以下を実行する．
+以下を実行する．
 
 ```bash
 $ vagrant share --disable-http
