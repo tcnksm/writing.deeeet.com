@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Vagrant shareとngrok'
+title: 'Vagrant shareとngrokを使ってみた'
 date: 2014-03-11 22:55
 comments: true
 categories: vagrant
