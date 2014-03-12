@@ -12,7 +12,7 @@ Vagrant Share素晴らしい．外部ネットワークのマシンから，ロ�
 
 ## TL;DR
 
-[ngrok](https://ngrok.com/)を使えば，Vagrant Shareのようにローカルに立てたDockerコンテナを外部ネットワークからアクセス可能にすることができる．
+[ngrok](https://ngrok.com/)を使えば，Dockerコンテナに対してVagrant Shareと同様のことができる．つまり，Dockerコンテナを外部ネットワークからアクセス可能にすることができる．
 
 以下をやってみた．
 
@@ -21,9 +21,13 @@ Vagrant Share素晴らしい．外部ネットワークのマシンから，ロ�
 
 ## 準備
 
-環境は，OSX上でboot2dockerを使って行う．またngrokを[インストール](https://ngrok.com/download)して適切な場所に配置しておく．
+OSX上で行った．dockerはboot2dockerで動かす．
 
-事前にboot2dockerを停止した状態で，port forwardingをして置く．
+```
+$ brew install boot2docker
+```
+
+事前にboot2dockerにport forwardingの設定をしておく．
 
 ```
 $ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8080,tcp,,8080,,8080"
@@ -35,7 +39,9 @@ $ VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port8080,tcp,,8080,,8080"
 $ boot2docker start
 ```
 
-## Apacheコンテナの公開
+また，ngrokを[ダウンロード](https://ngrok.com/download)して適切な場所に配置しておく．
+
+## Apacheコンテナ
 
 以下のようなDockerfileを準備する．
 
@@ -82,9 +88,9 @@ http://4c9084d8.ngrok.com -> 127.0.0.1:8080 (localhost)
 -> 127.0.0.1:8080 (boot2docker-vm) -> 127.0.0.1:80 (apache container)
 ```
 
-## Railsコンテナの公開
+## Railsコンテナ
 
-Railsアプリのコンテナも同様に外部ネットワークへ公開することができる．
+Railsコンテナでもやってみた．
 
 Railsアプリを新規に作成し，[rbdock](http://deeeet.com/writing/2014/03/06/rbdock/)を使ってRailsアプリ用のDockerfileを生成する．
 
@@ -119,6 +125,6 @@ $ ngrok 8080
 
 - [tcnksm/docker-share](https://github.com/tcnksm/docker-share)
 - [ngrok - secure introspectable tunnels to localhost](https://ngrok.com/)
-- [Vagrant Shareとngrokを使ってみた](http://deeeet.com/writing/2014/03/11/vagrant-share/)
+- [Vagrant Shareとngrok](http://deeeet.com/writing/2014/03/11/vagrant-share/)
 
 
