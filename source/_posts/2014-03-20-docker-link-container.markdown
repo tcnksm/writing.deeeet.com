@@ -9,13 +9,12 @@ categories: docker
 DockerはLinksというコンテナ同士の連携を簡単に行う仕組みをもつ．
 これは，例えば，DB用のコンテナとアプリケーション用のコンテナの連携を行いたいときなどに有用になる．
 
-例えば，1337ポートが`EXPOSE`された`db`という名前のコンテナが起動しているとする．
+例えば，1337ポートが`EXPOSE`された`container1`という名前のコンテナが起動しているとする．
 このとき，以下のように，`-link 連携したいコンテナ名:エイリアス名`で新しいコンテナを起動すると，そのコンテナ内に連携したい`db`コンテナのポート番号やIPをもった環境変数が現れる．
 
 ```bash
-docker run -d -link db:alias -name web user/sample bash
+docker run -d -link container1:alias user/sample bash
 root@48408a38c9b2:/# env
-ALIAS_NAME=/webapp/db
 ALIAS_PORT_5432_TCP_ADDR=172.17.0.2
 ALIAS_PORT=tcp://172.17.0.2:5432
 ALIAS_PORT_5432_TCP=tcp://172.17.0.2:5432
