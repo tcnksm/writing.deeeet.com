@@ -1,0 +1,62 @@
+---
+layout: post
+title: 'Dockerコンテナ間のlink，あるいはdatabase.ymlの書き方'
+date: 2014-03-20 00:18
+comments: true
+categories: docker
+---
+
+DockerはLinksというコンテナ同士の連携を簡単に行う仕組みをもつ．
+これは，例えば，DB用のコンテナとアプリケーション用のコンテナの連携を行いたいときなどに有用になる．
+
+例えば，1337ポートが`EXPOSE`された`db`という名前のコンテナが起動しているとする．
+このとき，以下のように，`-link 連携したいコンテナ名:エイリアス名`で新しいコンテナを起動すると，そのコンテナ内に連携したい`db`コンテナのポート番号やIPをもった環境変数が現れる．
+
+```bash
+docker run -d -link db:alias -name web user/sample bash
+root@48408a38c9b2:/# env
+ALIAS_NAME=/webapp/db
+ALIAS_PORT_5432_TCP_ADDR=172.17.0.2
+ALIAS_PORT=tcp://172.17.0.2:5432
+ALIAS_PORT_5432_TCP=tcp://172.17.0.2:5432
+ALIAS_PORT_5432_TCP_PORT=5432
+...
+```
+
+これがLinksの機能で，連携したいコンテナの接続情報を環境変数を通して取得できる．
+
+## PostgresqlコンテナとRailsコンテナの連携
+
+例として，postgresqlコンテナとRailsコンテナを連携させてみる．
+postgresqlのイメージには，dockerコンテナのホスティングサービスである[Orchard](https://orchardup.com/)が提供する[orchardup/postgresql]()が使いやすいのでそれを利用する．
+
+まず，postgresqlコンテナを`pg`という名前で起動する．ポートは5432を`EXPOSE`する．
+
+```bash
+$ docker run -d -p 5432:5432 -e POSTGRESQL_USER=docker -e POSTGRESQL_PASS=docker -name pg orchardup/postgresql
+```
+
+Railsからこのコンテナのデータベースにアクセスするには，`config/database.yml`を以下のようにするだけ．
+
+```ruby
+development:
+  adapter: postgresql
+  template: template0
+  encoding: unicode
+  database: my_app_development
+  pool: 5
+  username: docker
+  password: docker
+  host: <%= ENV.fetch('DB_PORT_5432_TCP_ADDR') %>
+  port: <%= ENV.fetch('DB_PORT_5432_TCP_PORT') %>
+```
+
+あとは，エイリアス名を`db`として，Railsコンテナを起動するだけ．
+
+```bash
+docker run -i -p 3000:3000 -link pg:db -name web -t tcnksm/rails 'rake db:create && rake db:migrate && rails s'
+```
+
+参考
+
+- [Docker虎の巻](https://gist.github.com/tcnksm/7700047)
