@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Dockerコンテナ間のlink，あるいはdatabase.ymlの書き方'
+title: 'Dockerコンテナ間のlink，database.ymlの書き方'
 date: 2014-03-20 00:18
 comments: true
 categories: docker
