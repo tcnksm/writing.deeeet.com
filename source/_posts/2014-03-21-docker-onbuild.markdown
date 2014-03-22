@@ -167,5 +167,6 @@ ENTRYPOINT ["bash", "-l", "-c"]
 - [A reveal.js Docker Base Image with ONBUILD](http://mindtrove.info/a-reveal.js-docker-base-image-with-onbuild/)
 - [Docker quicktip #3 – ONBUILD](http://www.tech-d.net/2014/02/06/docker-quicktip-3-onbuild/)
 - ["Toward FutureOps: Stable, repeatable, environments from dev to prod"](http://www.slideshare.net/profyclub_ru/8-mitchell-hashimoto-hashicorp)
+- 今回のサンプルコード，[tcnksm/sample-docker-onbuild](https://github.com/tcnksm/sample-docker-onbuild)
 
 
