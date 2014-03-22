@@ -130,7 +130,14 @@ $ docker build -t tcnksm/apache .
 $ docker run -p 80:80 tcnksm/apache
 ```
 
-あとは，[ORCHARD](https://orchardup.com/)なり，[DigitalOcean](https://www.digitalocean.com/)なりにイメージを持って行くだけ．
+あとは，[Orchard](https://orchardup.com/)なり，[DigitalOcean](https://www.digitalocean.com/)なりにイメージをデプロイするだけ．例えばOrchardにデプロイしてみる．
+
+```bash
+$ orchard docker build -t tcnksm/apache .
+$ orchard docker run -d -p 80:80 tcnksm/apache
+```
+
+Orchardの使い方は，["OrchardにDockerアプリケーションをデプロイ"](http://deeeet.com/writing/2014/03/22/docker-orchard/)に書いた．
 
 ちなみに，この`tcnksm/apache_base`はdocker.ioに上げてあるので誰でも使える．イメージをpullしてhtdocsをつくるだけ．
 
