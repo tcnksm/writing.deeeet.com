@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'DockerfileのONBUILDを用いた開発プロセス'
+title: 'DockerfileのONBUILD'
 date: 2014-03-21 15:02
 comments: true
 categories: docker
@@ -10,9 +10,9 @@ Docker 0.8において`ONBUILD`というDockerfile用のコマンドが導入さ
 
 `ONBUILD`を使うと，次のビルドで実行するコマンドをイメージに仕込むことができるようになる．つまり，ベースイメージに`ONBUILD`によるコマンドを仕込み，別のDockerfileでそのベースイメージを読み込みビルドした際に，そのコマンドを実行させるということが可能になる．要するに，`親Dockerfile`のDockerfileコマンドを`子Dockerfile`のビルド時に実行させることができる機能．
 
-これは，アプリケーション用のイメージを作るときや，ユーザ特有の設定を組み込んだデーモン用のイメージを作るときなどに有用になる．
+これは，アプリケーション用のイメージを作るときや，ユーザ特有の設定を組み込んだデーモン用のイメージを作るときなどに有用になる．また，オリジナルのHerokuのBuildpack的なものを作ることもできる．
 
-言葉では伝わらないと思うので簡単に実例を示す．例えば，以下のような`Dockerfile.base`を準備する．
+言葉では伝えられないので簡単に動作例を示す．例えば，以下のような`Dockerfile.base`を準備する．
 
 ```bash
 # Docekerfile.base
@@ -60,20 +60,18 @@ Successfully built 9f0189c1e902
 
 ベースイメージ`tcnksm/echo_base`で仕込んだ`RUN echo ..`が実行された．これが`ONBUILD`の機能．
 
-では，開発プロセスにおいて，どのように使えるか．**ベースイメージの開発とアプリーションの開発の分離が可能になる．**
+では，実際の開発プロセスにおいてどのように使えるか．
 
-## Apacheイメージの例
+## Apache base image
 
-/var/www以下のhtdocsを表示する単純なアプリーションを作るとする．開発の流れは以下のようになる．
+/var/www以下のhtdocsを表示する単純なDockerアプリーションを作るとする．この場合`Dockerfile`には，apacheのインストール，Apacheの起動コマンドの登録，/var/www/以下へのhtdocsの追加などを書くことになる．あとはこの`Dockerfile`をコピーしてビルドすれば，どこでもこのアプリケーションを動作させることができる．
 
-1. ベースイメージの作成/ビルド
-2. ベースイメージを使った開発
-3. 最終イメージのビルド
-4. デプロイ
+新しくhtdocsを更新したい場合は，ビルドし直す，`scp`できるようにしてファイルをコンテナ内にぶっ込む，`volume`機能を使ってファイルをマウントする，などが考えられる．
 
-まず，ベースイメージの作成．以下のような`Dockerfile.base`を作成する．
+`ONBUILD`を使えば，ファイルの更新を考慮したイメージを作成することができる．つまり，`親Dockerfile`でApacheのインストールなどの基本的なConfigurationを行う一方で，更新がかかるhtdocsの/var/www/への追加は`子Dockerfile`のビルド時に実行させることが可能になる．これを実現する`親Dockerfile`は以下のようになる．
 
 ```bash
+# Dockerfile.base
 FROM ubuntu:12.04
 
 RUN apt-get update
@@ -83,38 +81,29 @@ ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 
-ONBUILD ADD ./htdocs /var/www/
+ONBUILD ADD . /var/www/
 
 EXPOSE 80
 ENTRYPOINT ["/usr/sbin/apache2"]
 CMD ["-D", "FOREGROUND"]
 ```
 
-やっているのは，
-
-- Apacheのインストール
-- `ONBUILD`による次回のビルド時の`htdocs`ディレクトリの`/var/www`への追加
-- 起動コマンドの設定
-
-ベースイメージをビルドする．
+カレントディレクトリを`/var/www`に追加する部分を`ONBUILD`で記述する．あとは，ベースイメージをビルドし，レジストリに`push`しておく
 
 ```bash
 $ docker build -t tcnksm/apache_base - < Dockerfile.base
+$ docker push
 ```
 
-次に，アプリーションの開発（単純にhtmlを書くだけだが）．アプリーションの開発者は，ベースのイメージがどうなっているかは知らなくてもよい．ただ，`tcnksm/apache_base`を使って，`htdocs`以下にhtmlを書けばよいということだけを知っていればよい．
+## Apache application image
 
-開発中は，`-v`オプションを用いて，ローカルの`htdocs`ディレクトリをイメージにマウントする．
+htdocsを開発する．
 
-```
-$ mkdir htdocs
-$ echo "<h1>Hello, docker</h1>" > htdocs/index.html
-$ docker run -p 80:80 -v $(pwd)/htdocs:/var/www -t tcnksm/apache_base
+```bash
+$ echo "<h1>Hello, docker</h1>" > index.html
 ```
 
-後は，htdocs以下を作り込むだけ．編集はリアルタイムで更新される．`vagrant share`みたいに外部のひととやり取りしつつ開発したいなら，[Docker share](http://deeeet.com/writing/2014/03/12/docker-share/)を使う．
-
-開発が終了したら，最終イメージのビルド．以下のようなDockerfileを準備してビルドするだけ．
+開発が終了したら，以下のような`Dockerfile`を準備しビルドする．
 
 ```bash
 FROM tcnksm/apache_base
@@ -124,49 +113,33 @@ FROM tcnksm/apache_base
 $ docker build -t tcnksm/apache .
 ```
 
-起動確認をする．
+ビルドすると，`親Dockerfile`で記述した`ONBUILD`が実行され，カレントディレクトリのhtdocsがイメージの/var/www/以下に追加される．あとは，このイメージを好きなところにデプロイして起動するだけ．
 
 ```bash
 $ docker run -p 80:80 tcnksm/apache
 ```
 
-あとは，[Orchard](https://orchardup.com/)なり，[DigitalOcean](https://www.digitalocean.com/)なりにイメージをデプロイするだけ．例えばOrchardにデプロイしてみる．
+## 開発方法
+
+htdocsの開発中に実際にapacheを起動して，ブラウザで動作確認などができるとよい．以下のように`volume`でカレントディレクトリをベースイメージの/var/wwwにマウントして起動すれば，リアルタイムで更新を確認しつつ開発を進めることができる．
+
+```bash
+$ docker run -p 80:80 -v $(pwd):/var/www -t tcnksm/apache_base
+```
+
+`vagrant share`のように外部の開発者とやり取りしつつ開発したいなら，ngrokを使って[Docker share](http://deeeet.com/writing/2014/03/12/docker-share/)的なこともできる．
+
+開発が終了したら，上のDockerfileを使って最終イメージをビルドし，イメージをデプロイする．例えば，[Orchard](https://orchardup.com/)にデプロイするには以下のようにする（Orchardの使い方は，["OrchardにDockerアプリケーションをデプロイ"](http://deeeet.com/writing/2014/03/22/docker-orchard/)に書いた）．
 
 ```bash
 $ orchard docker build -t tcnksm/apache .
 $ orchard docker run -d -p 80:80 tcnksm/apache
 ```
 
-Orchardの使い方は，["OrchardにDockerアプリケーションをデプロイ"](http://deeeet.com/writing/2014/03/22/docker-orchard/)に書いた．
-
-ちなみに，この`tcnksm/apache_base`はdocker.ioに上げてあるので誰でも使える．イメージをpullしてhtdocsをつくるだけ．
-
-## Railsイメージの例
-
-Railsアプリでも同様のことができる．ベースイメージは，以下のような感じ．
-
-```
-# ... Install ruby 
-
-RUN mkdir /app
-WORKDIR /app
-
-ONBUILD ADD rails_app/Gemfile /app/Gemfile
-ONBUILD RUN bundle install
-ONBUILD ADD rails_app /app
-
-ENTRYPOINT ["bash", "-l", "-c"]
-```
-
-（Gemfileの`ADD`については，["How to Skip Bundle Install When Deploying a Rails App to Docker if the Gemfile Hasn’t Changed"](http://ilikestuffblog.com/2014/01/06/how-to-skip-bundle-install-when-deploying-a-rails-app-to-docker/)を参考に）
-
-アプリケーション開発者は，`rails_app`というディレクトリ名でアプリケーションを開発すればよいということを知っていればよい．
-
 ## 参考
 
 - [A reveal.js Docker Base Image with ONBUILD](http://mindtrove.info/a-reveal.js-docker-base-image-with-onbuild/)
 - [Docker quicktip #3 – ONBUILD](http://www.tech-d.net/2014/02/06/docker-quicktip-3-onbuild/)
 - ["Toward FutureOps: Stable, repeatable, environments from dev to prod"](http://www.slideshare.net/profyclub_ru/8-mitchell-hashimoto-hashicorp)
-- 今回のサンプルコード，[tcnksm/sample-docker-onbuild](https://github.com/tcnksm/sample-docker-onbuild)
 
 
