@@ -116,7 +116,7 @@ $ docker run -i -p 3000:3000 -link pg:db -name web -t tcnksm/rails 'rake db:crea
 
 ローカルでの開発では，ONBUILDやVolumeを使ってイメージにアプリケーションをマウントして開発すれば，リアルタイムに更新が確認できて便利．また，Vagrant share的なこともできる．その辺りは以下に書いた．
 
-- [DockerfileのONBUILDを用いた開発プロセス](http://deeeet.com/writing/2014/03/21/docker-onbuild/)
+- [DockerfileのONBUILD](http://deeeet.com/writing/2014/03/21/docker-onbuild/)
 - [Docker share](http://deeeet.com/writing/2014/03/12/docker-share/)
 
 ## Orchardへのデプロイ
