@@ -1,4 +1,4 @@
-$max-width: 550px;
+$max-width: 800px;
 
 *{
 	margin: 0;
@@ -8,27 +8,34 @@ $max-width: 550px;
 
 body{
 	font-family: $font-default;
-	font-size: 14px;
+	font-size: 18px;
 	font-weight: 300;
-	line-height: 1.5;
+	line-height: 30px;
 	background: $color-background;
 	@media screen and (max-width: 1040px){
-        width: 60%;
+        width: 70%;
 		margin: 0 auto;
 	}
 	@media screen and (max-width: 600px){
-		font-size: 13px;
+		font-size: 15px;
         width: 80%;        
 		margin: 0 auto;
 	}
 }
 
 h1{
-	font-size: 20px;
+	font-size: 30px;
 }
 
 h2{
-	font-size: 19px;
+	font-size: 25px;
+    @media screen and (max-width: 1040px) {
+		font-size: 23px;
+	}
+    
+    @media screen and (max-width: 600px){
+		font-size: 18px;
+	}
 }
 
 a {
@@ -47,16 +54,16 @@ a:hover {
 
 
 h3{
-	font-size: 18px;
+	font-size: 20px;
 	line-height: 1.2;
 	margin: -1em 0 0 0;
 	font-weight: normal;
 	display: block;
     @media screen and (max-width: 1040px) {
-	    font-size: 17px;
+	    font-size: 20px;
 	}
 	@media screen and (max-width: 620px) {
-	    font-size: 15px;
+	    font-size: 18px;
 	}
     
     a{

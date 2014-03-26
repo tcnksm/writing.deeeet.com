@@ -7,7 +7,7 @@ article{
 	}
     
 	h2.title{
-		font-size: 24px;
+		font-size: 30px;
 		font-weight: bold;
 		line-height: 1.2;
 		margin-left:0px;
@@ -16,18 +16,23 @@ article{
         color: $color-article-title;
         
         @media screen and (max-width: 1040px) {
-		    font-size: 21px;
+		    font-size: 25px;
+            
 		}
         
 		@media screen and (max-width: 620px) {
-		    font-size: 18px;
+		    font-size: 20px;
 		}
 
 	}
     
 	.entry-content{
-		line-height: 1.5;
+		line-height: 30px;
 		text-align: justify;
+        
+        @media screen and (max-width: 620px) {
+            line-height: 25px;
+		}
 		a{
 			&:hover{
 				text-decoration:none;
@@ -45,6 +50,11 @@ article{
 		blockquote, ul, ol, dl, table, iframe, h1, h2, h3, h4, h5, h6, .video-container{
 			margin-top: 1.5em;
             margin-bottom: 0em;
+            line-height: 25px;
+            @media screen and (max-width: 620px) {
+                line-height: 20px;
+	        }
+            
             p {
                 margin-bottom: 0em;
             }
@@ -67,6 +77,7 @@ article{
 		em{
 			font-style: italic;
 		}
+        
 		p{
 			margin-top: 10px;
 		}
@@ -75,8 +86,10 @@ article{
 			font-weight: 100;
             color: $color-blog-body;
             border-bottom: 1px solid #e5e5e5;
+            margin-top: 50px;
+            margin-bottom: 20px;
 			position: relative;
-            padding-bottom: 4px;
+            padding-bottom: 10px;
 		}
 
 		img, video{
