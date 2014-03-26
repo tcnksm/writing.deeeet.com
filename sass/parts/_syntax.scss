@@ -76,10 +76,10 @@ figure.code{
 	border: 1px solid $pre-border;
 	margin-top: 3px;
     margin-bottom: 1.5em;
-	padding: 5px 15px;
+	padding: 12px 15px;
 	@include border-radius(5px);
 	figcaption{
-		font-size: 0.9em;
+		font-size: 0.9em;        
 		position: relative;
 		span{
 			margin: -5px -15px 0;
@@ -101,7 +101,8 @@ figure.code{
 		border: none;
 		padding: 0;
 		margin: 0;
-		@include border-radius(0);
+        line-height: 25px;
+		@include border-radius(0);        
 	}
 	.highlight{
 		overflow-x: auto;
