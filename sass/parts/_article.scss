@@ -56,6 +56,10 @@ article{
             @media screen and (max-width: 620px) {
                 line-height: 20px;
 	        }
+
+            li {
+                margin-bottom: 10px;
+            }
             
             p {
                 margin-bottom: 0em;
@@ -85,7 +89,7 @@ article{
 		}
         
 		h2 {
-			font-weight: 100;
+			font-weight: 700;
             color: $color-blog-body;
             border-bottom: 1px solid #e5e5e5;
             margin-top: 50px;
@@ -93,6 +97,24 @@ article{
 			position: relative;
             padding-bottom: 10px;
 		}
+
+        h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: $color-blog-body;
+            margin-bottom: 18px;
+			position: relative;
+            padding-bottom: 10px;
+            @media screen and (max-width: 1040px) {
+		        font-size: 20px;
+                margin-bottom: 16px;
+	        }
+    
+            @media screen and (max-width: 600px){
+		        font-size: 16px;
+                margin-bottom: 10px;
+	        }
+        }
 
 		img, video{
 			max-width: 100%;
