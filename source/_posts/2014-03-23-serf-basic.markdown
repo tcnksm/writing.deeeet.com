@@ -77,7 +77,7 @@ Gossip ProtocolのSWIMからの変更点は大きく以下の3点
 
 <a href="#m">目次へ</a>
 
-<h2 id="#pre">試験環境の準備</h2>
+<h2 id="pre">試験環境の準備</h2>
 
 [serf/demo/vagrant-cluster](https://github.com/hashicorp/serf/tree/master/demo/vagrant-cluster)のVagrantfileを改良して，Serfがプレインストールされたノードが3つ立ち上がった試験環境を作る．ノードのIPはそれぞれ"172.20.20.10"，"172.20.20.11"，"172.20.20.12"とし，同一ネットワーク上に存在する．Vagrantfileは以下．
 
