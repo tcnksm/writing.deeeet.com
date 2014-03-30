@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Dockerを便利に使うalias'
+title: 'Dockerを便利に使うためのalias'
 date: 2014-03-30 16:24
 comments: true
 categories: docker
@@ -8,7 +8,7 @@ categories: docker
 
 [tcnksm/docker-alias](https://github.com/tcnksm/docker-alias)
 
-いろいろなひとのTipや，自分がやったやつの寄せ集めで作った．以下でダウンロードできる．
+いろいろなひとのTipや，自分がやったやつの寄せ集めで作った．以下で使えるようになる．
 
 ```bash
 $ curl -fsSL https://raw.github.com/tcnksm/docker-alias/master/zshrc >> ~/.zshrc && source ~/.zshrc
