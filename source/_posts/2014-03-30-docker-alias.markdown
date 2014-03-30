@@ -141,6 +141,9 @@ dki => docker run -i -t -P
 dl => docker ps -l -q ...
 ```
 
+動かないとか，こんなんあったらとかあればPull requestやIssueお待ちしております．
+
+
 ### 参考
 
 - [Useful Docker Bash functions and aliases](http://www.kartar.net/2014/03/some-useful-docker-bash-functions-and-aliases/)
