@@ -10,6 +10,8 @@ categories: docker serf
 
 [tcnksm/sample-docker-serf](https://github.com/tcnksm/sample-docker-serf)
 
+やってみたのは，Dockerコンテナのみでのクラスタの形成．
+
 ## 準備
 
 Vagrant上で実行する．Vagrantfileは以下．
