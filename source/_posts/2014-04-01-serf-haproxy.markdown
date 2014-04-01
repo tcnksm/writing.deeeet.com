@@ -6,7 +6,7 @@ comments: true
 categories: serf
 ---
 
-Serfの典型的な使い方として紹介されることの多い，HAProxyの登録/更新をVagrantで複数ホストを立ててやってみた．これは既に何人かの方が試みているし，SerfのGithubのdemoページでも紹介されている．
+Serfの典型的な使い方として紹介されることの多い，HAProxyの登録/更新をやってみた．これは既に何人かの方が試みているし，SerfのGithubのdemoページでも紹介されている．
 
 - [hashicorp/serf/demo/web-load-balancer](https://github.com/hashicorp/serf/tree/master/demo/web-load-balancer)
 - ["Serf+HAProxyで作るAutomatic Load Balancer"](http://blog.glidenote.com/blog/2013/10/30/serf-haproxy/)
@@ -14,11 +14,11 @@ Serfの典型的な使い方として紹介されることの多い，HAProxyの
 
 これらが何をやっているかを簡単に書くと，1つのProxyサーバ（ロードバランサ）と複数のWebサーバという構成において，Webサーバの増減に応じてロードバランサの設定を自動で書き換えるというもの．
 
-実際に自分で手を動かして触ってみた．
+これをVagrantで複数サーバを立ち上げて，自分で手を動しつつ触ってみた．
 
 [tcnksm/sample-serf-haproxy](https://github.com/tcnksm/sample-serf-haproxy)
 
-Vagrantさえあれば誰でもすぐ試せる．
+Vagrantさえあれば誰でもすぐ試せるようになっている．
 
 ## Vagrantの準備
 
