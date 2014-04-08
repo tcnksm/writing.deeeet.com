@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Docker+Serf+HAproxy (+Supervisord) でサービスディスカバリ'
+title: 'Docker+Serf+HAproxy (+Supervisor) でサービスディスカバリ'
 date: 2014-04-08 18:14
 comments: true
 categories: docker serf
