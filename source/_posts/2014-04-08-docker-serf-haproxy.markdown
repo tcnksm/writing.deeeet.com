@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Docker+Serf+HAproxy (+Supervisor) でサービスディスカバリ'
+title: 'Docker+Serf+HAproxy (+Supervisor)'
 date: 2014-04-08 18:14
 comments: true
 categories: docker serf
@@ -15,7 +15,8 @@ categories: docker serf
 
 Dockerで複数プロセスを扱うときには，[Supervisor](http://supervisord.org/)という選択肢がある．この方法は，[公式](http://docs.docker.io/en/latest/examples/using_supervisord/)で紹介されていたり，Foot Fightの["Docker in Practice"](http://foodfightshow.org/2013/11/docker-in-practice.html)で言及されてたり，CenturyLink Labsが[試みて](http://www.centurylinklabs.com/auto-loadbalancing-with-fig-haproxy-and-serf/)いたりする．
 
-ということで，Supervisordを用いて，Docker+Serf+HAproxyによるサービスディスカバリをやってみた．
+ということで，SupervisordとSerf，HAproxyによるDockerコンテナのディスカバリをやってみた．
+
 
 [tcnksm/docker-serf-haproxy](https://github.com/tcnksm/docker-serf-haproxy)
 
@@ -249,19 +250,3 @@ haproxy         172.17.0.2:7946  alive  role=lb
 - [Synapse と Serf でサービスディスカバリ](http://blog.ryotarai.info/blog/2014/04/01/service-discovery-by-syanpse-with-serf/)
 - [Serf Demo: Web Servers + Load Balancer](https://github.com/hashicorp/serf/tree/master/demo/web-load-balancer)
 - [Serf設定オプションまとめ](http://pocketstudio.jp/log3/2014/03/29/serf_configuration_quick_guide/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
