@@ -6,7 +6,7 @@ comments: true
 categories: docker
 ---
 
-<script async class="speakerdeck-embed" data-id="21343140a3970131166e024e11a95d47" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="21343140a3970131166e024e11a95d47" data-ratio="1.33333333333333" src="http://speakerdeck.com/assets/embed.js"></script>
 
 ["Docker ApplicationをDaaSにデプロイ #dockerjp // Speaker Deck"](https://speakerdeck.com/tcnksm/docker-applicationwodaasnidepuroi-number-dockerjp)
 
