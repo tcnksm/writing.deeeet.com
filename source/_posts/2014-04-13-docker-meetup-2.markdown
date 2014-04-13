@@ -59,7 +59,7 @@ $ orchard docker run -d -p 5432:5432 -e POSTGRESQL_USER=docker -e POSTGRESQL_PAS
 $ orchard docker run -d -p 80:3000 --link pg:db --name web -t tcnksm/rails 'rake db:create && rake db:migrate && rails s'
 ```
 
-ちなみに，Docker as a Serviceについては，[@nyarla](https://twitter.com/nyarla)さんが比較されている，["Docker as a Serviceの比較(2014年4月版)"](http://qiita.com/nyarla/items/2015840bb6ed955d0250)．
+ちなみに，Docker as a Serviceについては，[@nyarla](https://twitter.com/nyarla)さんが["Docker as a Serviceの比較(2014年4月版)"](http://qiita.com/nyarla/items/2015840bb6ed955d0250)で比較されているので，参考に．
 
 ## Google Compute Engine
 
@@ -136,9 +136,9 @@ $ vagrant up --provider=digital_ocean
 
 いろいろ試してみたがまだまだ分からんというのが現状．自分的にはOrchardの軽さは好きだし，DigitalOceanはVagrantで使い慣れてて好きってのもある．GCEはセキュリティ的にやっぱしっかりしているなと思う．LTの最後にも話したようにまだまだ立ち上げることばかりを考えすぎていて，実際の運用のことが抜けている．こういうホスティングサービスの選択も運用のことや実現したいことが明確になってくれば自然と決まってくるのかなと思う．
 
-ただ，Docker Applicationのポータビリティは実際に手を付けてみてやっぱすごいなと実感できた．
+ただ，Docker Applicationのポータビリティは実際に手を動かしてみてすごいなと実感できた．
 
-最後に，このような機会をつくって頂いた，主催者の[@mainyaa](https://twitter.com/mainyaa)さんと[@kazunori_279](https://twitter.com/kazunori_279)さん，他のスタッフのみなさんありがとうございました．楽しかったです．
+最後にDocker Meetupで，LTする機会をつくって頂いた，主催者の[@mainyaa](https://twitter.com/mainyaa)さんと[@kazunori_279](https://twitter.com/kazunori_279)さん，他のスタッフのみなさんありがとうございました．楽しかったです．
 
 
 ### 参考
