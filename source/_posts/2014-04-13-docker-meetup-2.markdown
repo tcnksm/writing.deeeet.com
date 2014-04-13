@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Docker Meetup Tokyo #2 でLTしてきた + DigitalOceanとGCEでDocker Appを動かしてみた'
+title: 'Docker Meetup Tokyo #2 でLTしてきた + DigitalOceanとGCEでもDocker Applicationを動かしてみた'
 date: 2014-04-13 20:56
 comments: true
 categories: docker
