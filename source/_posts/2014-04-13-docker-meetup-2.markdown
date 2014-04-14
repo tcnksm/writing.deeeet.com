@@ -14,7 +14,7 @@ categories: docker
 
 発表時間は5分だけで，当日までにいろいろ試したことすべてを話すことができなかったので少し追記しておく．
 
-LTではDockerコンテナ専用のホスティングサービスの話をしたが，それ以外のホスティングサービスでもDockerのサポートがされ始めている．例えば，DigitalOceanやGoogle Compute Engineなどがある．これらでもDocker Applicationを動かしてみた．まさに[@naoya_ito]()さんが話してたような，Build Once, Run Anywhereをやってみた．
+LTではDockerコンテナ専用のホスティングサービスの話をしたが，それ以外のホスティングサービスでもDockerのサポートがされ始めている．例えば，DigitalOceanやGoogle Compute Engineなどがある．これらでもDocker Applicationを動かしてみた．まさに[@naoya_ito]()さんが話してたような，Build Once, Run Anywhereをやってみた感じ．
 
 ## 概要
 
