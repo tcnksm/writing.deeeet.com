@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Amazon Glacierに写真を自動バックアップ'
+title: 'OSXからAmazon Glacierに写真を自動バックアップ'
 date: 2014-04-20 23:37
 comments: true
 categories: AWS
@@ -10,7 +10,7 @@ categories: AWS
 
 Amazon Glacierは，["Rebuild: 2: Rails, Redis, VPS (Kenn Ejima)"](http://rebuild.fm/2/)で話題に出ていて，安くていいなーとはずっと思ってはいた．実際すごくよくて1GBあたり1円/月で使える．また，AWS Command Line Interfaceでファイル同期ができるので，スクリプトを少し書いて自動バックアップの設定も簡単にできる．
 
-OSXで`launchctl`を使ってLightroomにぶっ込んだ写真を自動でGlacierにバックアップをする仕組みをつくった．
+`launchctl`を使ってLightroomにぶっ込んだ写真を自動でGlacierにバックアップをする仕組みをつくった．
 
 まず，Bucketを作成する．
 
@@ -94,7 +94,8 @@ $ launchctl load ~/Library/LaunchAgents/com.tcnksm.photo.backup.plist
 （ちなみに，`launchctl`コマンドの実行はiTermだと`launch_msg(): Socket is not connected`でこけるので，Terminal.appから実行する．Homebrewの[Common Issues](https://github.com/Homebrew/homebrew/wiki/Common-Issues#launchctl-refuses-to-load-launchd-plist-files)を参考）
 
 
-今回過去の写真も含めて50GB程度アップロードしたけど，それでも月50円程度．素晴らしい．
+今回過去の写真も含めて50GB程度アップロードしたけど，それでも月50円程度．素晴らしい．音楽，本などもぶっ込んでおこうと思う．
+
 
 ### 参考
 
