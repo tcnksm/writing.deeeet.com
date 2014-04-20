@@ -6,7 +6,7 @@ comments: true
 categories: AWS
 ---
 
-今まで惰性でiPhoto使って写真管理をしてきたが，そろそろ本格的な編集/加工をしたいなと思い，Lightroomに移行した（いずれ[VSCO Film](http://vsco.co/film)を使いたい）．その際，バックアップも外付けHDDからAWSのGlacierに移行した．
+今まで惰性でiPhoto使って写真管理をしてきたが，そろそろ本格的な編集/加工をしたいなと思い，Lightroomに移行した（いずれ[VSCO Film](http://vsco.co/film)を使いたい）．その際，バックアップも外付けHDDからAmazon Glacierに移行した．
 
 Amazon Glacierは，["Rebuild: 2: Rails, Redis, VPS (Kenn Ejima)"](http://rebuild.fm/2/)で話題に出ていて，安くていいなーとはずっと思ってはいた．実際すごくよくて1GBあたり1円/月で使える．また，AWS Command Line Interfaceでファイル同期ができるので，スクリプトを少し書いて自動バックアップの設定も簡単にできる．
 
