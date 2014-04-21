@@ -91,7 +91,7 @@ echo "[$(date +%Y-%m-%d-%H-%M)] End backup to S3"
 $ launchctl load ~/Library/LaunchAgents/com.tcnksm.photo.backup.plist
 ```
 
-（ちなみに，`launchctl`コマンドの実行はiTermだと`launch_msg(): Socket is not connected`でこけるので，Terminal.appから実行する．Homebrewの[Common Issues](https://github.com/Homebrew/homebrew/wiki/Common-Issues#launchctl-refuses-to-load-launchd-plist-files)を参考）
+（ちなみに，`launchctl`コマンドの実行はiTerm.appだと`launch_msg(): Socket is not connected`でこけるので，Terminal.appから実行する．Homebrewの[Common Issues](https://github.com/Homebrew/homebrew/wiki/Common-Issues#launchctl-refuses-to-load-launchd-plist-files)を参考）
 
 
 今回過去の写真も含めて50GB程度アップロードしたけど，それでも月50円程度．素晴らしい．音楽，本などもぶっ込んでおこうと思う．
