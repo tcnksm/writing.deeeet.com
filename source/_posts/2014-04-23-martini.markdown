@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Martini+GinkgoをWerckerでCIしてHerokuにデプロイ'
+title: 'Martini(+Ginkgo)をWerckerでCIしてHerokuにデプロイ'
 date: 2014-04-23 00:42
 comments: true
 categories: golang
@@ -12,7 +12,7 @@ categories: golang
 
 を聴いていて，Sinatra風のGoの軽量Webフレームワークである[Martini](http://martini.codegangsta.io/)というのを知った．上に貼ったデモを見るとほとんどSinatraで良い感じ．Goはしばらく触ってなかったし，最近のGo事情を知るためにMartiniを触りつついろいろ試してみた．
 
-あとCIサービスも[Wercker](http://wercker.com/)も良さそうだなと思いつつ触ってなかったので，この機会に使ってみた．
+あとCIサービスの[Wercker](http://wercker.com/)も良さそうだなと思いつつ触ってなかったので，この機会に使ってみた．
 
 やってみたのは，
 
@@ -158,9 +158,9 @@ MartiniとGinkgoとの連携は["Getting started with RethinkDB, Ginkgo and Mart
 
 Werckerの使い方は，["Githubのプライベートリポジトリでも無料で使えるCI、Werckerを使ってrails newからHerokuのデプロイまでやってみる"](http://blog.mah-lab.com/2014/01/08/rails-wercker-heroku-deploy/)が詳しい．基本はこの通りにやれば連携可能．
 
-`wercker.yml`はレポジトリを登録すると，自動でGo専用のものが生成されるし，そのままで動く．
+`wercker.yml`はレポジトリを登録すると，自動でGo専用のものが生成され，そのまま使える．
 
-CIが通ったらHerokuに登録するようにするには，HerokuのApp keyとApplicationを登録した後に，以下を`wercker.yml`に追記するだけ．
+テストが通ったらHerokuにデプロイするようにするには，HerokuのApp keyとApplicationを登録し，以下を`wercker.yml`に追記するだけ．
 
 ```ruby
 ...
@@ -174,9 +174,11 @@ deploy:
 
 ## まとめ
 
-とりあえず，ざっとやりたいことをやってみた．いろいろな言語にあるツールがどんどんGoに移植されてるなーと感じた．また，あらゆる言語のバックグラウンドをもった開発者がGoを触っていて，各言語の良い部分が集約されそうで期待が高まってきた．さっとつくるときはSinatra使うだろうけど，MartiniでWeb Applicationを書いてみるのは楽しかった．Martiniの作者も話してたけど，バグレポートの際にいろいろ言われつつも良いコメントをもらってるみたいで，多分そういうことなんだろうと思う．
+とりあえず，ざっとやりたいことをやってみた．いろいろな言語にあるツールがどんどんGoに移植されてるなーと感じた．また，あらゆる言語のバックグラウンドをもった開発者がGoを触っていて，各言語の良い部分が集約されそうで期待が高まってきた．
 
-dockerやserfとかを触っていると，やっぱ中身を理解したいので，これを機にもっとGoを書いていこうと思う．
+さっとつくるときはSinatra使うだろうけど，MartiniでWeb Applicationを書いてみるのは楽しかった．Martiniの作者も話してたけど，バグレポートの際にいろいろ言われつつも良いコメントをもらってるみたいで，多分そういうことなんだろうと思う．
+
+DockerやSerfとかを触っていると，やっぱ中身を理解したいので，これを機にもっとGoを書いていこうと思う．
 
 ### 参考
 
