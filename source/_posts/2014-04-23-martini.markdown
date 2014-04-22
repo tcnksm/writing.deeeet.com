@@ -57,6 +57,8 @@ func top(params martini.Params) (int, string) {
 
 ```bash
 $ go run server.go
+$ curl http://localhost:3000
+Hello !
 ```
 
 [codegangsta/gin](https://github.com/codegangsta/gin)を使うと更新の度に自動でビルドしなおしてくれるため，ブラウザを更新するだけでよくなる．
