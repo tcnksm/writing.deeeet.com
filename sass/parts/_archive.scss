@@ -1,9 +1,12 @@
 .archives{
 	padding: 40px 0 1.5em;
-    
+
 	h2 {
+		color: $color-gray01;
+		line-height: 20px;
+		margin-bottom: 30px;
 		@media screen and (max-width: 600px){
-			font-size: 9px;
+			font-size: 25px;
 		}
 	}
 	article{
@@ -12,7 +15,7 @@
 				margin: 0;
 			}
 		}
-		margin-left: 200px;
+		margin-left: 0px;
 		padding: 0;
 		@media screen and (max-width: 600px) {
 			margin-left: 0;
@@ -22,17 +25,11 @@
 				}
 			}
 		}
-		.meta{
-			color: $color-gray02;
+		.meta {
+			color: $color-gray01;
 			font-size: 0.9em;
-			line-height: 200;
-			a{
-				color: $color-gray02;
-				@include transition(0.3s);
-				&:hover{
-					color: $color-gray01;
-				}
-			}
+			line-height: 20px;
+			margin-bottom: 20px;
 		}
 	}
 }

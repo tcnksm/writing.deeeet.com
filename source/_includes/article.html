@@ -17,12 +17,12 @@
 	</div>
     {% else %}
 	<header>
-	  <h2 class="title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h2>
 		<div class="meta date">{% include post/date.html %}{{ time }}</div>
+	  <h2 class="title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h2>
 	</header>
-    
+
 	<div class="entry-content">{{ content }}</div>
-    
+
     <!-- AddThis Button BEGIN -->
     <div class="addthis_toolbox addthis_default_style ">
       <a class="addthis_counter addthis_pill_style"></a>
@@ -30,6 +30,6 @@
     <!-- AddThis Button END -->
     </br>
     <span class="readmore"><a href="{{ root_url }}/">Full Blog →</a></span>
-    
+
 
 {% endif %}

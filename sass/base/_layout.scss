@@ -18,7 +18,7 @@ body{
 	}
 	@media screen and (max-width: 600px){
 		font-size: 15px;
-        width: 70%;        
+        width: 80%;
 		margin: 0 auto;
 	}
 }
@@ -32,7 +32,7 @@ h2{
     @media screen and (max-width: 1040px) {
 		font-size: 25px;
 	}
-    
+
     @media screen and (max-width: 600px){
 		font-size: 18px;
 	}
@@ -56,7 +56,6 @@ a:hover {
 h3{
 	font-size: 20px;
 	line-height: 1.2;
-	margin: -1em 0 0 0;
 	font-weight: normal;
 	display: block;
     @media screen and (max-width: 1040px) {
@@ -65,7 +64,7 @@ h3{
 	@media screen and (max-width: 620px) {
 	    font-size: 18px;
 	}
-    
+
     a{
 		color: $color-archieve-title;
         font-weight: bold;
@@ -75,7 +74,7 @@ h3{
 			border-bottom:none;
 		}
 	}
-    
+
 }
 
 a.category {

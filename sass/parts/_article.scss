@@ -5,7 +5,7 @@ article{
     header {
 		margin-bottom: 1.5em;
 	}
-    
+
 	h2.title{
 		font-size: 30px;
 		font-weight: bold;
@@ -13,23 +13,22 @@ article{
 		margin-left:0px;
 		text-align:left;
 		border-bottom: 0px;
-        color: $color-article-title;
-        
-        @media screen and (max-width: 1040px) {
+    color: $color-article-title;
+
+  	@media screen and (max-width: 1040px) {
 		    font-size: 25px;
-            
 		}
-        
+
 		@media screen and (max-width: 620px) {
 		    font-size: 20px;
 		}
 
 	}
-    
+
 	.entry-content{
 		line-height: 30px;
 		text-align: justify;
-        
+
         @media screen and (max-width: 620px) {
             line-height: 25px;
 		}
@@ -48,7 +47,7 @@ article{
         }
 
 
-       
+
 		blockquote, ul, ol, dl, table, iframe, h1, h2, h3, h4, h5, h6, .video-container{
 			margin-top: 1.5em;
             margin-bottom: 0em;
@@ -60,7 +59,7 @@ article{
             li {
                 margin-bottom: 10px;
             }
-            
+
             p {
                 margin-bottom: 0em;
             }
@@ -70,7 +69,7 @@ article{
 			margin-top: 1.5em;
             margin-bottom: 1.5em;
 		}
-        
+
 		ul, ol, dl{
 			margin-left: 20px;
 			ul, ol, dl{
@@ -83,11 +82,11 @@ article{
 		em{
 			font-style: italic;
 		}
-        
+
 		p{
 			margin-top: 10px;
 		}
-        
+
 		h2 {
 			font-weight: 700;
             color: $color-blog-body;
@@ -103,13 +102,13 @@ article{
             font-weight: 700;
             color: $color-blog-body;
             margin-bottom: 18px;
-			position: relative;
+						position: relative;
             padding-bottom: 10px;
             @media screen and (max-width: 1040px) {
 		        font-size: 20px;
                 margin-bottom: 16px;
 	        }
-    
+
             @media screen and (max-width: 600px){
 		        font-size: 16px;
                 margin-bottom: 10px;
@@ -174,7 +173,7 @@ article{
 		}
 		.video-container, .vc{
 			position: relative;
-			padding-bottom: 56.25%;		
+			padding-bottom: 56.25%;
             margin: 0 auto;
 			iframe, object, embed{
                 position: absolute;
@@ -184,9 +183,9 @@ article{
 				height: 100%;
 			}
 		}
-        
-        
-        
+
+
+
 
 	}
 }
@@ -199,6 +198,5 @@ article{
         font-weight: 500;
         color: $color-tag;
     }
-    
-}
 
+}
