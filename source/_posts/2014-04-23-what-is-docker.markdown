@@ -26,8 +26,6 @@ Dockerの否定形は何か？Dockerの制限は何か？Dockerができない�
 - Dockerは異なるホスト間での連携が得意では**ない**
 - DockerはLXC同士を隔離するのが得意では**ない**
 
-Docker is NOT good at isolating Linux Containers from each other (shared kernel)
-
 ## Dockerとは何か
 
 では，Dockerのメリットはなにか？
@@ -35,39 +33,49 @@ Docker is NOT good at isolating Linux Containers from each other (shared kernel)
 - DockerはディスクイメージのビルドやDocker Indexを通じてそれらを共有することができる
 - Dockerはインフラを管理することができる（現在はLinux Containerのみだが，将来的にはKVMやHyper-v，Xenも管理できるようになる）
 - DockerはChefやPuppetといったConfiguration toolでビルドされたサーバのテンプレートにとって，イメージ配布の良いモデルである
-- Dockerはbtrfs
+- DockerはCopy-on-wirteのファイルシステムである[btrfs](http://ja.wikipedia.org/wiki/Btrfs)を使っており，Gitのようにファイルシステムの差分を管理することができる
+- Dockerはディスクイメージのレポジトリをもっているため，簡単に様々なOS上でDockerを動かすことができる
+
+## Dockerの代替は何か
+
+Amazonの[AWS Marketplace](https://aws.amazon.com/marketplace/ref=mkt_ste_amis_redirect?b_k=291)はDocker Indexに近い．ただし，AMIはAWS上でしか動かすことができないのに対して，Dockerイメージは，Dockerが動いているLinuxサーバであればどこでも動かすことができる．
+
+Cloud Foundryの[Warden](https://github.com/cloudfoundry/warden)はLXCの管理ツールであり，Dockerに近い．ただし，Docker Indexのような他人とイメージを共有する仕組みを持っていない．
+
+## Dockerをいつ使うべきか
+
+DockerはGitやJavaのように基本的な開発ツールであり，日々の開発やオペレーションでDockerを導入し始めるべきである．
+
+例えば，
+
+- アプリケーションの**OSのバージョン管理システム**として使う
+- チームにアプケーションの**OSを配布する**のに使う
+- 利用している**サーバーと同様の環境をラップトップ上に再現する**のに使う（例えば[building](https://github.com/centurylinklabs/building)を使う）
+- アプリケーションに**異なる開発フェーズ**（dev，stg，prod，QA）が必要なときに使う
+- [ChefのCookbook](http://tech.paulcz.net/2013/09/creating-immutable-servers-with-chef-and-docker-dot-io.html)や[PuppetのManifest](http://puppetlabs.com/blog/building-puppet-based-applications-inside-docker)と使う
 
 
+## DockerとJavaはどこが似ているのか
 
-Docker is a great image distribution model for server templates built with Configuration Managers (like Chef, Puppet, SaltStack, etc)
-Docker uses btrfs (a copy-on-write filesystem) to keep track of filesystem diff’s which can be committed and collaborated on with other users (like git)
-Docker has a central repository of disk images (public and private) that allow you to easily run different operating systems (Ubuntu, Centos, Fedora, even Gentoo)
-WHEN TO USE DOCKER?
+Javaには"Write Once. Run Anywhere（一度書けばどこでも実行できる）"という確約がある．
 
-Docker is a basic tool, like git or java, that you should start incorporating into your daily development and ops practices.
+Dockerにも同様の確約がある．一度サーバのテンプレートをつくれば，Dockerが動いているLinuxサーバであれば，どこでも全く同じようにそれを動かすことができる（["Build Once．Run Anywhere"](https://speakerdeck.com/naoya/dockerapurikesiyonfalsepotabiriteiwokao-eru-number-dockerjp)）
 
-Use Docker as version control system for your entire app’s operating system
-Use Docker when you want to distribute/collaborate on your app’s operating system with a team
-Use Docker to run your code on your laptop in the same environment as you have on your server (try the building tool)
-Use Docker whenever your app needs to go through multiple phases of development (dev/test/qa/prod, try Drone or Shippable, both do Docker CI/CD)
-Use Docker with your Chef Cookbooks and Puppet Manifests (remember, Docker doesn’t do configuration management)
-WHAT ALTERNATIVES ARE THERE TO DOCKER?
+例えば，以下のようなJavaコードがあるとする．
 
-The Amazon AMI Marketplace is the closest thing to the Docker Index that you will find. With AMIs, you can only run them on Amazon. With Docker, you can run the images on any Linux server that runs Docker.
-The Warden project is a LXC manager written for Cloud Foundry without any of the social features of Docker like sharing images with other people on the Docker Index
-HOW DOCKER IS LIKE JAVA
-
-Java’s promise: Write Once. Run Anywhere.
-
-Docker has the same promise. Except instead of code, you can configure your servers exactly the way you want them (pick the OS, tune the config files, install binaries, etc.) and you can be certain that your server template will run exactly the same on any host that runs a Docker server.
-
-For example, in Java, you write some code:
-
+```java
+// HelloWorld.java
 class HelloWorldApp {
     public static void main(String[] args) {
         System.out.println("Hello World!");
     }
 }
+```
+
+`javac HelloWorld.java`により生成される`HelloWorld.class`はJVMさえあればどんなマシン上でも動かすことができる．
+
+
+
 Then run javac HelloWorld.java. The resulting HelloWorld.class can be run on any machine with a JVM.
 
 In Docker, you write a Dockerfile:
