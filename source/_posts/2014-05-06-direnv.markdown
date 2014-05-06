@@ -71,5 +71,4 @@ eval "$(direnv hook zsh)"
 
 ## まとめ
 
-Direnvはkitchen-digitaloceanにDotenvのサポートのPull Requestを送った際の[コメント](https://github.com/test-kitchen/kitchen-digitalocean/pull/10)で教えて頂いた．こういうことはどんどんやっていくべきだと思う．
-
+Direnvはkitchen-digitaloceanにDotenvのサポートのPull Requestを送った際の[コメント](https://github.com/test-kitchen/kitchen-digitalocean/pull/10)で教えて頂いた．こういうことはどんどんやっていくべきだと思った．
