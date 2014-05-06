@@ -12,7 +12,7 @@ categories:
 
 ## TL;DR
 
-[Direnv](https://github.com/zimbatm/direnv)を使うと，任意のディレクトリ以下で`.envrc`に記述した環境変数を**常に**有効にすることができる．つまり，Dotenvのような`Dotenv.load`の記述なしで使える．
+[Direnv](https://github.com/zimbatm/direnv)を使うと，任意のディレクトリ以下で`.envrc`に記述した環境変数を**明示的な読み込みなしで**有効にすることができる．つまり，Dotenvのような`Dotenv.load`の記述なしで使える．
 
 また，Direnvはgoで書かれているので，Rubyなしでも使える．
 
