@@ -1,7 +1,0 @@
----
-layout: post
-title: 'rbenv (+ ruby-build)からchruby (+ruby-install)へ移行'
-date: 2014-05-06 23:32
-comments: true
-categories: ruby
----
