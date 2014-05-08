@@ -21,10 +21,10 @@ OSX -> (Proxy VM) -> Docker Container
 VagrantでDockerコンテナを立ち上げる利点はかなりあると思う，
 
 - `vagrant up`だけで環境を立ち上げられる
-- 同様のインターフェースでVagrantはLinuxでもOSXでも動かせる
-- Vagrantの機能（syncd folder，ネットワーク設定，`vagrant ssh`，provisioner，`vagrant share`）が使える
+- 同様のインターフェースでLinuxでもOSXでも動かせる
 - コンテナの立ち上げの設定をVagrantfileに書ける
 - Proxy VMの設定をVagranfileに書ける
+- Vagrantの機能（syncd folder，ネットワーク設定，`vagrant ssh`，provisioner，`vagrant share`）が使える
 - プラグインが書ける
 
 
@@ -36,7 +36,7 @@ VagrantでDockerコンテナを立ち上げる利点はかなりあると思う�
 
 ## 使ってみた
 
-OSX上でざっと触ってみた．まずは，最新版(1.6.1)をインストール．
+OSX上でざっと触ってみた．最新版(1.6.1)をインストールしておく．
 
 ```bash
 $ vagrant -v
@@ -82,7 +82,9 @@ end
 - カレントディレクトリ（`.`）のDockerfileをもとにイメージをビルド
 - そのイメージからコンテナの立ち上げ
 
-コンテナの立ち上げの際は，Proxy VMの8080ポートをコンテナの80ポートにポートフォワードする．
+コンテナの立ち上げの際は，Proxy VMの8080ポートをコンテナの80ポートにフォワードする．
+
+### vagrant up
 
 あとは，いつも通りに立ち上げるだけ．
 
@@ -90,7 +92,7 @@ end
 $ vagrant up --provider=docker
 ```
 
-これを実行すると，VagrantはProxy CM（boot2docker box）のインストール，イメージのビルドなどをよしなにやってくれる．
+これを実行すると，VagrantはProxy VM（boot2docker box）のインストールと起動，Dockerイメージのビルド，コンテナの起動までをよしなにやってくれる．
 
 [global status](http://www.vagrantup.com/blog/feature-preview-vagrant-1-6-global-status.html)を見てみると，VMとコンテナの両方が起動しているのが確認できる．
 
@@ -100,14 +102,12 @@ $ vagrant global-status
 4f5f9d8  default docker     preparing /Users/deeeet/dev/sample/
 ```
 
-他にも，
+コンテナの操作には，以下のコマンドが使える．
 
 - `vagrant reload`でDockerfileの再ビルドを実行する
 - `vagrant docker-logs`で立ち上がったコンテナのログを確認する
 
-などができる．
-
-また，ホスト（OSX）の4243ポートはProxy VMの4243ポートへポートフォワードされているので，`tcp://localhost:4243`を介してDockerコマンドを直接叩くこともできる．
+また，ホスト（OSX）の4243ポートはProxy VMの4243ポートへフォワードされているので，`tcp://localhost:4243`を介してDockerコマンドを直接叩くこともできる．
 
 ### Vagrantfile (Proxy VM)
 
