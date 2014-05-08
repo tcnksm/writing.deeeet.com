@@ -16,6 +16,8 @@ Vagrant 1.6からDocker providerがサポートされた．つまり，Vagrant�
 OSX -> (Proxy VM) -> Docker Container
 ```
 
+OSXの場合，やってることは今までと同じ．ただ，Docker providerを使うと，boot2dockerの立ち上げまで面倒を見てくれる．
+
 ## 何が嬉しいのか
 
 VagrantでDockerコンテナを立ち上げる利点はかなりあると思う，
