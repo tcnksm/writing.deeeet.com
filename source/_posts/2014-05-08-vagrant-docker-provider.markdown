@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'VagrantのDocker provider'
+title: 'Vagrant1.6のDocker provider'
 date: 2014-05-08 21:42
 comments: true
 categories: vagrant docker
@@ -10,13 +10,13 @@ categories: vagrant docker
 
 Vagrant 1.6からDocker providerがサポートされた．つまり，VagrantでVMだけでなくコンテナも管理できるようになった．
 
-この機能はネイティブでDockerをサポートしてないOSXでも使え，この場合は裏側でProxy VM（[boot2docker box](https://vagrantcloud.com/mitchellh/boot2docker)）が勝手に立ち上がって，その上でコンテナが立ち上がる．イメージとしては以下のようになる．
+この機能はネイティブでDockerをサポートしてないOSXでも使え，この場合は裏側でProxy VM（[boot2docker box](https://vagrantcloud.com/mitchellh/boot2docker)）が勝手に立ち上がって，その上でコンテナが立ち上がる．つまり，以下のようになる．
 
 ```
 OSX -> (Proxy VM) -> Docker Container
 ```
 
-OSXの場合，やってることは今までと同じ．ただ，Docker providerを使うと，boot2dockerの立ち上げまで面倒を見てくれる．
+OSXの場合，これは今までboot2dockerを使ってやってきたのと変わらない．ただ，Docker providerを使うと，boot2dockerの立ち上げまで面倒を見てくれる．
 
 ## 何が嬉しいのか
 
@@ -47,7 +47,7 @@ Vagrant 1.6.1
 
 ### Dockerfile
 
-まず，`Dockerfile`の準備．ここでは簡単な例としてApacheコンテナを立ち上げるための`Dockerfile`を準備する．
+まず`Dockerfile`の準備．ここでは例としてApacheコンテナを立ち上げる．
 
 ```bash
 FROM ubuntu:12.04
@@ -85,6 +85,11 @@ end
 - そのイメージからコンテナの立ち上げ
 
 コンテナの立ち上げの際は，Proxy VMの8080ポートをコンテナの80ポートにフォワードする．
+
+Linuxの場合は得に意識する必要はないけど，OSXの場合は，この`Vagrantfile`は**Proxy VMから見たコンテナ**というのを意識しないといけない．ポートフォワードは，Proxy VMからコンテナへのポートフォーワードで，OSXからではない．
+
+後述するがOSXからコンテナに直接アクセスするには，Proxy VMのための`Vagrantfile`が必要になる．
+
 
 ### vagrant up
 
@@ -147,11 +152,19 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-このVagranfileにPort Forwardの設定を追記して，`vagrant_vagrantfile`で指定する形にしておく．
+基本は，このVagrantfileを利用し，設定したい内容を追記する．そして，`vagrant_vagrantfile`でこのVagrantfile指定する形にする．
+
+上の例の場合は，このVagranfileに以下のポートフォワードの設定を追記して起動し直せば，OSXからコンテナのindex.htmlにアクセスすることができるようになる．
+
+```ruby
+config.vm.network :forwarded_port, guest: 8080, host: 8080
+```
 
 ## 雑感
 
 他にも`vagrant ssh`やsyncd folderも使えそう．sshできれば，chefやpuppetのprovisionerをコンテナに流せるし，syncd folderは，Dockerのvolume機能と相性が良さそう．
+
+ただDockerを普通に操作するのと比べて，少し意識を変えないといけない．その辺，もう少し触ってみて様子をみたい．
 
 
 
