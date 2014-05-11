@@ -10,7 +10,7 @@ categories: docker serf
 
 1.0のRCである0.11はいくつかの新機能が追加された．例えば，SELinuxのサポートや，Host networking機能，Link機能でのホスト名，Docker deamonへのpingなど．
 
-この中でもHost networking機能が気になったので，実際に手を動かして検証してみた．事前知識として["Dockerのネットワークの基礎"](http://deeeet.com/writing/2014/05/11/docker-network/)も書きました．ネットワークに関して不安があるひとが先にみると，Host Networing機能の利点／欠点もわかりやすいと思います．
+この中でもHost networking機能がなかなか面白いので，実際に手を動かして検証してみた．事前知識として["Dockerのネットワークの基礎"](http://deeeet.com/writing/2014/05/11/docker-network/)も書きました．ネットワークに関して不安があるひとが先にみると，Host Networing機能の利点／欠点もわかりやすいと思います．
 
 ## TL;DR
 
