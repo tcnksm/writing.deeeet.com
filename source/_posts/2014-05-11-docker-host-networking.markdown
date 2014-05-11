@@ -14,7 +14,7 @@ categories: docker serf
 
 ## TL;DR
 
-Host networking機能を使うと，異なるホスト間のコンテナの連携がちょっぴりやりやすくなる．
+Host networking機能を使うと，異なるホスト間のコンテナの連携がちょっぴりやりやすくなる．SerfやConsulのようなサービスディスカバリーツールとの相性も良さそう．
 
 まだ出たばかりの機能で実際に使ってるひとがいないので，あくまで個人の実感．[HNのコメント](https://news.ycombinator.com/item?id=7712769)で同様の発言は見かけた．
 
