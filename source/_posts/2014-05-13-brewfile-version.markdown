@@ -37,5 +37,6 @@ install tomcat6 || true
 
 - [Homebrew vs Boxen を比較して、brewproj に着手 - ja.ngs.io](http://ja.ngs.io/2014/05/08/homebrew-boxen/)
 
+### 参考
 
-
+- [BrewfileでHomebrewパッケージを管理する](http://deeeet.com/writing/2013/12/23/brewfile/)
