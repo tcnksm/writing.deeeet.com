@@ -8,7 +8,7 @@ categories: docker
 
 [progrium/logspout](https://github.com/progrium/logspout#streaming-endpoints)
 
-logspoutはDokkの作者である[Jeff Lindsay](https://github.com/progrium)によるDockerコンテナのログのルーティングツール．
+logspoutはDokkの作者である[Jeff Lindsay](https://github.com/progrium)によるDockerコンテナのログの収集，ルーティングツール．
 
 logspoutは，ホスト内で動かした全てのDockerコンテナの出力を収集して，好きなところに飛ばす（ルーティングする）ためのツール．以下の2つの特徴がある
 
