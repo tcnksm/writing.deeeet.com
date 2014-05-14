@@ -1,0 +1,119 @@
+---
+layout: post
+title: 'logspoutでDockerコンテナのログを収集する'
+date: 2014-05-14 22:18
+comments: true
+categories: docker
+---
+
+[progrium/logspout](https://github.com/progrium/logspout#streaming-endpoints)
+
+logspoutはDokkの作者である[Jeff Lindsay](https://github.com/progrium)によるDockerコンテナのログのルーティングツール．
+
+logspoutは，ホスト内で動かした全てのDockerコンテナの出力を収集して，好きなところに飛ばす（ルーティングする）ためのツール．以下の2つの特徴がある
+
+- コンテナとして起動（ステートレス）
+- HTTP APIによるルーティングの設定
+
+ログを管理したり，履歴を参照するといったことはできない．コンテナのログをリアルタイムで好きなところに飛ばすだけ．
+
+これだけだが，Dockerのログの問題をいい感じに解決してくれそう．
+
+## Dockerのログのしくみ
+
+まず，簡単にDockerのログのしくみを説明する．
+
+現時点（2014年5月）でDockerはコンテナ内で吐き出されたstdout/stderrを取得することができる．コンテナのプロセスが`stdout`と`stderr`にログを吐き出し，Dockerはそれをホストに`json`として保存する．`docker log`コマンドを使うとそれを取得することができる．
+
+これはシンプルだけど欠点でもある．いずれディスクが圧迫されるし，毎回`docker log`を叩くわけにもいかない．そのため，Dockerのログをどうするかってのはいろいろ試みられている．
+
+## Dockerのログ収集の試み
+
+Dockerコンテナのログ収集の試みは，大きく分けて3つある．
+
+- **コンテナの内部で収集する**：コンテナ内でログ収集のプロセスを同時に走らせる（["dockerなら5分で動く！ nginxのログをfluentdで集めてnorikraでストリーム分析"](http://qiita.com/kazunori279/items/1bbb8fce10219217c247)）
+- **コンテナの外部で収集する**：ホスト側でログ収集のエージェントを走らせて，コンテナのログの書き出し先をホストからマウントする，もしくは`json`を直接読む（["Docker Log Management Using Fluentd"](http://jasonwilder.com/blog/2014/03/17/docker-log-management-using-fluentd/)）
+- **収集および配信用のコンテナを立てる**：[logstash-forwarder](https://github.com/elasticsearch/logstash-forwarder)のようなログの収集および配信を担うエージェントをコンテナ内に立てる．そして各コンテナが起動の際に`--volumes-from`でそのコンテナを指定する（["Docker And Logstash: Smarter Log management For Your Containers"](https://denibertovic.com/post/docker-and-logstash-smarter-log-management-for-your-containers/)）
+
+やりようはいろいろあるが，少なくともDocker的に良いのは，
+
+- コンテナに複数プロセスを立てない　
+- ホストに多くを設定しない 
+
+これを満たすのは，3番目の専用のコンテナを立てる方式．logspoutはこれをシンプルに実現することができる（例えば，上のように`--volume-from`とか必要ない）
+
+## logsoutを使う
+
+まず，インストール．素晴らしい．
+
+```bash
+$ docker pull progrium/logspout
+```
+
+例として，"hello world"を出力し続ける単純なコンテナを立てておく．
+
+```bash
+$ docker run -d --name hello1 busybox /bin/sh -c "while true; do echo hello world; sleep 1; done"
+$ docker run -d --name hello2 busybox /bin/sh -c "while true; do echo hello world; sleep 1; done"
+```
+
+これらに対してログを収集するには以下を実行する．
+
+```bash
+$ docker run -d -p 8000:8000 --name log -v=/var/run/docker.sock:/tmp/docker.sock progrium/logspout
+```
+
+HTTP APIのアクセスを可能にするため`8000`ポートを解放し，ホストの`/var/run/docker.sock`をマウントする．
+
+ログを見てみる．
+
+```bash
+$ curl $(docker port log 8000)/logs
+             log|[martini] Started GET /logs for 172.17.42.1:50859
+             hello2|hello world
+             hello1|hello world
+             hello2|hello world
+             hello1|hello world
+             hello2|hello world
+```
+
+リアルタイムの出力が確認できる．出力は色づけもされている．
+
+### ルーティング
+
+一番単純な方法は，rsyslogに投げること．以下のように起動コマンドにURIを指定するだけ．
+
+```bash
+$ docker run -v=/var/run/docker.sock:/tmp/docker.sock progrium/logspout syslog://logs.papertrailapp.com:55555
+```
+
+以下のようにPOSTを使って，ルーティングの設定をすることもできる．
+
+```bash
+$ curl $(docker port log 8000)/logs -X POST \
+    -d '{"source": {"filter": "db", "types": ["stderr"]}, target": {"type": "syslog", "addr": "logs.papertrailapp.com:55555"}}'
+```
+
+上の例では，名前が`db`であるコンテナの`stderr`への出力を`logs.papertrailapp.com:55555`に飛ばすように設定している．`addr`はDNSで名前解決さえできればいいので，[Consul](https://github.com/hashicorp/consul)などのサービスディスカバリを使えば，さらなる道を開けそう．
+
+ルーティングは以下のようにGETでデバッグしつつ設定できる．
+
+```bash
+GET /logs
+GET /logs/filter:<container-name-substring>
+GET /logs/id:<container-id>
+GET /logs/name:<container-name>
+```
+
+## まとめ
+
+考慮する問題はいくつかある．
+
+- 若干の遅れが生じる
+- stdout/stderrだけしか取得できない（これはDockerの仕様）
+
+まだ出たばかりなので，1つ目はすぐに解決しそう．2つ目の問題に関しては，`volume`やマウントを駆使してなんとかするしかない．
+
+それでも素晴らしい．得に良いなと思うのが，`docker run`ですぐ使えるところ．Dockerの良さが溢れ出ている．
+
+
