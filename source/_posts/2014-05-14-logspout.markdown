@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'logspoutでDockerコンテナのログを収集する'
+title: 'logspoutでDockerコンテナのログの集約・ルーティング'
 date: 2014-05-14 22:18
 comments: true
 categories: docker
@@ -8,14 +8,14 @@ categories: docker
 
 [progrium/logspout](https://github.com/progrium/logspout#streaming-endpoints)
 
-logspoutは，ホスト内で動かした全てのDockerコンテナの出力を収集して，好きなところに飛ばす（ルーティングする）ためのツール．開発者はDokkの[Jeff Lindsay](https://github.com/progrium)．
+logspoutは，ホスト内で動かした全てのDockerコンテナの出力を集約して，好きなところに飛ばす（ルーティングする）ためのツール．開発者はDokkの[Jeff Lindsay](https://github.com/progrium)．
 
 以下の2つの特徴がある
 
 - コンテナとして起動（ステートレス）
 - HTTP APIによるルーティングの設定
 
-ログを管理したり，履歴を参照するといったことはできない．コンテナのログをリアルタイムで好きなところに飛ばすだけ．
+ログを貯めて管理したり，検索するといったことはできない．コンテナのログをリアルタイムで好きなところに飛ばすだけ．
 
 これだけだが，Dockerのログの問題をいい感じに解決してくれそう．
 
@@ -38,7 +38,7 @@ Dockerコンテナのログ収集の試みは，大きく分けて3つある．
 やりようはいろいろあるが，少なくともDocker的に良いのは，
 
 - コンテナに複数プロセスを立てない　
-- ホストに多くを設定しない 
+- ホストに多くを設定しない
 
 これを満たすのは，3番目の専用のコンテナを立てる方式．logspoutはこれをシンプルに実現することができる（例えば，上のように`--volume-from`とか必要ない）
 
@@ -115,5 +115,3 @@ GET /logs/name:<container-name>
 まだ出たばかりなので，1つ目はすぐに解決しそう．2つ目の問題に関しては，`volume`やマウントを駆使してなんとかするしかない．
 
 それでも素晴らしい．得に良いなと思うのが，`docker run`ですぐ使えるところ．Dockerの良さが溢れ出ている．
-
-
