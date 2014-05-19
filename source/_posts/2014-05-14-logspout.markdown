@@ -50,7 +50,7 @@ Dockerコンテナのログ収集の試みは，大きく分けて3つある．
 
 ## logsoutを使う
 
-まず，インストール．素晴らしい．
+まず，インストール（以下で`docker run`すればインストールもされるので実際は必要ない）
 
 ```bash
 $ docker pull progrium/logspout
@@ -113,9 +113,9 @@ GET /logs/name:<container-name>
 
 ## CoreOSの場合
 
-Dockerの運用に関しては[CoreOS](https://coreos.com/)に知見がある．CoreOSの場合のコンテナのログのルーティング方法について[@mopemopeさん](https://twitter.com/mopemope)に教えていただいた（参考：["CoreOS logging to remote destinations"](https://medium.com/coreos-linux-for-massive-server-deployments/defb984185c5)）．
+Dockerの運用に関しては[CoreOS](https://coreos.com/)に多くの知見がある．CoreOSのコンテナのログのルーティング方法について[@mopemopeさん](https://twitter.com/mopemope)に教えていただいた（参考：["CoreOS logging to remote destinations"](https://medium.com/coreos-linux-for-massive-server-deployments/defb984185c5)）．
 
-CoreOSの場合は，上の分類でいうと**コンテナの外部で収集する**方式になる．そもそもCoreOSでは，systemdでコンテナを起動する想定になっている．そして，systemd自前のjournalを使えばログの集約・ルーティングができる．今回のようにログをルーティングするには，以下のように行う．
+CoreOSの場合は，上の分類でいうと**コンテナの外部で収集する**方式になる．そもそもCoreOSでは，systemdでコンテナを起動する想定になっている．そのため，ログのルーティングにはsystemd自前のjournalが使える．logspoutと同様のことをするには，以下のようにする．
 
 ```bash
 $ journalctl -o short -f | ncat remote-destination.com 12345
@@ -131,4 +131,4 @@ $ journalctl -o short -f | ncat remote-destination.com 12345
 - stdout/stderrだけしか取得できない（これはDockerの仕様）
 - [ルーティング用のコンテナが落ちたときにログを保証できない](https://twitter.com/kenjiskywalker/status/466784403020992512)
 
-まだ出たばかりなので，1つ目はすぐに解決しそう．2つ目の問題に関しては， 特別なログは`volume`やマウントを駆使してなんとかするしかない．3つ目に関して，このコンテナはログをルーティングするだけで，保存はできない．つまり，コンテナが落ちている間のログは失われ，再度送信することはできない．コンテナのヘルスチェックや障害対応などまだまだ考えることは多い．
+まだ出たばかりなので，1つ目はすぐに解決しそう．2つ目の問題に関しては， 特別なログは`volume`やマウントを駆使してなんとかするしかない．3つ目に関して，このコンテナはログをルーティングするだけで，保存はできない．つまり，コンテナが落ちている間のログは失われ，再度送信することはできない．コンテナのヘルスチェックや障害対応などまだまだ考えることは多いように思える．
