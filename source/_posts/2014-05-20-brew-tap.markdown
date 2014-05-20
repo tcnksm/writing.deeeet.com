@@ -3,25 +3,25 @@ layout: post
 title: 'HomeBrewでツールを配布する'
 date: 2014-05-20 18:33
 comments: true
-categories: golang
+categories:
 ---
 
 [複数プラットフォームにGoアプリケーションを配布する](http://deeeet.com/writing/2014/05/19/gox/)
 
 上の記事で，Go言語で作ったツールを複数プラットフォーム向けにクロスコンパイルし，作成されたバイナリを[Bintray](https://bintray.com/)でホストするまではできた．あとは，ダウンロード・展開・PATHを通す，をやってもらえば，自分の作ったツールを使ってもらえる．
 
-OSX向けにツールを配布する場合はBrewを使えば，これをもっと簡単にできる．
+OSX向けにツールを配布する場合はHomeBrewのFormulaを作れば，これをもっと簡単にできる．
 
 ## TL;DR
 
-以下でダウンロード可能にする．
+以下でインストールできるようにする．
 
 ```bash
 $ brew tap <ユーザ名>/<パッケージ名>
 $ brew install <パッケージ名>
 ```
 
-作成したツールが，Githubのリリースページや[Bintray](https://bintray.com/)にホストされていることを前提とする．
+ただし作成したツールが，Githubのリリースページや[Bintray](https://bintray.com/)にホストされていることを前提とする．
 
 ## Formulaの作成
 
@@ -53,13 +53,13 @@ class Foo < Formula
 end
 ```
 
-あとは，これをごりごりと編集するだけ．使えるDSLは[ここ](https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook)を見るとよい．`system`が使えるのでやりたい放題といえばやりたい放題．
+あとは，これを編集するだけ．使えるDSLは[ここ](https://github.com/Homebrew/homebrew/wiki/Formula-Cookbook)を見るとよい．`system`が使えるのでやりたい放題といえばやりたい放題．
 
 ### DSLを書く
 
-ここでは，自分が使ったものだけ説明する．
+ここでは，最低限使えそうなものを紹介する．
 
-Go言語では`amd64`と`386`のバイナリをそれぞれ作れるので，それに応じてインストールURLを変更する．`Hardware.is_64_bit?`を使う．以下のように書ける．
+Go言語のクロスコンパイルでは`amd64`と`386`のバイナリをそれぞれ作れるので，それに応じてインストールURLを変更できるようにする．これには`Hardware.is_64_bit?`を使う．以下のように書ける．
 
 ```ruby
 if Hardware.is_64_bit?
@@ -71,7 +71,7 @@ else
 end
 ```
 
-バイナリをPATHが通っているディレクトリに配置するには`bin.install`を使う．パッケージは基本的に`/usr/local/Cellar`以下にダウンロードされる．`bin.install`は，Cellarから`/usr/local/bin`に対してシンボリックリンクを貼ってくれる．
+バイナリをPATHが通っているディレクトリに配置するには`bin.install`を使う．パッケージは基本的に`/usr/local/Cellar`以下にダウンロード・展開される．`bin.install`は，Cellarから`/usr/local/bin`に対してシンボリックリンクを貼ってくれる．
 
 ```ruby
 def install
@@ -81,7 +81,7 @@ end
 
 `/usr/local/etc`等にもリンクをはることができる．
 
-インストール完了後に，メッセージを表示した場合は，`caveats`関数を準備する．例えば，「これを`.bashrc`や`.zshrc`に書いてください」といった文言を表示したいとき．
+インストール完了後に，メッセージを表示した場合は，`caveats`関数を準備する．例えば，「xxxを`.bashrc`や`.zshrc`に書いてください」といった文言を表示したいとき．
 
 ```ruby
 def caveats
@@ -97,14 +97,14 @@ end
 
 ### テストする
 
-Formulaができたらいつも通り`brew`コマンドを叩いてテストする．`brew uninstall`すればシンボリックリンクは消されるし，Formulaそのものを消したければ`git checkout`してしまえばよい．
+Formulaができたらいつも通り`brew`コマンドを叩いてテストする．`brew install`を実行しても，`brew uninstall`すれば貼られたシンボリックリンクは消される．DSLを使う限り動作は全て`/usr/local/bin`で完結するので，調査もしやすい．Formulaそのものを消したければ`git checkout`してしまえばよい．
 
 
 ## Tap
 
 公式のレポジトリに取り込んでもらいたい場合は，そのままブランチを切ってPull requestを送る．
 
-公式に取り込まれるのに腰が引ける場合は，自分用のGithubレポジトリを作り，その中にFormulaをぶっ込む．レポジトリ名は`homebrew-<レポジトリ名>`とする．あとは以下で，自分のFormulaがBrewの対象とすることができる．
+公式に取り込まれるのに腰が引ける場合は，自分用のGithubレポジトリを作り，その中にFormulaをぶっ込む．レポジトリ名は`homebrew-<レポジトリ名>`とする．例えば，上の例で言うと，`foo.rb`を`homebrew-foo`レポジトリに入れて公開する．あとはユーザに以下を実行してもらえば，自分のFormulaをHomeBrewのインストール対象にすることができる．
 
 ```bash
 $ brew tap <ユーザ名>/<レポジトリ名>
