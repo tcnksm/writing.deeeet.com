@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'HomeBrewでツールを配布する'
+title: 'HomeBrewで自作ツールを配布する'
 date: 2014-05-20 18:33
 comments: true
 categories:
