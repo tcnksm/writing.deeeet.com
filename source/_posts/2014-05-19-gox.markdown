@@ -22,7 +22,7 @@ $ go get github.com/tcnksm/jj_
 
 ## TL;DR
 
-以下のようにOXSとLinux，そしてWindowsのそれぞれ386とamd64に対してツールを配布する．
+以下のようにOXSとLinux，そしてWindowsのそれぞれ386とamd64に対してツールを配布する（まだ不安定なので使わないでください）．
 
 [Download](https://bintray.com/tcnksm/jj/jj/0.1.0/view/files)
 
@@ -154,20 +154,3 @@ done
 ### 参考
 
 - [Bintray REST API](https://bintray.com/docs/api.html)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
