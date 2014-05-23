@@ -6,7 +6,7 @@ comments: true
 categories: docker
 ---
 
-<script async class="speakerdeck-embed" data-id="8c6ce790c3cf0131b3ad163a5c5b95ea" data-ratio="1.33333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+<script async class="speakerdeck-embed" data-id="8c6ce790c3cf0131b3ad163a5c5b95ea" data-ratio="1.33333333333333" src="http://speakerdeck.com/assets/embed.js"></script>
 
 ["Go Web ApplicationをHerokuにデプロイ + Heroku on Docker #herokujp"](https://speakerdeck.com/tcnksm/go-web-applicationwoherokunidepuroi-plus-heroku-on-docker-number-herokujp)
 
@@ -87,6 +87,3 @@ builderは`ctlc/buildstep:ubuntu13.10`イメージに含まれており，dokku�
 
 - [Introduce of building/Docker // Speaker Deck](https://speakerdeck.com/udzura/docker)
 - [【個人メモ】buildingを使って気軽にDocker containerをつくろう - Qiita](http://qiita.com/futoase/items/21167e9d064b0e336e8f)
-
-
-
