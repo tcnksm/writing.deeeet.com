@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'カーネル読書会 #111でLTしてきた+次世代のPaaS'
+title: 'カーネル読書会 #111でLTしてきた+Dockerによる次世代のPaaS'
 date: 2014-05-30 22:07
 comments: true
 categories: docker
