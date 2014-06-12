@@ -53,7 +53,12 @@ bindkey '^O' percol-doc
 
 すると，例えば上のgifのように`^O`で，`ghq`で集約したプロジェクトを`percol`で検索して，そのプロジェクトのGithubページをブラウザで開くということが可能になる．
 
-`ghq`ですべてのプロジェクトを集約していることを前提とすれば，もっといろいろできそうだなと感じた．
+インストールは以下．
+
+```bash
+$ brew tap tcnksm/docc
+$ brew install docc
+```
 
 ## dockerのGoパッケージ
 
@@ -63,4 +68,3 @@ bindkey '^O' percol-doc
 
 
 `docc`のバグは，[@deeeet](https://twitter.com/deeeet)，もしくはGithubの[Issue](https://github.com/tcnksm/docc/issues)にお願いします．
-
