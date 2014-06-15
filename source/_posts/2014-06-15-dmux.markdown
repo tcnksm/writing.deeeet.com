@@ -20,22 +20,24 @@ dmuxを使うと現在起動中のtmuxのwindowにおいて，新しくpaneを�
 
 - `dmux init`により新しいpaneでコンテナを起動し，そこにアタッチする
 - `dmux stop`でプロセスを停止してpaneを削除する
-- `dmux start`で停止したプロセスを再開して再びコンテナにアタッチする（`for`文が途中から再開している）
+- `dmux start`で停止したプロセスを再開（`for`文のカウントが途中から再開している）し，新しいpaneで再びコンテナにアタッチする
 - `dmux delete`でコンテナとpaneを削除する
 
 ## なぜつくったか
 
-Dockerの[v0.12.0](https://github.com/dotcloud/docker/blob/master/CHANGELOG.md#0120-2014-06-05)で追加された`pause`，`unpause`コマンドの検証と，それによってどのようことが可能になるかを試すために作成した．
+Dockerの[v0.12.0](https://github.com/dotcloud/docker/blob/master/CHANGELOG.md#0120-2014-06-05)で追加された`pause`，`unpause`コマンドの検証と，それによってどのようことができそうかを探求するためにつくった．
 
 そもそもDockerには，`stop`と`start`というコマンドがある．これらは，コンテナの停止と起動のために使われる．具体的には`stop`を実行すると，コンテナには`SIGTERM`と`SIGKILL`が送られコンテナはシャットダウンする．そして`start`を実行すると停止したコンテナが再起動する．
 
 それと異なり`pause`は，[cgroup freezer](https://www.kernel.org/doc/Documentation/cgroups/freezer-subsystem.txt)により，コンテナを停止する．つまり，`pause`を使うとプロセスの実行を一時停止，再開することができるようになる．
 
-`pause`を使えばライブマイグレーションができるのでは，といろいろ試してみたが，まだまだその土壌はなく断念した．それでも面白い機能なので，何かできないかということで今回の実装に至った．実際，上のデモにおける`for`文の停止とその再開はこの`pause`を使って実現している．
+`pause`を使えばライブマイグレーションができるのでは，といろいろ試してみたが，まだまだその土壌はなく断念した．それでもこれは面白い機能なので，何かできないかということで今回の実装に至った．実際，上のデモにおける`for`文の停止とその再開はこの`pause`を使って実現している．
+
+また，dotcloudの[jpetazzo](https://github.com/jpetazzo)さんが，[CRIU](http://criu.org/Main_Page)（"Checkpoint Restart In Userspace"）を使って似たようなツールをつくっており，それにインスパイアされている．
 
 ## dmuxの機能
 
-`pause`と`unpause`の検証だけでなく，ある程度使えるツールにはしてある（つもり）．上のデモの内容に加えて以下のことできる．
+`pause`と`unpause`で遊ぶだけでなく，ある程度使えるツールにはしてある（つもり）．上のデモの内容に加えて以下のことできる．
 
 - `dmux init`ではデフォルトで`ubuntu`イメージが使われるが，`-i`オプションで好きなイメージを指定することができる．つまり，作成したイメージの軽い検証に使える．
 - `dmux save`を使うといろいろ試したコンテナをイメージとして保存することができる．
