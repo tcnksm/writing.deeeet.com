@@ -1,0 +1,109 @@
+---
+layout: post
+title: '爆速でGo言語のCLIをつくるcli-initというツールをつくった'
+date: 2014-06-22 21:49
+comments: true
+categories: golang
+---
+
+[tcnkms/cli-init・GitHub](https://github.com/tcnksm/cli-init)
+
+Go言語で作られたコマンドラインツールを見ていると，[codegangsta/cli](https://github.com/codegangsta/cli)というパッケージがよく使われている．
+
+これは，コマンドラインツールのサブコマンドやオプションといったインターフェースを定義するためのライブラリ．これを使えば，Usageを自動で生成してくれたり，bash補完関数をつくれたりするため，簡単にコマンドラインツールをつくることができる．
+
+これを使って，自分もGo言語でコマンドラインツールをいくか作ってみた（e.g., [Dockerとtmuxを連携するdmuxというツールをつくった](http://deeeet.com/writing/2014/06/15/dmux/)）．自分で書いたり，他のプロジェクトを参考にしたりすると，codegangsta/cliを使ったプロジェクトは同様のパターンで記述されていることに気づいた．
+
+このパターンを毎回記述するのは怠いし，もっと別のところに集中したいので，それを生成する`cli-init`というツールをつくった．
+
+
+## デモ
+
+以下は簡単な動作例．
+
+{%img /images/post/cli-init.gif %}
+
+上のデモでは，`add`と`list`，`delete`というサブコマンドをもつ`todo`アプリケーションを生成している．生成結果は，[tcnksm/sample-cli-init](https://github.com/tcnksm/sample-cli-init)にある．
+
+## 動作
+
+使い方は，以下．例えば上のデモの場合は，
+
+```bash
+$ cli-init -s add,list,delete todo
+```
+
+`-s`でサブコマンドを指定し，最後に作りたいコマンドラインアプケーションの名前を指定するだけ．これにより以下のファイルが生成される．
+
+- todo.go
+- commands.go
+- version.go
+- README.md
+- CHANGELOG.md
+
+まず，**todo.go**は以下．
+
+```go
+func main() {
+    app := cli.NewApp()
+    app.Name = "todo"
+    app.Version = Version
+    app.Usage = ""
+    app.Author = "tcnksm"
+    app.Email = "nsd22843@gmail.com"
+    app.Commands = Commands
+    app.Run(os.Args)
+}
+```
+
+ここには，`main()`関数があり，その中でアプリケーションの基本的な情報が記述される．`Author`や`Email`は`.gitconfig`から勝手に抜き出される．また`Version`は**version.go**の値が使われる．自分で書くべきは，`Usage`の中身だけ．
+
+次に，**commands.go**には，サブコマンドの定義が記述される．例えば，サブコマンド`list`に対しては，以下が生成される．
+
+```go
+var commandList = cli.Command{
+    Name:  "list",
+    Usage: "",
+    Description: `
+`,
+    Action: doList,
+}
+
+func doList(c *cli.Context) {
+}
+
+```
+
+自分で書くべきは，`Usage`と`Description`，そして，`doList()`関数（`list`の実際の挙動）だけ．
+
+開発時に必須の`debug()`関数も生成される．
+
+```go
+func debug(v ...interface{}) {
+    if os.Getenv("DEBUG") != "" {
+        log.Println(v...)
+    }
+}
+```
+
+## インストール
+
+Go言語がインストールされていることを前提にしている．
+
+```bash
+$ go get -d github.com/tcnksm/cli-init
+$ make install 
+```
+
+## まとめ
+
+`cli-init`を使えば，お決まりパターンの記述をなくし，コア機能の記述に集中することができる．
+
+### あわせて読みたい
+
+- ["複数プラットフォームにGoアプリケーションを配布する"](http://deeeet.com/writing/2014/05/19/gox/)
+- ["HomeBrewで自作ツールを配布する"](http://deeeet.com/writing/2014/05/20/brew-tap/)
+
+
+
+
