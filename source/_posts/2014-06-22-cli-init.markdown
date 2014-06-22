@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '爆速でGo言語のCLIをつくるcli-initというツールをつくった'
+title: '高速にGo言語のCLIツールをつくるcli-initというツールをつくった'
 date: 2014-06-22 21:49
 comments: true
 categories: golang
@@ -10,15 +10,15 @@ categories: golang
 
 Go言語で作られたコマンドラインツールを見ていると，[codegangsta/cli](https://github.com/codegangsta/cli)というパッケージがよく使われている．
 
-これは，コマンドラインツールのインターフェースを定義するためのライブラリで，これを使えば，サブコマンドをもつコマンドラインツールを簡単につくることができる．Usageを自動で生成してくれたり，bash補完関数をつくれたりするところもよい．
+これは，コマンドラインツールのインターフェースを定義するためのライブラリで，これを使えば，サブコマンドをもつコマンドラインツールを簡単につくることができる（Usageを自動で生成してくれたり，bash補完関数をつくれたりするという便利機能もある）．
 
 これを使って，自分もGo言語でコマンドラインツールをいくか作ってみた（e.g., [Dockerとtmuxを連携するdmuxというツールをつくった](http://deeeet.com/writing/2014/06/15/dmux/)）．で，自分で書いたり，他のプロジェクトを参考にしたりすると，codegangsta/cliを使ったプロジェクトは同様のパターンで記述されていることに気づいた．
 
-このパターンを毎回記述するのは怠いし，もっと別のところに集中したいので，それを生成する`cli-init`というツールをつくった．
+このパターンを毎回記述するのは怠いし，もっと別のところに集中したいので，それを自動生成する`cli-init`というツールをつくった．
 
 ## TL;DR
 
-`cli-init`を使えば，Go言語コマンドラインツール作成時のお決まりパターンの記述をなくし，コア機能の記述に集中することができる．
+`cli-init`を使えば，Go言語コマンドラインツール作成時のお決まりパターンをテンプレートとして自動生成し，コア機能の記述に集中することができる．
 
 
 ## デモ
@@ -45,7 +45,7 @@ $ cli-init -s add,list,delete todo
 
 `-s`でサブコマンドを指定し，最後に作りたいコマンドラインアプケーションの名前を指定するだけ．
 
-## 生成されるファイルとやるべきこと
+## 生成されるファイル
 
 例えば，上記のコマンドでは以下のファイルが生成される．
 
@@ -70,7 +70,7 @@ func main() {
 }
 ```
 
-ここには，`main()`関数が生成され，その中でアプリケーションの基本的な情報が記述される．`Author`や`Email`は`.gitconfig`から抜き出される．また`Version`は**version.go**の値が使われる．自分で書くべきは，`Usage`の中身だけ．
+ここには，`main()`関数が生成され，その中でアプリケーションの基本的な情報が記述される．`Author`や`Email`は`.gitconfig`から抜き出される．また`Version`は**version.go**の値が使われる．`Usage`の中身だけ，自分で記述する．
 
 次に，**commands.go**には，サブコマンドの定義が記述される．例えば，サブコマンド`list`に対しては，以下が生成される．
 
@@ -88,19 +88,9 @@ func doList(c *cli.Context) {
 
 ```
 
-自分で書くべきは，`Usage`と`Description`，そして，`doList()`関数（`list`の実際の挙動）だけ．他のオプションなどは，[codegangsta/cliのREADME](https://github.com/codegangsta/cli#cligo)を参照．
+`Usage`と`Description`，そして，`doList()`関数（`list`の実際の挙動）だけ自分で記述する．他のオプションなどは，[codegangsta/cliのREADME](https://github.com/codegangsta/cli#cligo)を参照．
 
-**commands.go**には，開発時に必須の`debug()`関数も生成される．
-
-```go
-func debug(v ...interface{}) {
-    if os.Getenv("DEBUG") != "" {
-        log.Println(v...)
-    }
-}
-```
-
-あとは，**README.md**と**CHANGELOG.md**のテンプレートも生成されるため，必要事項を記述する．
+あとは，**README.md**と**CHANGELOG.md**のテンプレートも生成される．
 
 ## インストール
 
@@ -113,7 +103,7 @@ $ make install
 
 ## まとめ
 
-たいしたことはしていない．基本は，[codegangsta/cli](https://github.com/codegangsta/cli)を使ってよくやられるパターンに沿ってファイルを生成しているだけ．それでも記述量を圧倒的に減らすことができる．
+たいしたことはしていない．基本は，[codegangsta/cli](https://github.com/codegangsta/cli)で記述するべきこと，パターンに沿ってファイルを生成しているだけ．それだけだが，かなり記述量を減らすことができる．
 
 バグや意見は，GitHubの[Issue](https://github.com/tcnksm/cli-init/issues)もしくは，[@deeeet](https://twitter.com/deeeet)までお願いします．
 
