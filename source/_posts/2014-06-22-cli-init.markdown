@@ -98,7 +98,8 @@ Go言語がインストールされていることを前提にしている．
 
 ```bash
 $ go get -d github.com/tcnksm/cli-init
-$ make install 
+$ cd $GOPATH/src/github.com/tcnksm/cli-init
+$ make install
 ```
 
 ## まとめ
@@ -112,7 +113,3 @@ $ make install
 
 - ["複数プラットフォームにGoアプリケーションを配布する"](http://deeeet.com/writing/2014/05/19/gox/)
 - ["HomeBrewで自作ツールを配布する"](http://deeeet.com/writing/2014/05/20/brew-tap/)
-
-
-
-
