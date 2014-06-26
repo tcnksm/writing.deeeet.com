@@ -14,13 +14,13 @@ categories: yo
 
 <div id="yo-button"></div><br>
 
-もし当ブログに興味がある方は"SOTABLOG"アカウントに**Yo**していただきたい．更新の度に**Yo**させていただきます．
+Yoがインストールされたデバイスでボタンを押すと自動で"SOTABLOG"というアカウントが登録される（PCとかだと手動で..）．すると，更新の度に"SOTABLOG"から**Yo**が届く．
 
 ## 仕組み
 
 といっても自分のアカウントがSOTABLOGで一人一人に手動で**Yo**するわけではない．[Yo Developers API](https://medium.com/@YoAppStatus/yo-developers-api-e7f2f0ec5c3c)を利用している．やり方は以下．
 
-1. [http://yoapi.justyo.co/](http://yoapi.justyo.co/)でAPIの登録する．しばらくするとメールで専用のAPI Tokenが送られてくる．
+1. [http://yoapi.justyo.co/](http://yoapi.justyo.co/)から専用アカウントでAPIの登録する．しばらくするとメールで専用のAPI Tokenが送られてくる．
 1. [http://button.justyo.co/](http://button.justyo.co/)で**Yo**ボタンを作成して，サイトに貼付ける．
 
 あとは，以下のようにAPIを叩くと購読者全員に対して**Yo**される．
