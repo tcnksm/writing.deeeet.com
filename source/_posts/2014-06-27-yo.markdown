@@ -8,17 +8,17 @@ categories: yo
 
 最近はほとんどのコミュニケーションが**Yo**で完結している．得に日本はハイコンテキスト文化なので助かる．だいたい伝わってると思う．最近だと[Yoに人生を救われた](http://mizchi.hatenablog.com/entry/2014/06/24/210317)ひともいるくらいだ．
 
-さて，ブログを書いたあとにわざわざ「ブログ書いたので読んでください」などと言うのは，粋じゃない．さらっと**Yo**というのが現代のスタイルだ．
+さて，ブログを書いたあとにわざわざ「ブログ書いたので読んでください」などと言うのは，粋じゃない．さらっと**Yo**するのが現代のスタイルだ．
 
 ということで，**Yo**ボタンをブログに設置した．
 
 <div id="yo-button"></div><br>
 
-YoがインストールされたデバイスでこのYoボタンを押すと自動で"SOTABLOG"というアカウントが登録される（PCとかだと手動で..）．すると，ブログ記事の更新の度に"SOTABLOG"から**Yo**が届くようになる．
+YoがインストールされたデバイスでこのYoボタンを押すと"SOTABLOG"というアカウントが登録される（PCとかだと手動で..）．すると，ブログ記事の更新の度に"SOTABLOG"から**Yo**が届くようになる．
 
 ## 仕組み
 
-といっても自分のアカウントがSOTABLOGで一人一人に手動で**Yo**するわけではない．[Yo Developers API](https://medium.com/@YoAppStatus/yo-developers-api-e7f2f0ec5c3c)を利用している．やり方は以下．
+といっても自分の個人アカウントが"SOTABLOG"で一人一人に手動で**Yo**するわけではない．[Yo Developers API](https://medium.com/@YoAppStatus/yo-developers-api-e7f2f0ec5c3c)を利用している．やり方は以下．
 
 1. [http://yoapi.justyo.co/](http://yoapi.justyo.co/)から専用アカウントでAPIの登録する．しばらくするとメールで専用のAPI Tokenが送られてくる．
 1. [http://button.justyo.co/](http://button.justyo.co/)で**Yo**ボタンを作成して，サイトに貼付ける．
