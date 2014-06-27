@@ -14,7 +14,8 @@ categories: yo
 
 <div id="yo-button"></div><br>
 
-YoがインストールされたデバイスでこのYoボタンを押すと"SOTABLOG"というアカウントが登録される（PCとかだと手動で..）．すると，ブログ記事の更新の度に"SOTABLOG"から**Yo**が届くようになる．
+YoがインストールされたデバイスでこのYoボタンを押すと"SOTABLOG"というアカウントがYoのリストに登録される（PCとかだと手動で..）．すると，ブログ記事が更新される度に"SOTABLOG"から**Yo**されるようになる．
+
 
 ## 仕組み
 
@@ -32,6 +33,8 @@ $ curl http://api.justyo.co/yoall/ -X POST -d "api_token=XXXXXX"
 例えば，当ブログの場合は，Octopressを使っているので，`rake gen_deploy`の度にこのAPIを叩くようにしている．
 
 他の事例としては，[YoApp/NFL](https://github.com/YoApp/NFL)がある．これはNFLの49erに対して，試合開始とともに**Yo**するスクリプト．他にも[サッカーのフランス代表チーム](http://yoequipedefrance.fr/)も使っているっぽい．
+
+これからもっといろいろな使われ方が出現しそう．
 
 ### 参考
 
