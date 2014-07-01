@@ -10,7 +10,7 @@ Docker1.0がリリースされたことで，プロダクションレディ感�
 
 Dockerによるテスト環境構築でまず思い浮かぶのは[dokku](https://github.com/progrium/dokku)．dokkuはDockerを使ったbash実装のPaaS．プライベートPaaSを持たない，かつHerokuなどを気軽に使えない企業のテスト環境として今後使われる機会がありそう．
 
-ただ，個人での利用とは違い企業などでDockerやdokkuを使う場合は，Proxyに阻まれることがある（というか今日阻まれた）．ので，Proxy環境下でのDocker，dokkkuの使い方を簡単にまとめておく．まず，Docker全般に関して，次にdokku特有の問題についてその解決方法を説明する．
+ただ，個人での利用とは違い企業などでDockerやdokkuを使う場合は，Proxyに阻まれることがある（というか今日阻まれた）．ので，Proxy環境下でのDocker，dokkuの使い方を簡単にまとめておく．まず，Docker全般に関して，次にdokku特有の問題についてProxyの問題を解決しなければならない状況とその解決方法を説明する．
 
 ## Proxy環境下でのDocker
 
@@ -62,7 +62,7 @@ dokkuのインストール以外で，dokkuが外部ネットワークとやり�
 
 1つ目は上記のDockerHubとのやりとりで示した方法で解決できる．2つ目は若干のハックが必要になる．
 
-dokkuはHerokuと同様にアプリケーションのビルドにBuildpackを使用し，依存パッケージ等のインストールを行う．このビルドは，dokku専用のDockerイメージ[progrium/buildstep](https://github.com/progrium/buildstep)を使い，そのコンテナ内で実行される．よって，そのときにProxyの環境変数を設定する必要がある．
+dokkuはHerokuと同様にアプリケーションのビルドにBuildpackを使用し，依存パッケージ等のインストールを行う．このビルドは，dokku専用のDockerイメージ[progrium/buildstep](https://github.com/progrium/buildstep)を使い，そのコンテナ内で実行される．よって，そのときにProxyが設定されている必要がある．これは上記のDockerコンテナで示した方法で解決できる．
 
 dokkuは，bash実装なので，`/usr/local/bin/dokku`を直接編集してしまえばよい．編集するのは，`build/builder`コマンドと共にコンテナを起動するところ．そこで`-e`オプションを使って環境変数を設定すればよい．
 
