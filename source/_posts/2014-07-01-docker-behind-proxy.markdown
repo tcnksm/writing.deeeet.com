@@ -6,7 +6,7 @@ comments: true
 categories: docker
 ---
 
-Docker1.0がリリースされたことで，プロダクションレディ感もあり，企業でもDockerを使う機運が高まっている．でも，実際は本番環境ではなく，テスト環境などで使われることが多い．
+Docker1.0がリリースされたことで，プロダクションレディ感もあり，企業でもDockerを使う機運が高まっている．でも，実際はまだまだ本番環境ではなく，テスト環境などで使われることが多い．
 
 Dockerによるテスト環境構築でまず思い浮かぶのは[dokku](https://github.com/progrium/dokku)．dokkuはDockerを使ったbash実装のPaaS．プライベートPaaSを持たない，かつHerokuなどを気軽に使えない企業のテスト環境として今後使われる機会がありそう．
 
