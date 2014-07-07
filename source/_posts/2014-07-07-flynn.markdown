@@ -10,9 +10,23 @@ categories: docker
 
 ["flynnの時代"](https://speakerdeck.com/tcnksm/flynnfalseshi-dai-number-dockerjp)
 
-["Docker meetup tokyo #3"](http://connpass.com/event/6998/)で発表してきた．内容は，Dockerの応用の１つであるOSSでPaaSをつくる[flynn](https://flynn.io)というプロジェクトの概要とそのアーキテクチャーの紹介．このflynnというプロジェクトの中には，Dockerの面白い使い方がたくさん詰まってる．今後Dockerを使う人が，その応用の際の参考になればという思いで紹介させてもらった．
+["Docker meetup tokyo #3"](http://connpass.com/event/6998/)で発表してきた．内容は，Dockerの応用の１つであるOSSでPaaSをつくる[flynn](https://flynn.io)というプロジェクトの概要とそのアーキテクチャーの紹介．このflynnというプロジェクトの中には，Dockerの面白い使い方がたくさん詰まってるため，今後Dockerを使う人が，その応用の際の参考になればという思いで紹介させてもらった．
 
 今回の発表のために資料を集めまくり，理解できない部分は出来る限りコードも読んだ．発表スライドの補完にもなると思うので，そのメモ書き（一応体裁は整えた）を公開しておく．
+
+## デモ
+
+以下は，簡単なデモ．
+
+{%img /images/post/flynn.gif %}
+
+やっていることは以下．
+
+- nodeのアプリケーションをデプロイ
+- ルーティングの追加
+- スケール
+
+コマンドを含めた詳しい解説は以下で解説する．
 
 ## 前提知識 (Herokuの動作)
 
@@ -198,7 +212,7 @@ flynn/slugrunnerというDockerコンテナにslugを標準入力から突っ込
 
 strowgerはTCP/HTTP ルータで，複数のslugrunnerに対するランダムロードバランシングのためのリバースプロキシとして動作する．サービスディスカバリーがバックで動いており，背後で何が起動したかを常に監視する．
 
-HAProxyやnginxと比較した利点は，サービスディスカバリーをネイティブで持っていることで，動的な設定変更が可能になっている（HAProxyやnginxは設定変更で新しくプロセスを作成する必要がある）．
+HAProxyやnginxと比較した利点は，サービスディスカバリーをネイティブで持っていることで，動的な設定変更が可能である点（HAProxyやnginxは設定変更で新しくプロセスを作成する必要がある）．
 
 ## flynnの操作
 
@@ -227,7 +241,7 @@ $ flynn key-add
 $ flynn create node-demo
 ```
 
-アプリケーションのデプロイはHerokuと同様にgitを使う．
+アプリケーションのデプロイはHerokuと同様にgitを使う．これによりgitreceivedでアプリケーションのソースコードが受け取られ，slugbuilderでビルド，slugrunnerで実行，が行われる．
 
 ```bash
 $ git push flynn master
@@ -257,25 +271,25 @@ http:node-demo.lxr.flynnhub.com      node-demo-web  http/65ae6884514622f0e7dcd85
 $ flynn route-remove http/baf06246e4ec7f3486a89a2e313205ba
 ```
 
-プロセスを確認する (`docker ps`)
+プロセスを確認する (`docker ps`)．
 
 ```bash
 $ flynn ps
 ```
 
-ログはプロセスのIDで確認する (`docker log`)
+ログはプロセスのIDで確認する (`docker log`)．
 
 ```bash
 $ flynn log e4cffae4ce2b-8cb1212f582f498eaed467fede768d6f
 ```
 
-スケールは以下で行う．
+スケールは以下で行う．これは単純にDockerコンテナの数を増やしているだけ．
 
 ```bash
 $ flynn scale web=8
 ```
 
-slug (コンテナ) に対してを直接コマンドの実行を要請することもできる．例えばbashを起動してコンテナの内部に入る．
+slug (コンテナ) に対してを直接コマンドの実行を要請することもできる．例えばbashを起動してコンテナの内部に入ることもできる．
 
 ```bash
 $ flynn run bash
@@ -285,7 +299,7 @@ $ flynn run bash
 
 今回Docker meetupで発表の機会をもうけて頂いた[@stanaka](https://twitter.com/stanaka)さん，[@kazunori_279](https://twitter.com/kazunori_279)さんありがとうございました．他のスタッフのかたもありがとうございました．
 
-帰りにゲストの[@philwhln](https://twitter.com/philwhln)を駅まで送って行き，Solomon Hykes氏によるlibswarm，Mitchell Hashimoto氏によるConsulのインタビューなどの話をがっつり聴けたのはよい思い出．
+帰りにゲストの[@philwhln](https://twitter.com/philwhln)を駅まで送って行き，Solomon Hykes氏によるlibswarm，Mitchell Hashimoto氏によるConsulのインタビューなどの話を聴けたのは良い思い出．
 
 ## 参考文献
 
