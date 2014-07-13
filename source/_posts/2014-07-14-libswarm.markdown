@@ -1,0 +1,44 @@
+---
+layout: post
+title: 'libswarm'
+date: 2014-07-14 00:25
+comments: true
+categories: docker
+---
+
+
+- ホスト
+- リソース管理
+- オーケストレーション
+- libswarm
+
+## TL;DR
+
+
+
+## デモ
+
+libswarmで何ができるのかは，DockerCon14でのデモ動画["Orchard + libswarm demo from DockerCon"](https://www.youtube.com/watch?v=a_YbxWbHgQA)を観るのが一番わかりやすい．ここでは，異なるホスト（ローカルホストとDigitalOcean，Orchard）に対して，それらにログインすることなく，同様のコマンドでnginxコンテナを立ち上げ，かつそれら全てのコンテナの情報を一気に取得している様子が観られる．
+
+## 現状できること
+
+
+
+## 将来できること
+
+```bash
+./swarmd 'dockerserver unix:///var/run/docker.sock' 'mesos "dockerclient tcp://1.2.3.4:2375" "dockerclient tcp://1.2.3.5:2375" "dockerclient tcp://1.2.3.6:2376"'
+```
+
+```bash
+./swarmd 'dockerserver unix://var/run/docker.sock' 'serviceA' 'serviceB' 'serviceC' 'dockerclient tcp://1.2.3.5:2375'
+```
+
+## 参考
+
+- [Docker: the road ahead](http://www.slideshare.net/shykes/docker-the-road-ahead)
+- [Analyzing Docker’s New OSS: libchan and libswarm | CenturyLink Labs](http://www.centurylinklabs.com/analyzing-dockers-new-oss-libchan-and-libswarm/)
+- [libswarm - Docker Orchestration Announced | ActiveBlog: Insights on Code, the Cloud and More](http://www.activestate.com/blog/2014/06/libswarm-docker-orchestration-announced)
+- [Dockerで何が変わるのか - 世界線航跡蔵](http://yugui.jp/articles/880)
+- [Libswarm (in a nutshell) | Tech'd](http://www.tech-d.net/2014/07/03/libswarm/)
+- [How to impl libswarm backend](http://www.slideshare.net/YutakaMatsubara/out-36624126)
