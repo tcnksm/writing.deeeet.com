@@ -1,14 +1,12 @@
 ---
 layout: post
-title: 'Dockerのオーケストレーションlibswarmの現状と将来'
+title: 'libswarmの現状と将来'
 date: 2014-07-14 00:25
 comments: true
 categories: docker
 ---
 
 DockerCon14で新たに発表されたDockerによる新しいOSSである[libswarm](https://github.com/docker/libswarm)をざっと触ってみたので，現状何ができて，将来的にどういったことができそうになるかを簡単にまとめておく．
-
-ただ，実際コードとかを読んでいると，まだまだこれからだ感があるということだけ留意しておく必要がある．
 
 ## TL;DR
 
@@ -116,7 +114,7 @@ $ orchard hosts create
 $ swarmd 'dockerserver tcp://localhost:4567' 'debug' "orchard $ORCHARD_API_TOKEN default"
 ```
 
-後は，同じコマンドでnginxコンテナを立ち上げることができる．
+あとは，同じコマンドでnginxコンテナを立ち上げることができる．
 
 ```bash
 $ docker run -d -p 80:80 dockerfile/nginx
@@ -130,7 +128,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 ### aggregate
 
-最後に，これまでのバックエンドサービスを全て指定する．これには，aggregateバックエンドを利用する．
+これまでのバックエンドサービスを全て指定する．これには，aggregateバックエンドを利用する．
 
 ```bash
 $ swarmd 'dockerserver tcp://localhost:4567' \
@@ -154,7 +152,7 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 ## 将来できそうなこと
 
-最後に，期待を込めて将来こんなことできるようになるのでは？という予想を書いてみる．
+最後に，[この記事](http://www.tech-d.net/2014/07/03/libswarm)を参考に将来こんなことできるようになるのでは？をざっと書いておく．
 
 例えば，複数のdockerclientを指定する．
 
@@ -183,9 +181,7 @@ $ swarmd 'dockerserver tcp://:4567' \
 
 ## まとめ
 
-Dockerによりコンテナ内で動くアプリケーションにとって，自分がどのホストで動いているのかがどうでもよくなった．そしてlibswarmにより，協調して動いている他のコンテナがどこで動いているかもどうでもよくなる．すごい．
-
-ただ，期待は多いが，実装見てるとプロトタイプ感は半端ない．みんなでlibswarmにコミットしてコンテナオーケストレーションツールの乱立を阻止する必要がある．
+期待は多いが，実装やコードを見てるとプロトタイプ感は半端ない．みんなでlibswarmにコミットしてコンテナオーケストレーションツールの乱立を阻止する必要がある．
 
 ## 参考
 
