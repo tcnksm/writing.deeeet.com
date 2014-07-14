@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'libswarmを使ってみた'
+title: 'Dockerのオーケストレーションlibswarmの現状と将来'
 date: 2014-07-14 00:25
 comments: true
 categories: docker
@@ -24,10 +24,9 @@ libswarmで何ができるのかは，DockerCon14でのデモ動画["Orchard + l
 
 ## libswarmの動作
 
-libswarmのプロジェクトをみると，[backends](https://github.com/docker/libswarm/tree/master/backends)というディレクトリがある．ここに，さまざまなバックエンドサービス，例えば標準的な
-Docker server/clientやAmazon EC2，Orchardなど，が定義されており，libswarmはこれらのサービスの間の情報のやりとりを受け持つ．
+libswarmのプロジェクトをみると，[backends](https://github.com/docker/libswarm/tree/master/backends)というディレクトリがある．ここに，様々ななバックエンドサービス，例えば標準的なDocker server/clientやAmazon EC2，Orchardなど，が定義されており，libswarmはこれらのサービスの間の情報のやりとりを受け持つ．
 
-例えば，一番簡単なコマンドは以下のようになる．
+例えば，一番単純なコマンドは以下のようになる．
 
 ```bash
 $ swarmd 'dockerserver unix:///var/run/docker.sock' 'dockerclient tcp://192.168.59.103:2375'
@@ -45,7 +44,7 @@ $ swarmd 'dockerserver unix:///var/run/docker.sock' 'dockerclient tcp://192.168.
 [Libswarm (in a nutshell) | Tech'd](http://www.tech-d.net/2014/07/03/libswarm/)
 
 
-上の例は最小限で感動はない．しかし，libswarmがすごいのは，例えばdockerclientバックエンドをorchardバックエンドに変えればorchardにコマンドが発行されるし，EC2バックエンドに変えればEC2にコマンドが発行されるところ．さらに，複数のバックエンドサービスを同時に指定できるところ．
+上の例は最小限で感動はない．libswarmがすごいのは，例えばdockerclientバックエンドをorchardバックエンドに変えればorchardにコマンドが発行されるし，EC2バックエンドに変えればEC2にコマンドが発行されるところ．さらに，複数のバックエンドサービスを束ねて同時にそれらを扱えるところ．
 
 ## デモの再現
 
@@ -160,31 +159,24 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 例えば，複数のdockerclientを指定する．
 
 ```bash
-$ swarmd 'dockerserver unix:///var/run/docker.sock' \
+$ swarmd 'dockerserver tcp://:4567' \
     'aggregate "dockerclient tcp://172.20.20.10:2375" \
                "dockerclient tcp://172.20.20.11:2375" \
                "dockerclient tcp://172.20.20.12:2375"'
 ```
 
-これに対して，`docker run`を実行すると，dockerclientで指定したホストのどれか1つでコンテナを実行する．`docker ps`をすると，すべてのホストのコンテナの情報を取得できる．また，コンテナ間のlink機能を複数ホストにまたがりそのまま使える．
+これに対して，`docker run`を実行すると，dockerclientで指定したホストのどれか1つでコンテナを実行する．`docker ps`をすると，すべてのホストからコンテナの情報を取得できる．また，コンテナ間のlink機能を複数ホストにまたがりそのまま使える．
 
 例えば，Mesosバックエンド（実装されてない）を指定する．
 
 ```bash
-$ swarmd 'dockerserver unix:///var/run/docker.sock' \
+$ swarmd 'dockerserver tcp://:4567' \
     'mesos "dockerclient tcp://172.20.20.10:2375" \
            "dockerclient tcp://172.20.20.11:2375" \
            "dockerclient tcp://172.20.20.12:2375"'
 ```
 
 これに対して，`docker run`を実行すると，Mesosがサーバのリソースの状況に合わせて，コンテナを実行する．
-
-
-例えば，様々なバックエンドサービスを指定する．
-
-```bash
-$ swarmd 'dockerserver unix://var/run/docker.sock' 'serviceA' 'serviceB' 'serviceC' 
-```
 
 などなど．
 
