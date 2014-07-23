@@ -14,7 +14,7 @@ categories: golang
 
 基本は[Hashicorp](https://github.com/hashicorp)のやり方を真似してる．
 
-まず，クロスコンパイルは[mitchellh/gox](https://github.com/mitchellh/gox)を使う．goxは複数プラットフォームの並列コンパイルと出力先の自由度が気に入ってずっと使ってる．以下のようなスクリプトを書いている．
+まず，クロスコンパイルは[mitchellh/gox](https://github.com/mitchellh/gox)を使う．goxは複数プラットフォームの並列コンパイルと出力先の設定の自由度が気に入ってずっと使ってる．何よりシンプルで良い．以下のようなスクリプトを書いている．
 
 ```bash
 # compile.sh
