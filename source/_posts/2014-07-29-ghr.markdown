@@ -24,7 +24,7 @@ categories: golang
 
 上で書いたように`curl`使って頑張ってAPIを叩いていたが，やっぱシェルスクリプトは嫌だし，アップロードが遅い．
 
-Githubへの専用ツールで[aktau/github-release](https://github.com/aktau/github-release)というのもあるが，オプションが多くて，`curl`を使うのと大差ない（柔軟性はある）．Descriptionなどは後でページから編集した方がよい．
+Githubへのリリースを行う専用ツールで[aktau/github-release](https://github.com/aktau/github-release)というのもあるが，オプションが多くて，`curl`を使うのと大差ない．Descriptionなどは後でページから編集した方がよい．
 
 とういことで，シンプルなインターフェース，かつ高速にリリース可能なものをつくった．
 
