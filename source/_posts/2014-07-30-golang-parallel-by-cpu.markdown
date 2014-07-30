@@ -20,7 +20,7 @@ CPU数に応じたバッファ長のChannelを使って[セマフォ](http://ja.
 
 ## 簡単な例
 
-例えば，以下のような単純な並列処理を考える．
+例えば，以下のような単純な並列処理を考える．`heavy()`（重い処理）を並列で実行する．
 
 ```go
 package main
@@ -64,7 +64,7 @@ cpus := runtime.NumCPU()
 semaphore := make(chan int, cpus)
 ```
 
-後は，`heavy()`（重い処理）をChannelへの送受信で囲むだけ．
+後は，`heavy()`をChannelへの送受信で囲む．これで，CPU数だけバッファが溜まると，Channelへの送信がブロックされ，新しい並列処理の開始もブロックされる．
 
 最終的な実装は以下のようになる．
 
@@ -102,7 +102,7 @@ func main() {
 
 ## マルチコアで実行する
 
-現状，goroutineのスケジューラはマルチコアを最適に使うようになっていないらしい（["Why does using GOMAXPROCS > 1 sometimes make my program slower?"](http://golang.org/doc/faq#Why_GOMAXPROCS)）．そのため，デフォルトの設定では使用するCPUのコア数は1になっている．
+最後にちょっとCPU関連で別の話題．現状，goroutineのスケジューラはマルチコアを最適に使うようになっていないらしい（["Why does using GOMAXPROCS > 1 sometimes make my program slower?"](http://golang.org/doc/faq#Why_GOMAXPROCS)）．そのため，デフォルトの設定では使用するCPUのコア数は1になっている．
 
 これを変更するには，runtimeパッケージの`GOMAXPROCS()`を使う，もしくは環境変数 (`GOMAXPROCS`) を設定する．
 
