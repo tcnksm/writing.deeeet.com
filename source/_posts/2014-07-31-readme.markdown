@@ -132,7 +132,7 @@ Overview
 'ghq' import pocket [-u]
 ```
 
-自分は`Exapple`という項目を作り，簡単な使用例を書くことがある．
+自分は`Example`という項目を作り，簡単な使用例を書くことがある．
 
 この辺は，使い始めたユーザが離れないようにする努力でもある．
 
@@ -214,4 +214,4 @@ OSSとして公開する以上は，多くの人に参加してもらいたい�
 ## 参考
 
 - [How to Write a Readme Worth Reading](http://orchestrate.io/blog/2014/07/16/how-to-write-a-readme-worth-reading/)
-
+- [Readme Driven Development](http://tom.preston-werner.com/2010/08/23/readme-driven-development.html)
