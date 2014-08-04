@@ -24,11 +24,11 @@ Terraformが良いのは，各設定値を変数としてサービス間で共�
 
 [tcnksm/re-dist-ghr・Github](https://github.com/tcnksm/re-dist-ghr)
 
-実際に，Terraformを使ってHerokuの新規アプリケーションをセットアップをし，作成中のGo言語のWebアプリをデプロイしてみた．
+実際に，Terraformを使ってHerokuに新規アプリケーションをセットアップし，作成中のGo言語のWebアプリをデプロイしてみた．
 
 まず，設定ファイルである`heroku.tf`は以下．
 
-```json
+```ruby
 variable "heroku_email" {}
 variable "heroku_api_key" {}
 
@@ -48,11 +48,10 @@ resource "heroku_app" "default" {
 
 やっているのは以下．
 
-- アプリケーションの作成
-- アプリケーションの名前の設定
-- 環境変数でBuildpackの指定
+- `provider`で`heroku`を指定し，APIを利用するための設定を記述する
+- `resource`で`heroku_app`を指定し`default`アプリケーションを作成し，アプリケーションの名前，利用するStack，環境変数（今回は利用するbuildpack）を記述する
 
-作成前に，以下で実行計画（どんな変数が設定されるかなど）を確認することができる．
+作成前に以下で実行計画（どんな変数が設定されるかなど）を確認することができる．
 
 ```bash
 $ terraform plan \
@@ -75,9 +74,9 @@ $ terraform plan \
     web_url:                     "" => "<computed>"
 ```
 
-Herokuを使ってことがあればなじみのある変数が並んでいる．最初の立ち上げなので，各変数には値はなく`""`からの変更が表示されているのみ．`<computed>`は自動で設定される値になる（これらの値も`heroku_app.default.XXX`という形式で他のサービスの設定に渡すことができる）．
+Herokuを使ったことがあれば，馴染みのある変数が並んでいる．最初の立ち上げなので，各変数には値はなく`""`からの変更が表示されているのみ．`<computed>`は自動で設定される値になる（これらの値も`heroku_app.default.XXX`という形式で他のサービスの設定に渡すことができる）．試してないが，既に存在しているアプリケーションも，上の変数を指定すれば，Terraformの管理下に置けるはず．
 
-あとは，以下を実行すれば，アプリケーションがセットアップされる．
+あとは，以下を実行すれば，アプリケーションがセットアップされる．30秒以内で完了する．
 
 ```bash
 $ terraform apply \
@@ -85,9 +84,7 @@ $ terraform apply \
     -var heroku_api_key=$HEROKU_API_KEY
 ```
 
-30秒以内で完了する．
-
-セットアップが完了したら，`git_url`へいつも通りアプリケーションをデプロイすればよい．
+セットアップが完了したら`git_url`へいつも通りアプリケーションをデプロイすればよい．
 
 ```bash
 $ git remote add heroku <git_url>
@@ -98,7 +95,7 @@ $ git push heroku master
 
 ## 雑感
 
-Herokuでアプリケーションをセットアップするだけという非常な単純なことしかやってないけど，ワークフローがとても良い感じになった．まとめると，
+Herokuでアプリケーションをセットアップするだけという非常な単純なことしかやってない（Terraformの利点である複数サービスの連携もしてない）けど，ワークフローがとても良い感じになった．まとめると，
 
 - 基本的なセットアップ（Toolbeltで頑張っていたこと）はTerraformで
 - アプリケーションのデプロイはgitで
