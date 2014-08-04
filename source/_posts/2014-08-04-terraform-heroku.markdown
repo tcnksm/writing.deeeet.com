@@ -24,7 +24,7 @@ Terraformが良いのは，各設定値を変数としてサービス間で共�
 
 [tcnksm/re-dist-ghr・Github](https://github.com/tcnksm/re-dist-ghr)
 
-今回実際にTerraformを使ってHerokuをセットアップし，作成中のGo言語のWebアプリケーションをデプロイしてみた．おそらく最も単純な例（複数サービスの連携もしていない）．
+実際に，Terraformを使ってHerokuの新規アプリケーションをセットアップをし，作成中のGo言語のWebアプリをデプロイしてみた．
 
 まず，設定ファイルである`heroku.tf`は以下．
 
@@ -94,7 +94,7 @@ $ git remote add heroku <git_url>
 $ git push heroku master
 ```
 
-設定を変更したいときは，`heroku.tf`を更新し，`terraform plan`で変更を確認して，よければ，`terrafrom apply`で適用すればよい．
+設定を変更したいときは`heroku.tf`を更新し，`terraform plan`で変更を確認して，`terrafrom apply`で適用すればよい．以後，これをひたすら繰り返していく．とても簡単．
 
 ## 雑感
 
