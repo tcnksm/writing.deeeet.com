@@ -6,7 +6,7 @@ comments: true
 categories: 
 ---
 
-twitterでちょっとつぶやいてたけど，最近自分がよく聴いてるPodcastをまとめてみる．Tech系以外もすこし混じってる．
+twitterでちょっとつぶやいてたけど，最近自分がよく聴いてるPodcastをまとめてみる．Tech系以外もすこし混じってる．他にオススメあれば教えてください．
 
 ## 日本語
 
