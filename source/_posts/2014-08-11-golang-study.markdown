@@ -35,7 +35,7 @@ categories: golang
 
 まず，ライセンスの話．自分でバイナリ配布のことをいろいろやっておきながら，このことを全く考慮してなかった．ソースコードとバイナリではライセンス異なることを知らなかった．めんどくせえけど大事だと思います．参考文献読みます．
 
-あと[@lestrrat]()さんの"How to Think Go"．最高でした．
+あと[@lestrrat](https://twitter.com/lestrrat)さんの"How to Think Go"．最高でした．
 rebuild.fmの["Rebuild: 42: When in Golang, Do as the Gophers Do (lestrrat)"](http://rebuild.fm/42/)で話していたことを発表としてさらにパワーアップさせたという印象（これ5回以上聴いたので）．
 特に自分のためになったのが「Goで構造体設計」の話．今まで見たGoでのモデリングの説明で一番しっくりきた．
 「オブジェクトの階層を作ろうという考え方をしない（'動物'を作ろうとしない）」，「'草食動物'ではなく'草を食べる'というinterfaceを考えてメソッドをそろえる」
@@ -44,5 +44,11 @@ rebuild.fmの["Rebuild: 42: When in Golang, Do as the Gophers Do (lestrrat)"](ht
 
 ## 最後に
 
-発表する機会を与えて下さった[@bto]()さん，ありがとうございました．
+発表する機会を与えて下さった[@bto](https://twitter.com/bto)さん，ありがとうございました．
 さらなるモチベーションに繋がるとても良い勉強会でした．質疑の質もとても高かった．次に機会があれば是非参加したいです．
+
+### 参考
+
+- [HDE Incで開催のGo勉強会で話してきた : D-7 <altijd in beweging>](http://lestrrat.ldblog.jp/archives/40268722.html)
+- [Go lang勉強会でgo-socket.ioの話してきた - from scratch](http://yosuke-furukawa.hatenablog.com/entry/2014/08/11/095157)
+- [Go lang勉強会に参加した感想 - きょこみのーと](http://kyokomi.hatenablog.com/entry/2014/08/10/110909)
