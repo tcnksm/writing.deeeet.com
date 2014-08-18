@@ -3,7 +3,7 @@ layout: post
 title: 'UNIXのワイルドカードがワイルド'
 date: 2014-08-18 22:28
 comments: true
-categories: 
+categories:
 ---
 
 [Back To The Future: Unix Wildcards Gone Wild](http://www.defensecode.com/public/DefenseCode_Unix_WildCards_Gone_Wild.txt)
@@ -28,7 +28,7 @@ drwxr-xr-x  2 taichi  staff   68  8 18 22:26 DIR3
 -rw-r--r--  1 taichi  staff    0  8 18 22:30 -rf
 ```
 
-ここで，以下を実行する．
+ここで，以下のようにワイルドカードでファイル指定しファイル削除を実行する．
 
 ```bash
 $ rm *
@@ -75,6 +75,3 @@ $ rm ./*
 以下の素敵な記事に目を通すのが良さそう．
 
 [Filenames and Pathnames in Shell (bash, dash, ash, ksh, and so on): How to do it Correctly](http://www.dwheeler.com/essays/filenames-in-shell.html)
-
-
-
