@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'UNIXのワイルドカードがすごいワイルド'
+title: 'UNIXのワイルドカードがワイルド'
 date: 2014-08-18 22:28
 comments: true
 categories: 
