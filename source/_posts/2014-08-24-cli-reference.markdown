@@ -1,24 +1,24 @@
 ---
 layout: post
-title: 'CLIツールを作るときに参考にしている考え方/資料+YAPCで発表します'
-date: 2014-08-24 21:49
+title: 'コマンドラインツールを作るときに参考にしている資料+YAPCで発表します'
+date: 2014-08-27 21:49
 comments: true
 categories:
 ---
 
 [コマンドラインツールについて語るときに僕の語ること - YAPC::Asia Tokyo 2014](http://yapcasia.org/2014/talk/show/b49cc53a-027b-11e4-9357-07b16aeab6a4)
 
-CLI (Command Line Interface) ツールが好きで昔からつくってきた．
-今年のYAPCで，そのCLIツールをつくるときにどういうことを意識して作っているのか？といったことを語る機会をもらえた．
+コマンドラインツールが好きで昔からつくってきた．
+今年のYAPCで，そのコマンドラインツールをつくるときにどういうことを意識して作っているのか？どのような流れで開発しているのか？といったことを語る機会をもらえた．
 具体的な内容については，是非トークを聴きに来てもらうとして，
-スライドをつくるにあったって過去に読んだ資料とか，よく参考にしている記事とかを集め直したので，参考資料としてまとめておく．
+スライドをつくるにあったって過去に読んだ資料や，よく参考にしている記事を集め直したので，その一部を参考資料としてまとめておく．
 
 ## UNIXという考え方
 
 [UNIXという考え方](http://www.amazon.co.jp/UNIX%E3%81%A8%E3%81%84%E3%81%86%E8%80%83%E3%81%88%E6%96%B9%E2%80%95%E3%81%9D%E3%81%AE%E8%A8%AD%E8%A8%88%E6%80%9D%E6%83%B3%E3%81%A8%E5%93%B2%E5%AD%A6-Mike-Gancarz/dp/4274064069)
 
-Mike GancarzによるUNIXの思想や哲学をまとめた本．古いけど全然色あせてないと思う．
-CLIツールの作り方を書いた本ではないけど，これらの思想の上で動くツールはこの思想に準拠して作られるべきだと思う．何度も読んで考え方を染み付かせた．
+Mike GancarzによるUNIXの思想や哲学をまとめた本．古いが全然色あせてない．
+コマンドラインツールの作り方を書いた本ではないが，これらの思想の上で動くツールはこの思想に準拠して作られるべきだと思う．何度も読んで考え方を染み付かせた．
 
 - 小さいものは美しい
 - 一つのプログラムには一つのことをうまくやらせる
@@ -47,22 +47,22 @@ CLIツールの作り方を書いた本ではないけど，これらの思想�
 
 [Standards for Command Line Interfaces](https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html)
 
-CLIツールには長い歴史がある．つまり慣習がある．慣習を外れない簡単な方法は，標準に従うこと．
-普段からCLIツールは使っているので，インターフェースはわかりきっていると思うかも知れないが，いざ自分がつくるとなると見落としていることは多い．
+コマンドラインツールには長い歴史がある．つまり慣習がある．慣習を外れない簡単な方法は，標準に従うこと．
+普段からコマンドラインツールは使っているので，インターフェースはわかりきっていると思うかも知れないが，いざ自分がつくるとなると見落としていることは多い．
 
 また，オプションは短オプション（e.g., `-f`）と長オプション（e.g., `--force`）の両方を準備するべきだが，長オプションの名前に迷うときがある．そういうときのために，GNUでよく使われている長オプションが以下にまとめられている．
 
 [Table of Long Options](https://www.gnu.org/prep/standards/html_node/Option-Table.html#Option-Table)
 
-##  Build Awesome Command-line tool
+## Build Awesome Command-line tool
 
 [Build Awesome Command-Line Applications in Ruby 2: Control Your Computer, Simplify Your Life](https://pragprog.com/book/dccar2/build-awesome-command-line-applications-in-ruby-2)
 
-David Copeland氏によるAwesomeなCLIツールの作り方．サンプルコードや紹介されているライブラリは全てRubyだが，
-他のどの言語でも適応できることばかり．「CLIツールのつくりかた」としては一番参考になった．
-CLIツールを作る上での抑えるべき基礎がまとまっている．
+David Copeland氏によるAwesomeなコマンドラインツールの作り方の本．サンプルコードや紹介されているライブラリは全てRubyだが，
+他のどの言語でも適応できることばかり．「コマンドラインツールのつくりかた」としては一番参考になった．
+コマンドラインツールを作る上での抑えるべき基礎が網羅されている．
 
-AwesomeなCLIツールとは？
+この本におけるAwesomeなコマンドラインツールとは？
 
 - Easy to use（簡単に使える）
 - Helpful（役に立つ）
@@ -79,7 +79,7 @@ AwesomeなCLIツールとは？
 
 VagrantやConsulの作者である[Mitchell Hashimoto](https://github.com/mitchellh)氏が[Aloha Ruby Conf 2012](http://www.confreaks.com/events/aloharuby2012)で語った良いRubyライブラリを作るための方法論．内容はRubyのライブラリについてだが，これもどんな言語であっても大切なことが語られている．
 
-良いRuby Libraryとは？
+この発表における良いRuby Libraryとは？
 
 - Intuitive API (直感的なAPI)
 - Configurable（設定が可能）
