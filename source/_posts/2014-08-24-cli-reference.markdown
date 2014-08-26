@@ -52,7 +52,7 @@ CLIツールには長い歴史がある．つまり慣習がある．慣習を�
 
 また，オプションは短オプション（e.g., `-f`）と長オプション（e.g., `--force`）の両方を準備するべきだが，長オプションの名前に迷うときがある．そういうときのために，GNUでよく使われている長オプションが以下にまとめられている．
 
-- [Table of Long Options](https://www.gnu.org/prep/standards/html_node/Option-Table.html#Option-Table)
+[Table of Long Options](https://www.gnu.org/prep/standards/html_node/Option-Table.html#Option-Table)
 
 ##  Build Awesome Command-line tool
 
