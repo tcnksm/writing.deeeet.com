@@ -13,13 +13,13 @@ categories:
 
 ## 使い方
 
-まず，`tpm`のインストール．以下を実行するだけ．
+まず，`tpm`をインストールする．
 
 ```bash
 $ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
-次に`~/.tmux.conf`に利用したいプラグインを記述する．プラグインは[tmux-plugins](https://github.com/tmux-plugins)にまとまっている．今のところ自分の設定は以下のようにしている．
+次に，以下のように`~/.tmux.conf`に利用したいプラグインを記述する．プラグインは[tmux-plugins](https://github.com/tmux-plugins)にまとまっている．
 
 ```bash
 set -g @tpm_plugins " \
