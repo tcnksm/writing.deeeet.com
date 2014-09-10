@@ -29,7 +29,7 @@ set -g @tpm_plugins " \
     tmux-plugins/tmux-open \
     tmux-plugins/tmux-resurrect \
     tmux-yank/tmux-yank \
-    tmux-plugins/tmux-battery \ 
+    tmux-plugins/tmux-battery \
     tmux-plugins/tmux-online-status \
 "
 
