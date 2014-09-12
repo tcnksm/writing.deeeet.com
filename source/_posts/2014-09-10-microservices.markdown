@@ -8,9 +8,29 @@ categories:
 
 [Microservices](http://martinfowler.com/articles/microservices.html)
 
-[James Lewis](https://twitter.com/boicy)氏と[Martin Fowler](http://www.martinfowler.com/)氏による，Microservicesの概説を読んだ．ざっとしか読んでなかったが，最近よく耳にするようになったのでちゃんと読んだ．以下はそのメモ．
+[James Lewis](https://twitter.com/boicy)氏と[Martin Fowler](http://www.martinfowler.com/)氏による，Microservicesの概説を読んだ．以前ざっと目を通したが，最近よく耳にするようになったのでちゃんと読んだ．以下はそのメモ．
 
+## Microserviceの特徴
 
+- 正式な定義はないが，共通の特徴を述べる
+    - すべてのMicroservicesが全ての特徴を満たすわけではない
+
+### サービスによるコンポーネント化
+
+- コンポーネントを組み合わせてシステムを作りたい
+- コンポーネントとは何か定義するのは難しい
+    - 入れ替え可能/アップグレード可能な独立したソフトウェアをコンポーネントと定義する
+-     
+
+### Organized around Business Capabilities
+### Products not Projects
+### Smart endpoints and dumb pipes
+### Decentralized Governance
+### Decentralized Data Management
+### Infrastructure Automation
+### Design for failure
+### Evolutionary Design
+## Are Microservices the Future?
 
 ## 参考
 
