@@ -10,7 +10,7 @@ categories:
 
 ## 概要
 
-- "Microservices" とはソフトウェアシステムのスタイルである
+- "Microservices" とはソフトウェアシステムの開発スタイルである
     - 近年このスタイルでの開発を見てきて良い結果が出ている
     - 初出は2012年の3月の["Micro services - Java, the Unix Way"](http://2012.33degree.org/talk/show/67)
 - Microserviceは一連の小さなサービスで1つのアプリケーションを開発する手法
