@@ -127,7 +127,7 @@ a158cdffcaae        busybox:latest      "/bin/sh -c 'date; e   8 seconds ago    
 
 [docker/daemon/monitor.go](https://github.com/docker/docker/blob/master/daemon/monitor.go)
 
-```golang
+```go
 // resetMonitor resets the stateful fields on the containerMonitor based on the
 // previous runs success or failure.  Reguardless of success, if the container had
 // an execution time of more than 10s then reset the timer back to the default
