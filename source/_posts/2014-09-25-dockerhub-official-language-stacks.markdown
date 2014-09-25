@@ -151,7 +151,7 @@ $ docker run --rm -v "$(pwd)":/usr/src/ghr -w /usr/src/ghr -e GOOS=windows -e GO
 
 ## コントリビュートしたい
 
-公式の言語スタックは，個人のGithubレポジトリも含まれている．イメージを作って[partners@docker.com](mailto:partners@docker.com)にメールすれば，公式のDockerHubレポジトリとして取り込んでもらえる可能性もある．
+プロジェクトを作って[partners@docker.com](mailto:partners@docker.com)にメールすれば，公式のDockerHubレポジトリとして取り込んでもらえる可能性もある．
 
 以下のガイドラインに従う．
 
