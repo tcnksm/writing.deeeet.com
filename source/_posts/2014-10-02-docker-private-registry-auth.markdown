@@ -6,21 +6,21 @@ comments: true
 categories: docker
 ---
 
-深淵な理由で気軽にDockerHub（Public registry）を使えない場合は，Private Registryを立てる必要がある．DockerはPrivate registry用のDockerイメージを提供しているため，コンテナを立てるだけですぐに使い始めることができる．
+DockerHub（Public registry）を使えない場合は，Private Registryを立てる必要がある．DockerはPrivate registry用のDockerイメージを提供しているため，コンテナを立てるだけですぐに使い始めることができる．
 
 ```bash
 $ docker run -p 5000:5000 registry
 $ docker push docker-private.com:5000/test-image:latest
 ```
 
-ただ，これだとURLを知っていれば誰でも好きにイメージをpushできてしまうので，認証を行う必要がある．認証には，Dockerクライアント（`docker login`）が対応している，Basic認証を利用する．Docker registryには認証機構がないため，nginxやApacheをリバースプロキシとして配置して，Basic認証を行う．
+ただ，これだとURLを知っていれば誰でも好きにイメージをpushできてしまうので，認証を行う必要がある．認証には，Dockerクライアント（`docker login`）が対応しているBasic認証を利用する．Docker registryには認証機構がないため，nginxやApacheをリバースプロキシとして配置して，Basic認証を行う．
 
-このとき，いくつか前提がある．
+このとき，（当たり前だが）以下の2つの制限がある．
 
 - DockerクライアントのBasic認証はSSLが必須である
 - Dockerクライアントは証明書の正当性をちゃんとチェックする（無視できない）
 
-気軽さを求めて自己署名証明書を使った場合，いくつかハマったのでまとめておく．環境としては，サーバーはUbuntuで，リバースプロキシにnginx，クライアントはOSX+boot2dockerとする．
+気軽さを求めて自己署名証明書を使うと，いくつか面倒な部分があるのでまとめておく．環境としては，サーバーをUbuntu，リバースプロキシをnginx，クライアントをOSX+boot2dockerとする．
 
 ## サーバー側の設定
 
@@ -75,7 +75,7 @@ $ openssl x509 -req -days 365 -in server.csr -CA ca.pem -CAkey ca-key.pem -out s
 $ openssl rsa -in server-key.pem -out server-key.pem
 ```
 
-最後にこれを配置する．
+最後にこれらをしかるべき配置しておく．
 
 ```bash
 $ sudo cp server-cert.pem /etc/ssl/certs/docker-registry
@@ -86,14 +86,26 @@ $ sudo cp server-key.pem /etc/ssl/private/docker-registry
 
 クライアント側では，サーバーの自己署名証明書を受け入れる設定をする．無視できるようにしようという流れはあるが，実現はしていない，というかなさそう（2014年10月現在）（[#2687](https://github.com/docker/docker/pull/2687)，[#5817](https://github.com/docker/docker/pull/5817)）．
 
-OSX上でboot2dockerを使っている場合は，**OSXで設定するのではなくboot2docker-vmに設定する必要がある**．上でサーバーの自己署名証明書の作成したCAの公開鍵（`ca.pem`）を使う．
+OSX上でboot2dockerを使っている場合は，**OSXで設定するのではなくboot2docker-vmに設定する必要がある**．上でサーバーの自己署名証明書の作成したCAの公開鍵（`ca.pem`）を使う（[#347](https://github.com/boot2docker/boot2docker/issues/347)）
 
 ```bash
 $ boot2docker ssh
 $ cat ca.pem >> /etc/ssl/certs/ca-certificates.crt
 ```
 
+以上．あとはログインすればDockerHubのように利用できる．
 
+```bash
+$ docker login https://docker-private.com
+```
 
+## まとめ
 
+自己署名証明は初めてであまり自信ないので，おかしい部分があれば教えてください．次にまた必要になれば自動化する．
 
+### 参考
+
+- [Running Docker with https](http://docs.docker.com/articles/https/) - Docker deamonとDocker client間もSSLで通信することができる．deamonがリモートで，clientがローカルという構成では必要になるかもしれない．
+- [Deploying your own Private Docker Registry | ActiveState](http://www.activestate.com/blog/2014/01/deploying-your-own-private-docker-registry)
+- [オレオレ証明書をopensslで作る - ろば電子が詰まっている](http://d.hatena.ne.jp/ozuma/20130511/1368284304)
+- [社内用Docker Registryを立てる - $shibayu36->blog;](http://shibayu36.hatenablog.com/entry/2013/12/24/194134)
