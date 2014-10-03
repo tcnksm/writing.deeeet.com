@@ -32,10 +32,6 @@ $ docker push docker-private.com:5000/test-image:latest
 
 ### nginxの設定
 
-```bash
-$ sudo apt-get install -y nginx
-```
-
 リバースプロキシにはnginxを用いる．Docker registryはBasic認証を行うためのnginxの設定例を提供している（[docker-registry/contrib/nginx](https://github.com/docker/docker-registry/tree/master/contrib/nginx)）ので，それをそのまま利用する．
 
 ```bash
@@ -79,8 +75,8 @@ $ openssl rsa -in server-key.pem -out server-key.pem
 最後にこれらをしかるべき配置しておく．
 
 ```bash
-$ sudo cp server-cert.pem /etc/ssl/certs/docker-registry
-$ sudo cp server-key.pem /etc/ssl/private/docker-registry
+$ cp server-cert.pem /etc/ssl/certs/docker-registry
+$ cp server-key.pem /etc/ssl/private/docker-registry
 ```
 
 ## クライアント側の設定
@@ -92,6 +88,7 @@ OSX上でboot2dockerを使っている場合は，**OSXで設定するのでは�
 ```bash
 $ boot2docker ssh
 $ cat ca.pem >> /etc/ssl/certs/ca-certificates.crt
+$ /etc/init.d/docker restart
 ```
 
 以上．あとはログインすればDockerHubのように利用できる．
