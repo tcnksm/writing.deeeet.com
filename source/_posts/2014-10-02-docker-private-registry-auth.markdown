@@ -46,7 +46,7 @@ $ cp docker-registry/contrib/nginx/docker-registry.conf /etc/nginx/.
 
 ### パスワードの設定
 
-Docker Registryを利用するユーザの設定を行う．
+Docker Registryを利用するユーザの設定を行う（`apache2-utils`パッケージを利用する）．
 
 ```bash
 $ htpasswd -bc /etc/nginx/docker-registry.htpasswd USERNAME PASSWORD
@@ -57,6 +57,7 @@ $ htpasswd -bc /etc/nginx/docker-registry.htpasswd USERNAME PASSWORD
 自己署名（オレオレ）証明書を作る．まず，CAの秘密鍵と公開鍵を作成しておく．
 
 ```bash
+$ echo 01 > ca.srl
 $ openssl genrsa -des3 -out ca-key.pem 2048
 $ openssl req -new -x509 -days 365 -key ca-key.pem -out ca.pem
 ```
