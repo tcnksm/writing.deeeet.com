@@ -8,7 +8,7 @@ categories:
 
 コーヒーのサードウェーブというのは，スタバなどのシアトル系コーヒーショップの普及に続く新しい珈琲の流れで，サンフランシスコ周辺で盛り上がりを見せている．特徴としては，シングルオリジンの豆を利用し，ブレンドや深入りをせずに豆そのものの味を追求するスタイル．焙煎，抽出方法は豆の良さを最大限に引き立てるように店ごとにスタイルを持つ．焙煎も自ら行うため，ロースターが併設されていることが多い．
 
-今まで自分が行ったコーヒーショップで，サードウェーブ的だなと思ったのは以下
+今まで自分が行ったコーヒーショップ好きなやつは，
 
 - [NOZY COFFEE](http://www.nozycoffee.jp/) @三軒茶屋, French Press
 - [ONIBUS COFFEE](http://www.onibuscoffee.com/) @奥沢, Drip
@@ -16,8 +16,7 @@ categories:
 - [OBSCURA COFFEE](http://www.cafe-obscura.com/shop-laboratory/) @三軒茶屋, Siphon
 - [THE COFFEESHOP](http://www.thecoffeeshop.jp/) @代官山, French Press
 - [ARISE COFFEE ROASTERS](http://arisecoffee.jp/) @清澄白河, Drip
-
-まだまだたくさんあると思う．ちなみに名古屋なら[coffee Kajita](http://www.coffeekajita.com/), 岐阜なら[YAMADA COFFEE](http://www.yamadacoffee.com/)．
+- [猿田彦珈琲](http://shop.sarutahiko.co/) @恵比寿, Drip
 
 
 参考
