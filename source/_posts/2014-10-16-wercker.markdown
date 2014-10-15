@@ -48,17 +48,11 @@ deploy:
 
 Buildフェーズは，GitHubやBitbucketへのコードのpushを契機に始まり，アプリケーションのビルド，テスト，コンパイルを行う．生成物がある場合は，**Packege**としてDeployフェーズに渡す．
 
-![](http://f.cl.ly/items/3S1e1Q2U462j0V0Z1e3V/wercker_pipeline_build.png)
-
-[How wercker works](http://blog.wercker.com/2013/07/12/How-wercker-works.html)
 
 ### Deployフェーズ
 
 Deployフェーズは，Packegeを受け取り，それを外部サービスへデプロイする．例えば，Webアプリケーションであれば，Herokuへデプロイし，バイナリであれば，[Github Release](https://help.github.com/articles/creating-releases/)や[bintray.com](https://bintray.com/)へリリースする．
 
-![](http://f.cl.ly/items/0T3z2f32433N2J3o0J26/wercker_pipeline_deploy.png)
-
-[How wercker works](http://blog.wercker.com/2013/07/12/How-wercker-works.html)
 
 ### box
 
