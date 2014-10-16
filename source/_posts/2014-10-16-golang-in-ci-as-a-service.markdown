@@ -22,7 +22,7 @@ Go言語で作成したツールのリリース方法について，最近実践
 
 ## Wercker
 
-Werckerには専用のステップを準備した（[tcnksm/wercker-step-ghr](https://github.com/tcnksm/wercker-step-ghr)）．以下のような`wercker.yml`を準備すればよい．これで，テストが通ったあとに，goxによりクロスコンパイルが行われ，zipで圧縮，Githubへのリリースが行われる．リリースはPre-Releaseとして行われる．
+Werckerには専用のステップを準備した（[tcnksm/wercker-step-ghr](https://github.com/tcnksm/wercker-step-ghr)）．以下のような`wercker.yml`を準備すればよい．これで，テストが通ったあとに，goxによりクロスコンパイルが行われ，zipで圧縮，Githubへのリリースが行われる．リリースはPre-Releaseとして行われる．実際に動いているサンプルは，[tcnksm-sample/wercker-golang](https://github.com/tcnksm-sample/wercker-golang)で確認できる．
 
 ```yaml
 box: tcnksm/gox
@@ -46,8 +46,6 @@ deploy:
       input: dist
       replace: true
 ```
-
-実際に動いているサンプルは，[tcnksm-sample/wercker-golang](https://github.com/tcnksm-sample/wercker-golang)で確認できる．
 
 ちなみに自分はWerckerを採用している．Werckerの仕組みや，stepの自作の方法は別に記事を書いたので参考にしてください．
 
