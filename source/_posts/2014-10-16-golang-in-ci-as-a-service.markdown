@@ -18,11 +18,11 @@ Go言語で作成したツールのリリース方法について，最近実践
 
 `ghr`の最新バージョンでは，`--replace`オプションをサポートしている．このオプションを使うと，一度リリースしたものを入れ替えてリリースすることができるようになる．もともとは誤ってリリースしてしまったものを入れ替えたいという要望から作ったが，上記のようなCI-as-a-Serviceとの連携でも威力を発揮する．
 
-人によって好みのCI-as-a-Serviceは違う．無料かつ知名度のある[Wercker](http://wercker.com/)，[TravisCI](https://travis-ci.org/)，[drone.io](https://drone.io/)を使い，継続的に最新のビルドをリリースする方法について書く．
+人によって好みのCI-as-a-Serviceは違う．無料かつ知名度のある[Wercker](http://wercker.com/)，[TravisCI](https://travis-ci.org/)，[drone.io](https://drone.io/)を使い，上記のようにGo言語プロジェクトの最新のビルドを継続的にリリースする方法について書く．
 
 ## Wercker
 
-Werckerのために専用のステップをつくった（[tcnksm/wercker-step-ghr](https://github.com/tcnksm/wercker-step-ghr)）．以下のような`wercker.yml`を準備すればよい．これで，テストが通ったあとに，goxによりクロスコンパイルが行われ，zipで圧縮，Githubへのリリースが行われる．リリースはPre-Releaseとして行われる．
+Werckerには専用のステップを準備した（[tcnksm/wercker-step-ghr](https://github.com/tcnksm/wercker-step-ghr)）．以下のような`wercker.yml`を準備すればよい．これで，テストが通ったあとに，goxによりクロスコンパイルが行われ，zipで圧縮，Githubへのリリースが行われる．リリースはPre-Releaseとして行われる．
 
 ```yaml
 box: tcnksm/gox
@@ -47,13 +47,15 @@ deploy:
       replace: true
 ```
 
-ちなみに自分はWerckerを使ってる．Werckerの仕組みや，stepの自作の方法は別に記事を書いたので参考にしてください．
+実際に動いているサンプルは，[tcnksm-sample/wercker-golang](https://github.com/tcnksm-sample/wercker-golang)で確認できる．
+
+ちなみに自分はWerckerを採用している．Werckerの仕組みや，stepの自作の方法は別に記事を書いたので参考にしてください．
 
 - [Werckerの仕組み，独自のboxとstepのつくりかた | SOTA](http://deeeet.com/writing/2014/10/16/wercker/)
 
 ## TravisCI
 
-TravisCIの場合は，以下のような`.travis.yml`を準備すればよい．
+TravisCIの場合は，以下のような`.travis.yml`を準備すればよい．テスト，ビルド，リリースが行われる．実際に動いているサンプルは，[tcnksm-sample/travis-golang](https://github.com/tcnksm-sample/travis-golang)で確認できる．
 
 ```yaml
 language: go
@@ -78,7 +80,7 @@ after_success:
 
 ## Drone.io
 
-Drone.ioの場合は，TraviCIやWerckerのような設定ファイルはない．以下をビルドスクリプトとしてDrone.ioに登録する．Goの最新版をインストールするところから始める必要がある．
+Drone.ioの場合は，TraviCIやWerckerのような設定ファイルはない．以下をビルドスクリプトとしてDrone.ioに登録する．Goの最新版をインストールするところから始める必要がある．実際に動いているサンプルは，[tcnksm-sample/drone-golang](https://github.com/tcnksm-sample/drone-golang)で確認できる．
 
 ```bash
 # Install go 1.3.1
