@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Go言語のツールをクロスコンパイルしてGithubにリリースする'
+title: 'シェルスクリプトでGo言語のツールをクロスコンパイルしてGithubにリリースする'
 date: 2014-07-23 23:45
 comments: true
 categories: golang
@@ -8,7 +8,7 @@ categories: golang
 
 [@motemen]()さんの["Wercker で Go のプロジェクトをクロスコンパイルし、GitHub にリリースする - 詩と創作・思索のひろば (Poetry, Writing and Contemplation)"](http://motemen.hatenablog.com/entry/2014/06/27/xcompile-go-and-release-to-github-with-wercker)を手元からやる．
 
-[Wercker](http://wercker.com/)からリリース良いと思うけど，自分はリリースは手元で管理したい．その辺は毎回同じスクリプトでやってるのでまとめておく．なお，コードは全て[tcnksm/go-compile-scripts](https://github.com/tcnksm/go-compile-scripts)にある．
+[Wercker](http://wercker.com/)からリリース良いと思うけど，自分はリリースは手元で管理したい．その辺は毎回同じスクリプトでやってるのでまとめておく．なお，コードは全て[tcnksm/go-distribution-scripts](https://github.com/tcnksm/go-distribution-scripts)にある．
 
 ## クロスコンパイル
 
@@ -78,5 +78,3 @@ curl --fail -X POST https://uploads.github.com/repos/${OWNER}/${REPO}/releases/$
 ```
 
 `$ARCHIVE`はアップロードしたいファイルのパスを指定する．for文でリリースしたいファイルを回せばよい．
-
-ちなみに試してないが，[aktau/github-release](https://github.com/aktau/github-release)というツールもある．

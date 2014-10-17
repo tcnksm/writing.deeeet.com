@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'コマンドラインツールを作るときに参考にしている資料+YAPCで発表します'
+title: 'コマンドラインツールを作るときに参考にしている資料'
 date: 2014-08-27 21:49
 comments: true
 categories:

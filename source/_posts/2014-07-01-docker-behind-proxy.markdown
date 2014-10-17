@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Proxy環境下でdokku（Docker）を動かす'
+title: 'Proxy環境下でDockerを動かす'
 date: 2014-07-01 18:14
 comments: true
 categories: docker

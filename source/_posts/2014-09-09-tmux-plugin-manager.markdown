@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Tmux Plugin Manager (TPM)'
+title: 'Tmux Plugin Manager（TPM）を使う'
 date: 2014-09-09 22:04
 comments: true
 categories: 

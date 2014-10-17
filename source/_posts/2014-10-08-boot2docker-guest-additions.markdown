@@ -6,7 +6,7 @@ comments: true
 categories: docker
 ---
 
-次のboot2dockerのリリースで（おそらく一時的に）VirtualBox Guest Additionsがデフォルトでインストールされる．
+（追記）Docker 1.3がリリースされた．boot2dockerはデフォルトでVirtualBox Guest Additionsをサポートし，boot2docker-cliは`init`のときにホストのディレクトリを`boot2docker-vm`上にマウントするようになった（[Docker 1.3: signed images, process injection, security options, Mac shared directories | Docker Blog](https://blog.docker.com/2014/10/docker-1-3-signed-images-process-injection-security-options-mac-shared-directories/)）．
 
 ## TL;DR
 

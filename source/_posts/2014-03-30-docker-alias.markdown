@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Dockerを便利に使うためのalias'
+title: 'Dockerを便利に使うためのaliasをつくった'
 date: 2014-03-30 16:24
 comments: true
 categories: docker
