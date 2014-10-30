@@ -1,6 +1,6 @@
 ---
 layout: post
-title: '複数プロジェクトを抱えるチームのデプロイ自動化'
+title: '複数プロジェクトを抱えるチームでのデプロイ自動化'
 date: 2014-10-30 23:41
 comments: true
 categories: 
