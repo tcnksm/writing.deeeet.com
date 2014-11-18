@@ -153,7 +153,7 @@ units:
 
 ### Vagrantfile
 
-[vagrant-digitalocean](https://github.com/smdahlen/vagrant-digitalocean) pluginを使えばVagranを使ってDigitalOcean上にイメージを立てることができる．以下のような`Vagrantfile`を準備する．CoreOSには，現時点（2014年11月）では最新の`494.0.0`を利用する．
+[vagrant-digitalocean](https://github.com/smdahlen/vagrant-digitalocean) pluginを使えばVagranを使ってDigitalOcean上にイメージを立てることができる．CoreOSには，現時点（2014年11月）では最新の`494.0.0`を利用する．以下のような`Vagrantfile`を準備する．
 
 ```ruby
 $num_instances = 1
@@ -195,7 +195,7 @@ $ vagrant plugin install vagrant-digitalocean-0.7.0.gem
 
 ### CoreOSを起動する
 
-上の`user-data.yml`と`Vagrantfile`を使ってDigitalOcean上にクラスタを立てる．今回は3つのインスタンスを立ち上げてみる．以下のようにするだけ．
+では，実際に上記の`user-data.yml`と`Vagrantfile`を使ってDigitalOcean上にクラスタを立ててみる．今回は3つのインスタンスを立てる．以下のようにするだけ．
 
 ```bash
 export TOKEN="YOUR_DIGITALOCEAN_TOKEN"
@@ -224,6 +224,8 @@ MACHINE         IP              METADATA
 93093555...     10.102.101.102  -
 b463af61...     10.102.101.101  -
 ```
+
+`etcd`や`fleet`，DockerといったCoreOSで重要なサービスも使えるようになっているはず．
 
 ## 参考
 
