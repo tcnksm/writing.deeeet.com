@@ -360,7 +360,7 @@ $ ln -s ../templates/apache@.service apache@6666.service
 $ ln -s ../templates/apache@.service apache@7777.service
 ```
 
-あとは以下のように一気に起動できる．
+こうしておくと，instanceは以下のように一気に起動できる．管理と運用が楽になる．
 
 ```bash
 $ fleetctl start instances/* 
