@@ -345,7 +345,7 @@ $ ln -s apache@.service apache@8888.service
 $ fleetctl start apache@8888.service
 ```
 
-これは扱うテンプレートとそのインスタンスが増えたときに管理が楽になる．例えば，`templeates`と`instance`，`static`というディレクトリを作る．
+これは扱うテンプレートとそのインスタンスが増えたときに管理が楽になる．例えば，`templeates`と`instance`，`static`というディレクトリを作り，動的な変更のないUnitファイルは`static`以下に，テンプレートとして使うUnitファイルは`templates`以下に配置し，`instances`にシンボリックリンクを作る．
 
 ```bash
 $ mkdir templates instances static
