@@ -13,7 +13,7 @@ CoreOSのクラスタ内で複数ホスト間にまたがりDockerコンテナ�
 複数ホストにまたがりDockerのコンテナを接続する方法としては[Ambassador パターン](http://docs.docker.com/articles/ambassador_pattern_linking/)が有名である．これはトラフィックを別ホストへforwardすることに特化したコンテナを立てる方法で，ホストに無駄な設定なし，かつDockerコンテナのみで行えるシンプルな方法である．例えば，あるホストから`redis-cli`を使って，別ホストで動く`redis`に接続する場合は以下のように接続する．
 
 ```bash
-(redis-cli) --\> (ambassador) ---network---\> (ambassador) --\> (redis)
+(redis-cli) --> (ambassador) ---network---> (ambassador) --> (redis)
 ```
 
 `redis-cli`コンテナと`ambassador`コンテナ，`redis`コンテナと`ambassador`コンテナはdockerのlink機能で接続し，`ambassador`コンテナはトラフィックをネットワーク越しにフォワードする．
@@ -124,13 +124,13 @@ ExecStop=/usr/bin/docker stop -t 3 %n
 X-ConditionMachineOf=redis.service
 ```
 
-このコンテナに，あるコンテナ名とそのポート，サービス名を引数に与えると，そのコンテナのホスト上のIPとPortを取得し，それをetcdに登録する．与えられたDockerコンテナのIPとPortを取得しそれをetcdに登録する．`redis.service`という名前のコンテナの`6379`portのホストにおけるIPとPortのマッピング情報を`redis-A`という名前でetcdに登録する．**polvi/docker-register**とlinkで接続することにより，環境変数で`etcd`の接続先を取得する．
+このコンテナは与えられたコンテナのホストにおけるIPとPortのマッピング情報を取得し，それをetcdに登録する．今回は`redis`コンテナの`6379`portのホストにおけるIPとPortのマッピング情報を`redis-A`という名前でetcdに登録する．**polvi/docker-register**とlinkで接続することにより，環境変数で`etcd`の接続先を取得する．
 
 `X-ConditionMachineOf`に`redis.service`を指定することで，このコンテナは，`redis`コンテナと同じホストにスケジューリングされるようになる．
 
 ### HostB
 
-まず，**polvi/simple-amb**を動かすための`etcd-amb-redis-cli.service`は以下．
+**polvi/simple-amb**を動かすための`etcd-amb-redis-cli.service`は以下．
 
 ```
 [Unit]
@@ -149,9 +149,9 @@ ExecStop=/usr/bin/docker stop -t 3 %n
 X-Conflicts=redis.service
 ```
 
-内容は，HostAの`etcd-amb-redis.service`と同様だが，スケジューリングの条件が異なる．`X-Conflicts`に`redis.service`を指定することで`redis`コンテナとは異なるホストにスケジューリングされるようになる．
+内容はHostAの`etcd-amb-redis.service`と同様だが，スケジューリングの条件が異なる．`X-Conflicts`に`redis.service`を指定することで`redis`コンテナとは異なるホストにスケジューリングされるようになる．
 
-次に，**polvi/dynamic-etcd-amb**を動かすための`redis-dyn-amb.service`は以下．
+**polvi/dynamic-etcd-amb**の`redis-dyn-amb.service`は以下．
 
 ```
 [Unit]
@@ -173,22 +173,26 @@ ExecStop=/usr/bin/docker stop -t 3 %n
 X-ConditionMachineOf=etcd-amb-redis-cli.service
 ```
 
-`6379`portを解放し，そこへの接続を`redis-A`という名前でetcdに登録された`redis`コンテナが動くIPとPortに向けるようにする．**polvi/docker-register**とlinkで接続することにより，環境変数で`etcd`の接続先を取得する．
+このコンテナはetcdに保存されたホストへのプロキシとして動作する．`6379`portを解放し，そこへの接続を`redis-A`という名前でetcdに登録された`redis`コンテナが動くIPとPortに向けるようにする．**polvi/docker-register**とlinkで接続することにより，環境変数で`etcd`の接続先を取得する．
+
+`redis-cli`コンテナは，このコンテナと接続することで，ネットワーク越しに`redis`コンテナに接続する．
 
 ## クラスタを立てる
 
-利用するクラスタは[tcnksm/vagrant-digitalocean-coreos](https://github.com/tcnksm/vagrant-digitalocean-coreos)を使って，VagrantでDigitalOcean上に立てる．使い方は，["CoreOSに入門した|SOTA"](http://deeeet.com/writing/2014/11/17/coreos/)を参考．
+利用するクラスタは[tcnksm/vagrant-digitalocean-coreos](https://github.com/tcnksm/vagrant-digitalocean-coreos)を使って，VagrantでDigitalOcean上に立てる．使い方は，["CoreOSに入門した | SOTA"](http://deeeet.com/writing/2014/11/17/coreos/)を参考．
 
 ```bash
 $ export NUM_INSTANCES=3
 $ vagrant up --provider=digital_ocean
 ```
 
-## サービスをデプロイする
+これで，DigitalOcean上に3つのCoreOSインスタンスが立ち上がる．
 
-実際にCoreOSクラスタにサービスをデプロイし，`redis`コンテナに接続してみる．
+## 接続を試す
 
-まず，サービスのデプロイは，`.service`ファイルがあるディレクトリで以下を実行するだけ．
+上述したUnitファイルで定義したサービスをCoreOSクラスタにデプロイし`redis`コンテナに接続してみる．
+
+まず，サービスのデプロイする．`.service`ファイルがあるディレクトリで以下を実行する．
 
 ```bash
 $ fleetctl start *.service
@@ -216,7 +220,7 @@ $ fleetctl ssh etcd-amb-redis-cli
 
 ```bash
 $ docker run -it --link redis-dyn-amb.service:redis relateiq/redis-cli
-redis 172.17.0.3:6379\> ping
+redis 172.17.0.3:6379> ping
 PONG
 ```
 
@@ -226,12 +230,12 @@ PONG
 
 ```bash
 $ etcdctl get /services/redis-A/redis.service
- "port": 49155, "host": "10.132.181.182" 
+{ "port": 49155, "host": "10.132.181.182" }
 ```
 
 `Redis-A`に`redis.service`が動いているホストとIPが保存されている．
 
-次に，`register-redis-etcd.service`のログを見てみる．
+次に`register-redis-etcd.service`のログを見てみる．
 
 ```bash
 $ fleetctl journal register-redis-etcd
@@ -240,7 +244,7 @@ Nov 24 03:14:08 core-03 docker[6644]: Curl-Example: curl -X PUT http://10.132.18
 
 etcdにホストのIPとPortをポストしているのがわかる．
 
-最後に，`register-redis-etcd.service`のログを見てみる．
+最後に`register-redis-etcd.service`のログを見てみる．
 
 ```bash
 $ fleetctl journal redis-dyn-amb
@@ -251,9 +255,9 @@ etcdからホストのIPとPortを取得しているのがわかる．
 
 ### 耐障害性の確認
 
-`redis`コンテナを再起動してもすぐに設定は更新され再接続できた．また，`redis`コンテナが動くホストを，ホストごと殺してもfleetは自動で別ホストに再スケジューリングしてくれるため，また再び接続することもできた．
+`redis`コンテナを再起動してもすぐに設定は更新され再接続できる．これらは，`redis`コンテナが動くホスト情報のetcdへの動的な書き込み，読み込みにより実現できている．
 
-これらは`redis`コンテナが動くホスト情報を，etcdへの動的な書き込み，読み込みされることで実現できている．
+また，`redis`コンテナが動くホストを，ホストごと殺しても再び接続できる．これは，fleetによるフェイルオーバー（再スケジューリング）とetcdの動的に書き込み・読み込みにより実現できる．
 
 ## まとめ
 
